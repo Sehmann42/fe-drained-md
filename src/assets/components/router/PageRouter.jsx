@@ -14,6 +14,8 @@ function PageRouter() {
     const navigate = useNavigate()
 
     useEffect(() => {
+        
+        
         navigate(Pages.LOGIN)
 
         return () => {
@@ -21,16 +23,12 @@ function PageRouter() {
         }
     }, [])
 
-    const handleLogin = () => {
-        navigate(Pages.COLLECTION)
-    }
-
     return <>
         <Suspense fallback={<LoadingPage />}>
             <Routes>
             <Route
                 path={Pages.LOGIN}
-                element={<LoginPage handleLogin={handleLogin} />}
+                element={<LoginPage />}
             />
 
             <Route

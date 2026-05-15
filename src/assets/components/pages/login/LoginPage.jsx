@@ -1,10 +1,45 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../css/Login/login.css'
+import {Pages} from '../../../enums/EnumsPages'
+import { useNavigate } from 'react-router-dom';
+import { LoginUser } from "../../services/AuthenticationServices"
+import { useState, useRef } from 'react';
 
-function LoginPage (handleLogin){
+function LoginPage (){
+    const navigate = useNavigate()
 
-    const login = () => {
-        handleLogin()
+    const formRef = useRef(null)
+    const [username,setUsername] = useState("")
+    const [password,setPassword] = useState("")
+
+    const handleLogin = (event) => {
+        event.preventDefault()
+        const form = formRef.current
+
+        if (!form.checkValidity()){
+            form.classList.add("was-validated")
+            return
+        }
+
+        form.classList.add("was-validated")
+        
+        const response = LoginUser(username,password)
+
+        if (!response){
+            //Backend Error
+            console.log("Error")
+            return
+        }
+
+        //navigate(Pages.COLLECTION)
+    }
+
+    const handleChangeUsername = (event) => {
+        setUsername(event.target.value)
+    }
+
+    const handleChangePassword = (event) => {
+        setPassword(event.target.value)
     }
 
     return <>
@@ -13,18 +48,29 @@ function LoginPage (handleLogin){
                 <h1>Washed Master Duel Sim</h1>
 
                 <div className=' login-form'>
-                    <form className=' row g-3'>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <form ref={formRef} className=' row g-3'>
+                        <div className="form-group">
+                            <label htmlFor="exampleInputEmail1">Email address</label>
+                            <input value={username} 
+                                 onChange={handleChangeUsername}
+                                 type="email"
+                                 className="form-control" 
+                                 id="exampleInputEmail1" 
+                                 aria-describedby="emailHelp" 
+                                 placeholder="Enter email" />
+                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                        <div className="form-group">
+                            <label htmlFor="exampleInputPassword1">Password</label>
+                            <input value={password} 
+                                 onChange={handleChangePassword} 
+                                 type="password" 
+                                 className="form-control" 
+                                 id="exampleInputPassword1" 
+                                 placeholder="Password" />
                         </div>
                         <div>
-                            <button type="button" className=' btn btn-success' onClick={login} type="submit">Login!</button>
+                            <button className=' btn btn-success' onClick={handleLogin} type="button">Login!</button>
                         </div>
                     </form>
                 </div>      
@@ -36,5 +82,6 @@ function LoginPage (handleLogin){
         </div>
     </>
 }
+
 
 export default LoginPage
