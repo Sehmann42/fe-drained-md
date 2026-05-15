@@ -19,6 +19,8 @@ export const LoginUser = async (username, password) => {
             BackendRoutes.UserLogin,
             UserData)
 
+        console.log(response)
+
         return { success: true, data: response.data }
     } catch (e) {
         return { success: false, error: e }

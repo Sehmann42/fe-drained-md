@@ -1,9 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../css/Login/login.css'
 import {Pages} from '../../../enums/EnumsPages'
+import { StorageCookies } from '../../../enums/EnumsCookies';
 import { useNavigate } from 'react-router-dom';
 import { LoginUser } from "../../services/AuthenticationServices"
 import { useState, useRef } from 'react';
+import Cookies from "js-cookie"
 
 function LoginPage (){
     const navigate = useNavigate()
@@ -25,19 +27,23 @@ function LoginPage (){
         
         const response = LoginUser(username,password)
 
-        if (!response.success){
-            //Backend Error
-            console.log(response.error)
-            return
-        }
+        response.then((data) => {
+            if (!data.success){
+                //Backend Error
+                console.log(data.error)
+                return
+            }
 
-        //Safe Session in Local Storage
+            //Safe Session in Local Storage
+            
+            console.log(data.data.session)
 
-        Cookies.set(StorageCookies.SESSION, 
-            response.data, 
-            {expires: 200000})
+            Cookies.set(StorageCookies.SESSION, 
+                data.data.session, 
+                {expires: 200000})
 
-        navigate(Pages.COLLECTION)
+            navigate(Pages.COLLECTION)
+        })
     }
 
     const handleChangeUsername = (event) => {

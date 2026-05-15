@@ -3,5 +3,7 @@ export const Pages = {
     COLLECTION: "/collection",
     PACK_SIM: "/simulator",
     DECKBUILDER: "/builder",
+    DECKSELECTOR: "/deckselector",
+    PACKSELECTOR: "/packselector",
     SECRET: "/pfanne"
 }

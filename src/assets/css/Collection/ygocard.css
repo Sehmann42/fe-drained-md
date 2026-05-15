@@ -1,0 +1,22 @@
+.ygocard {
+    height: 200px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 150px;
+    position: relative;
+}
+
+.ygocard img{
+    height: 200px;
+    width: 150px;
+    border-radius: 5px;
+}
+
+.ygocard-amount {
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    color: red !important;
+    font-weight: bold;
+    font-size: 30px;
+}

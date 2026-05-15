@@ -11,14 +11,17 @@ import { Pages } from '../../enums/EnumsPages'
 import "../../css/main.css"
 import { StorageCookies } from '../../enums/EnumsCookies'
 import ProtectedRoute from '../services/ProtectedRoute'
+import Cookies from 'js-cookie'
+import PackSelectorPage from '../pages/packsim/PackSelecterPage'
+import DeckSelectorPage from '../pages/collection/DeckSelectorPage'
 
 function PageRouter() {
     const navigate = useNavigate()
 
-    const [session, setSession] = useState(null)
-
     useEffect(() => {
         navigate(Pages.LOGIN)
+
+        
 
         return () => {
         // clear tokens
@@ -30,22 +33,40 @@ function PageRouter() {
             <Routes>
                 <Route
                     path={Pages.LOGIN}
-                    element={<LoginPage />}
+                    element={Cookies.get(StorageCookies.SESSION) ?  <ProtectedRoute><CollectionPage /></ProtectedRoute> : <LoginPage />}
+                />
+                
+                <Route
+                    path={Pages.COLLECTION}
+                    element={
+                        <ProtectedRoute>
+                            <CollectionPage />
+                        </ProtectedRoute>}
+                />
+            
+                <Route
+                    path={Pages.PACK_SIM}
+                    element={
+                    <ProtectedRoute>
+                        <PacksimPage />
+                    </ProtectedRoute>}
                 />
 
-                <ProtectedRoute>
-                    <Route
-                        path={Pages.COLLECTION}
-                        element={<CollectionPage />}
-                    />
-                </ProtectedRoute>
-                
-                <ProtectedRoute>
-                    <Route
-                        path={Pages.PACK_SIM}
-                        element={<PacksimPage />}
-                    />
-                </ProtectedRoute>
+                <Route
+                    path={Pages.PACKSELECTOR}
+                    element={
+                    <ProtectedRoute>
+                        <PackSelectorPage />
+                    </ProtectedRoute>}
+                />
+
+                <Route
+                    path={Pages.DECKSELECTOR}
+                    element={
+                    <ProtectedRoute>
+                        <DeckSelectorPage />
+                    </ProtectedRoute>}
+                />
             </Routes>
         </Suspense>
     </>
