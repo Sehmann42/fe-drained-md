@@ -1,0 +1,11 @@
+.login-form {
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.login-footer {
+    position: fixed;
+    bottom: 0;
+}

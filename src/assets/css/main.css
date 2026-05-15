@@ -1,0 +1,20 @@
+html {
+    height: 100vh;
+}
+
+body {
+    height: 100%;
+}
+
+div[id=root] {
+    height: 100%;
+}
+
+.main-background {
+    background: #000000;
+    background: linear-gradient(108deg, rgb(86, 87, 104) 50%, rgb(80, 81, 88) 100%);
+}
+
+* {
+    color: white
+}
