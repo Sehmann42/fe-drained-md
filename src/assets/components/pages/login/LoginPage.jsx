@@ -25,13 +25,19 @@ function LoginPage (){
         
         const response = LoginUser(username,password)
 
-        if (!response){
+        if (!response.success){
             //Backend Error
-            console.log("Error")
+            console.log(response.error)
             return
         }
 
-        //navigate(Pages.COLLECTION)
+        //Safe Session in Local Storage
+
+        Cookies.set(StorageCookies.SESSION, 
+            response.data, 
+            {expires: 200000})
+
+        navigate(Pages.COLLECTION)
     }
 
     const handleChangeUsername = (event) => {
@@ -50,15 +56,15 @@ function LoginPage (){
                 <div className=' login-form'>
                     <form ref={formRef} className=' row g-3'>
                         <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Email address</label>
+                            <label htmlFor="exampleInputEmail1">User Name</label>
                             <input value={username} 
                                  onChange={handleChangeUsername}
-                                 type="email"
+                                 type="text"
                                  className="form-control" 
                                  id="exampleInputEmail1" 
                                  aria-describedby="emailHelp" 
-                                 placeholder="Enter email" />
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                                 placeholder="Enter Username" />
+                            <small id="emailHelp" className="form-text text-muted">We'll never share your Pfanne with anyone else.</small>
                         </div>
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Password</label>
