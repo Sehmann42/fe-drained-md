@@ -7,51 +7,83 @@ const BackendUrls = {
 const Dummydata = [
         {
             name: "Sangan",
-            ygoprodeckId: 26202165
+            ygoprodeckId: 26202165,
+            amount: 4
         },
         {
             name: "Maiden of the Aqua",
-            ygoprodeckId: 17214465
+            ygoprodeckId: 17214465,
+            amount: 67
         },
         {
             name: "High Priestess of Prophecy",
-            ygoprodeckId: 86585274
+            ygoprodeckId: 86585274,
+            amount: 2
         },
         {
             name: "Isolde, Belle of the Underworld",
-            ygoprodeckId: 22657402
+            ygoprodeckId: 22657402,
+            amount: 1
         },
         {
             name: "Sangan",
-            ygoprodeckId: 26202165
+            ygoprodeckId: 26202165,
+            amount: 4
         },
         {
             name: "Maiden of the Aqua",
-            ygoprodeckId: 17214465
+            ygoprodeckId: 17214465,
+            amount: 67
         },
         {
             name: "High Priestess of Prophecy",
-            ygoprodeckId: 86585274
+            ygoprodeckId: 86585274,
+            amount: 2
         },
         {
             name: "Isolde, Belle of the Underworld",
-            ygoprodeckId: 22657402
+            ygoprodeckId: 22657402,
+            amount: 1
         },
         {
             name: "Sangan",
-            ygoprodeckId: 26202165
+            ygoprodeckId: 26202165,
+            amount: 4
         },
         {
             name: "Maiden of the Aqua",
-            ygoprodeckId: 17214465
+            ygoprodeckId: 17214465,
+            amount: 67
         },
         {
             name: "High Priestess of Prophecy",
-            ygoprodeckId: 86585274
+            ygoprodeckId: 86585274,
+            amount: 2
         },
         {
             name: "Isolde, Belle of the Underworld",
-            ygoprodeckId: 22657402
+            ygoprodeckId: 22657402,
+            amount: 1
+        },
+        {
+            name: "Sangan",
+            ygoprodeckId: 26202165,
+            amount: 4
+        },
+        {
+            name: "Maiden of the Aqua",
+            ygoprodeckId: 17214465,
+            amount: 67
+        },
+        {
+            name: "High Priestess of Prophecy",
+            ygoprodeckId: 86585274,
+            amount: 2
+        },
+        {
+            name: "Isolde, Belle of the Underworld",
+            ygoprodeckId: 22657402,
+            amount: 1
         },
     ]
 

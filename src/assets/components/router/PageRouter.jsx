@@ -21,6 +21,10 @@ function PageRouter() {
 
     useEffect(() => {
         navigate(Pages.LOGIN)
+        
+        if (GetSessionToken()?.length > 0){
+            navigate(Pages.COLLECTION)
+        }
 
         return () => {
         // clear tokens
@@ -33,7 +37,7 @@ function PageRouter() {
             <Routes>
                 <Route
                     path={Pages.LOGIN}
-                    element={GetSessionToken() ?  <ProtectedRoute><CollectionPage /></ProtectedRoute> : <LoginPage />}
+                    element={<LoginPage />}
                 />
                 
                 <Route

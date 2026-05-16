@@ -1,19 +1,52 @@
 import React from "react"
 
 import "../../../css/Header/header.css"
+import { DeleteSessionToken } from "../../services/TokenStorage"
+import { useNavigate } from "react-router-dom"
+import { Pages } from "../../../enums/EnumsPages"
 
 const PageHeader = () => {
 
+    const navigate = useNavigate()
+
+    const handleOnClickPackSim = (event) => {
+        navigate(Pages.PACKSELECTOR)
+    }
+
+    const handleOnClickCollection = (event) => {
+        navigate(Pages.COLLECTION)
+    }
+
+    const handleOnClickLogout = (event) => {
+        DeleteSessionToken()
+        navigate(Pages.LOGIN)
+    }
+
     return <>
     <div className=" d-flex justify-content-around header p-3">
-        <div>
-            pack opener
+        <div onClick={handleOnClickPackSim} className=" headerButton d-flex flex-column">
+            <div className=" d-flex justify-content-center">
+                <img className=" iconHeader" src="src/assets/icons/other/card-games.png"></img>
+            </div>
+            <div className=" d-flex justify-content-center">
+                pack opener
+            </div>
         </div>
-        <div>
-            decks
+        <div onClick={handleOnClickCollection} className=" headerButton">
+            <div className=" d-flex justify-content-center">
+                <img className=" iconHeader" src="src/assets/icons/other/box.png"></img>
+            </div>
+            <div className=" d-flex justify-content-center">
+                collection
+            </div>
         </div>  
-        <div>
-            logout
+        <div onClick={handleOnClickLogout} className=" headerButton">
+            <div className=" d-flex justify-content-center">
+                <img className=" iconHeader" src="src/assets/icons/other/logout.png"></img>
+            </div>
+            <div className=" d-flex justify-content-center">
+                logout
+            </div>
         </div>
     </div>
     </>

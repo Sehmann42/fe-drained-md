@@ -36,7 +36,7 @@ function LoginPage (){
 
             //Safe Session in Local Storage
 
-            SetSessionToken(data.data.session)
+            SetSessionToken(data.session)
 
             navigate(Pages.COLLECTION)
         })

@@ -4,7 +4,7 @@ import { StorageCookies } from '../../enums/EnumsCookies.jsx';
 
 export const SetSessionToken = (session) => {
     Cookies.set(StorageCookies.SESSION, 
-                    data.data.session, 
+                    session, 
                     {expires: 200000})
 }
 

@@ -1,13 +1,172 @@
 import api from "../axios/Api";
 
 const BackendUrls = {
-    GETALLSECRETPACKS = "/secretpacks/",
-    GETSECRETPACKSFROMCARD = "/secretpacks/",
-    OPENPACKFROMSECRETPACK = "/openpacks/"
+    GETALLSECRETPACKS : "/secretpacks/",
+    GETSECRETPACKSFROMCARD : "/secretpacks/",
+    OPENPACKFROMSECRETPACK : "/openpacks/"
 }
+
+const Dummydata = [
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+        {
+            packName: "Master Pack",
+            preview: "Master_Pack",
+            id:1
+        },
+        {
+            packName: "Beyond the Next Level",
+            preview: "",
+            id:2
+        },
+        {
+            packName: "Aerial Superiority",
+            preview: "Aerial_Superiority",
+            id:3
+        },
+]
 
 export const GetAllSecretPacks = (session) => {
     try{
+        //Dev Mode:
+        
+        if (import.meta.env.MODE == "development") {
+            return { success: true, data: Dummydata }
+        }
+
         response = api.get(BackendUrls.GETALLSECRETPACKS, {session})
 
         return { success: true, data: response.data }
@@ -26,7 +185,7 @@ export const GetSecretPacksFromCard = (session, cardId) => {
     }
 }
 
-export const GetSecretPacksFromCard = (session, secretpackId, amount) => {
+export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
     try{
         const OpenSecretPackData = {
             session: session,

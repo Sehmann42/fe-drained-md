@@ -5,3 +5,20 @@
     background: #2e2e2e;
     background: linear-gradient(108deg, rgba(46, 46, 46, 1) 33%, rgba(79, 79, 79, 1) 100%);
 }
+
+.headerButton {
+    padding: 3px;
+    width: 100px;
+    border: 2px solid transparent;
+    user-select: none;
+}
+
+.headerButton:active {
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+.iconHeader {
+    width: 40px !important;
+    height: 40px !important; 
+}

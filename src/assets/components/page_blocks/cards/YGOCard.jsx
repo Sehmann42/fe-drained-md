@@ -3,15 +3,6 @@ import { useEffect } from "react"
 import "../../../css/Collection/ygocard.css"
 
 const YGOCard = ({cardData}) => {
-    useEffect(() => {
-        
-        console.log({cardData})
-
-        return () => {
-            
-        };
-    }, []);
-
     return <>
         <div className=" ygocard d-flex justify-content-center">
             <img
@@ -19,7 +10,7 @@ const YGOCard = ({cardData}) => {
             ></img>
 
             <div className=" ygocard-amount">
-                5
+                {cardData.amount}
             </div>
         </div>
     </>

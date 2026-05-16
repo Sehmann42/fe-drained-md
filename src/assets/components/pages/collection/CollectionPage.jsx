@@ -11,7 +11,6 @@ import { GetSessionToken } from "../../services/TokenStorage"
 
 function CollectionPage() {
     
-
     const [collectedCards, setCollectedCards] = useState([])
     const [displayedCards, setDisplayedCards] = useState([])
 
