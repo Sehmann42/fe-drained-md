@@ -9,13 +9,19 @@ import { GetSessionToken } from "../../services/TokenStorage"
 import { useState, useEffect } from "react"
 import MDMasterPack from "../../page_blocks/cards/MDMasterPack"
 import "../../../../assets/css/PackSelector/packselector.css"
+import { useNavigate } from "react-router-dom"
+import { Pages } from "../../../enums/EnumsPages"
 
 const PackSelectorPage = () => {
 
     const [basket, setBasket] = useState([])
     const [masterPacks, setMasterPacks] = useState([]) 
 
+    const navigate = useNavigate()
+
     const handleClickEventPack = (packData) => {
+
+        console.log(packData)
 
         const existingItem = basket.find(
             item => item.name === packData.packName
@@ -48,6 +54,14 @@ const PackSelectorPage = () => {
         }
     }
 
+    const goToPackSim = () => {
+        navigate(Pages.PACK_SIM, {
+            state: {
+                packs: basket
+            }
+        })
+    }
+
     useEffect(() => {
             
             //Get all Cards From User Collection from Backend
@@ -68,14 +82,14 @@ const PackSelectorPage = () => {
         <PageHeader />
         
         <div className=" h-100">
-            <Collection>
+            <Collection elementsPerRow={5}>
                 {masterPacks.map((data) => {
                     return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                 })}
             </Collection>
 
             <div className=" basketPositon">
-                <Basket>
+                <Basket goToPackSim={goToPackSim}>
                     {basket.map((data) => {
                         return <BasketItem data={data} />
                     })}

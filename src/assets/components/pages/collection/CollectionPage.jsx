@@ -66,7 +66,7 @@ function CollectionPage() {
             </SearchBar>
         </div>
 
-        <Collection >
+        <Collection elementsPerRow={10}>
             {
                 displayedCards.map((data) => {
                     return <YGOCard cardData={data} />

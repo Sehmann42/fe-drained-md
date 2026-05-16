@@ -1,0 +1,40 @@
+.hiddencard {
+    border: 1px solid white;
+    width: 180px;
+    height: 250px;
+}
+
+.hiddencard img {
+    width: 180px;
+    height: 250px;
+}
+
+.hiddencard.show {
+    animation: fadeOut 0.4s ease forwards;
+}
+
+.hiddencard.fadein {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

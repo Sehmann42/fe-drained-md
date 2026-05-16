@@ -11,8 +11,8 @@ function LoginPage (){
     const navigate = useNavigate()
 
     const formRef = useRef(null)
-    const [username,setUsername] = useState("")
-    const [password,setPassword] = useState("")
+    const [username,setUsername] = useState()
+    const [password,setPassword] = useState()
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -72,7 +72,7 @@ function LoginPage (){
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input value={password} 
                                  onChange={handleChangePassword} 
-                                 type="password" 
+                                 type="password"    
                                  className="form-control" 
                                  id="exampleInputPassword1" 
                                  placeholder="Password" />

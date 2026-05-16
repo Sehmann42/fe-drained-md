@@ -9,10 +9,14 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
     }
 
     return <>
-        <div onClick={handleOnClick} className=" secretpack d-flex justify-content-center">
-            <img
+        <div onClick={handleOnClick} className=" secretpack w-100 d-flex justify-content-center flex-column">
+            <img className=" align-self-center"
                 src={srcLink}
             ></img>
+
+            <span className=" align-self-center">
+                {packData.packName}
+            </span>
         </div>
     </>
 }

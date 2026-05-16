@@ -2,8 +2,11 @@ import React from "react";
 
 import "../../../../assets/css/Basket/basket.css"
 
-const Basket = ({children}) => {
+const Basket = ({children,goToPackSim}) => {
 
+    const handleOnClick = (event) => {
+        goToPackSim()
+    }
 
     return <>
         <div className=" basket h-100 p-3 main-background">
@@ -14,7 +17,7 @@ const Basket = ({children}) => {
             </div>
 
             <div>
-                <div>
+                <div onClick={handleOnClick}>
                     Packs Öffnen
                 </div>
             </div>

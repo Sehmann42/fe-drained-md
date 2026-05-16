@@ -33,7 +33,7 @@ const Dummydata = [
             id:2
         },
         {
-            packName: "Aerial Superiority",
+            packName: "Aerial Superiority Aerial Superiority",
             preview: "Aerial_Superiority",
             id:3
         },

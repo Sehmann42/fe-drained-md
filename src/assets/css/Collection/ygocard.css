@@ -1,14 +1,14 @@
 .ygocard {
-    height: 200px;
+    width: 180px;
+    height: 250px;
     border: 1px solid white;
     border-radius: 5px;
-    width: 150px;
     position: relative;
 }
 
 .ygocard img{
-    height: 200px;
-    width: 150px;
+    width: 180px;
+    height: 250px;
     border-radius: 5px;
 }
 

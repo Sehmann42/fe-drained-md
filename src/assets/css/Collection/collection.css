@@ -14,9 +14,3 @@
         grid-template-columns: repeat(7, 1fr);
     }
 }
-
-@media (min-width: 1500px) {
-    .collection {
-        grid-template-columns: repeat(10, 1fr);
-    }
-}
