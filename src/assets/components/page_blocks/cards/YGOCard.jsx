@@ -1,11 +1,21 @@
 
+import { useEffect } from "react"
 import "../../../css/Collection/ygocard.css"
 
-const YGOCard = (ygocarddata) => {
+const YGOCard = ({cardData}) => {
+    useEffect(() => {
+        
+        console.log({cardData})
+
+        return () => {
+            
+        };
+    }, []);
+
     return <>
-        <div className=" ygocard d-flex">
+        <div className=" ygocard d-flex justify-content-center">
             <img
-            src="https://images.ygoprodeck.com/images/cards/26202165.jpg"
+                src={"https://images.ygoprodeck.com/images/cards/" + cardData.ygoprodeckId + ".jpg"}
             ></img>
 
             <div className=" ygocard-amount">

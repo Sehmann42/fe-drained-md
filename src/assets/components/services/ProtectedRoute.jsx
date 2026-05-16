@@ -1,10 +1,9 @@
 import { Navigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { StorageCookies } from "../../enums/EnumsCookies";
 import { Pages } from "../../enums/EnumsPages";
+import { GetSessionToken } from "./TokenStorage";
 
 export default function ProtectedRoute({ children }) {
-  const session = Cookies.get(StorageCookies.SESSION);
+  const session = GetSessionToken();
 
   if (!session) {
     return <Navigate to={Pages.LOGIN} replace />;

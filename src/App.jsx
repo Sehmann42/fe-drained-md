@@ -5,16 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 import { useEffect } from 'react';
 
 function App() {
-
-  useEffect(() => {
-    
-    console.log(import.meta.env);
-
-    return () => {
-      
-    };
-  }, []);
-
   return (
     <BrowserRouter >
       <PageRouter />

@@ -15,6 +15,10 @@ div[id=root] {
     background: linear-gradient(108deg, rgb(86, 87, 104) 50%, rgb(80, 81, 88) 100%);
 }
 
+.h-10 {
+    height: 10% !important;
+}
+
 * {
     color: white
 }

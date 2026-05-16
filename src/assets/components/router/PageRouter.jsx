@@ -14,6 +14,7 @@ import ProtectedRoute from '../services/ProtectedRoute'
 import Cookies from 'js-cookie'
 import PackSelectorPage from '../pages/packsim/PackSelecterPage'
 import DeckSelectorPage from '../pages/collection/DeckSelectorPage'
+import { GetSessionToken } from '../services/TokenStorage'
 
 function PageRouter() {
     const navigate = useNavigate()
@@ -21,10 +22,9 @@ function PageRouter() {
     useEffect(() => {
         navigate(Pages.LOGIN)
 
-        
-
         return () => {
         // clear tokens
+            //Cookies.remove(StorageCookies.SESSION)
         }
     }, [])
 
@@ -33,7 +33,7 @@ function PageRouter() {
             <Routes>
                 <Route
                     path={Pages.LOGIN}
-                    element={Cookies.get(StorageCookies.SESSION) ?  <ProtectedRoute><CollectionPage /></ProtectedRoute> : <LoginPage />}
+                    element={GetSessionToken() ?  <ProtectedRoute><CollectionPage /></ProtectedRoute> : <LoginPage />}
                 />
                 
                 <Route

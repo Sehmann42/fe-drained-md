@@ -1,11 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../../css/Login/login.css'
 import {Pages} from '../../../enums/EnumsPages'
-import { StorageCookies } from '../../../enums/EnumsCookies';
 import { useNavigate } from 'react-router-dom';
 import { LoginUser } from "../../services/AuthenticationServices"
 import { useState, useRef } from 'react';
-import Cookies from "js-cookie"
+import { SetSessionToken } from '../../services/TokenStorage';
+
 
 function LoginPage (){
     const navigate = useNavigate()
@@ -35,12 +35,8 @@ function LoginPage (){
             }
 
             //Safe Session in Local Storage
-            
-            console.log(data.data.session)
 
-            Cookies.set(StorageCookies.SESSION, 
-                data.data.session, 
-                {expires: 200000})
+            SetSessionToken(data.data.session)
 
             navigate(Pages.COLLECTION)
         })
