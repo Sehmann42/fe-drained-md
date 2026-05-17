@@ -26,14 +26,21 @@ function PacksimPage() {
 
         const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
         
-        console.log(dataPacks.data[0].cards)
+        const CurrPackData = {
+            packName : dataPacks.data[currPack].packName,
+            cards : dataPacks.data[currPack].cards,
+            unlockedPacks : dataPacks.data[currPack].unlockedPacks
+        }
+
+        console.log(CurrPackData)
+        console.log(CurrPackData.cards)
 
         setPendingPacks(dataPacks.data)
-        setCurrPackContent(dataPacks.data[0].cards)
+        setCurrPackContent(CurrPackData.cards)
 
         //setzte Unlocked Packs
 
-        
+        //checkUnlockedPacks()
 
         return () => {
             
@@ -41,28 +48,51 @@ function PacksimPage() {
     }, []);
 
     const handleNextPack = (event) => {
-        setCurrPackContent(pendingPacks[currPack + 1].cards)
+        setCurrPackContent(pendingPacks[currPack + 1]?.cards)
         setCurrPack(currPack + 1)
         setOpenPack(false)
+
+        console.log(pendingPacks)
     }
 
     const handleOpenPack = (event) => {
         setOpenPack(true)
+        checkUnlockedPacks()
     }
 
-    const addUnlockedPack = () => {
-        const existingItem = unlockedPacks.find(
-            item => item.name === packData.packName
-        )
+    const checkUnlockedPacks = () => {
+        const CurrPackData = {
+            packName : pendingPacks[currPack]?.packName,
+            cards : pendingPacks[currPack]?.cards,
+            unlockedPacks : pendingPacks[currPack]?.unlockedPacks
+        }
 
-        if (!existingItem) {
-            const newItem = {
-                name: packData.packName,
-                id: packData.id
+        for (const potentialUnlockedPack of CurrPackData.unlockedPacks) {
+            console.log(potentialUnlockedPack)
+            addUnlockedPack(potentialUnlockedPack)
+        }
+    }
+
+    const addUnlockedPack = (packData) => {
+
+        setUnlockedPacks(prev => {
+
+            const existingItem = prev.find(
+                item => item.packName === packData.packName
+            )
+
+            if (existingItem) {
+                return prev
             }
 
-            setUnlockedPacks([...unlockedPacks, newItem])
-        } 
+            return [
+                ...prev,
+                {
+                    packName: packData.packName,
+                    id: packData.id
+                }
+            ]
+        })
     }
 
     return <>
@@ -94,11 +124,15 @@ function PacksimPage() {
                 </div>
             </div>
 
-            <div className=" d-flex justify-content-center w-25  p-2">
-                <h2>Unlocked Packs</h2> 
+            <div className=" d-flex flex-column w-25  p-2">
+                <h2 className=" d-flex justify-content-center">Unlocked Packs</h2> 
+                
+                <br />
 
-                <div>
-
+                <div className=" d-flex justify-content-center flex-column">
+                    {unlockedPacks.map((data) => {
+                        return <div className=" d-flex justify-content-center">{data.packName}</div>
+                    })}
                 </div>
             </div>
         </div>
