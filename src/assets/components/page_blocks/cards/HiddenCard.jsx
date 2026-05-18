@@ -8,12 +8,31 @@ const HiddenCard = ({cardData}) => {
     const [isHidden, setIsHidden] = useState(true)
     const [fadeOut, setFadeOut] = useState(true)
 
+    const [cardRarity, setCardRarity] = useState("")
+
     const handleOnClick = (event) => {
         setFadeOut(false)
+        cardData.flipCard(cardData.data)
         setTimeout(() => {
             setIsHidden(false)
         }, 200)
     }
+
+    useEffect(() => {
+        
+        console.log(cardData.data.rarity)
+
+        if (cardData.data.rarity == "SR"){
+            setCardRarity("isSR")
+        }
+        if (cardData.data.rarity == "UR"){
+            setCardRarity("isUR")
+        }
+
+        return () => {
+            
+        };
+    }, []);
 
     useEffect(() => {
         setIsHidden(true)
@@ -28,6 +47,7 @@ const HiddenCard = ({cardData}) => {
     useEffect(() => {
         
         if(cardData.openPack){
+            cardData.flipCard(cardData.data)
             handleOnClick()
         }
 
@@ -38,11 +58,11 @@ const HiddenCard = ({cardData}) => {
 
     return <>
         {isHidden ? 
-            <div onClick={handleOnClick} className={ ((fadeOut) ? 'hidden' : 'show') + " hiddencard"}>
+            <div onClick={handleOnClick} className={ ((fadeOut) ? 'hidden' : 'show') + " hiddencard " + cardRarity}>
                 <img src="https://images.ygoprodeck.com/images/cards/back_high.jpg"></img>
             </div>
             :
-            <div onClick={handleOnClick} className={"fadein hiddencard"}>
+            <div onClick={handleOnClick} className={"fadein hiddencard " + cardRarity}>
                 <YGOCard cardData={{name:cardData.name, ygoprodeckId:cardData.ygoprodeckId}} />
             </div>
         }

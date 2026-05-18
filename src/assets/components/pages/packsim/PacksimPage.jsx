@@ -8,6 +8,7 @@ import HiddenCard from "../../page_blocks/cards/HiddenCard"
 import { useEffect, useState } from "react"
 import { GetCardsFromSecretPacks } from "../../services/PackServices"
 import { GetSessionToken } from "../../services/TokenStorage"
+import MDMasterPack from "../../page_blocks/cards/MDMasterPack"
 
 
 function PacksimPage() {
@@ -28,8 +29,7 @@ function PacksimPage() {
         
         const CurrPackData = {
             packName : dataPacks.data[currPack].packName,
-            cards : dataPacks.data[currPack].cards,
-            unlockedPacks : dataPacks.data[currPack].unlockedPacks
+            cards : dataPacks.data[currPack].cards
         }
 
         console.log(CurrPackData)
@@ -60,38 +60,80 @@ function PacksimPage() {
         checkUnlockedPacks()
     }
 
+    /**
+     * Use this for Flip All
+     * check if card contains secret packs
+     */
     const checkUnlockedPacks = () => {
         const CurrPackData = {
             packName : pendingPacks[currPack]?.packName,
             cards : pendingPacks[currPack]?.cards,
-            unlockedPacks : pendingPacks[currPack]?.unlockedPacks
         }
 
-        for (const potentialUnlockedPack of CurrPackData.unlockedPacks) {
-            console.log(potentialUnlockedPack)
-            addUnlockedPack(potentialUnlockedPack)
+        for (const card of CurrPackData.cards) {
+            console.log(card)
+            const CardData = {
+                rarity: card.rarity,
+                packs: card.packs
+            } 
+
+            if (CardData.rarity == "UR" || CardData.rarity == "SR"){
+                addUnlockedPacks(CardData.packs)
+            }
         }
     }
 
-    const addUnlockedPack = (packData) => {
+    const checkUnlockedPacksSingle = (data) => {
+        if (data.rarity == "UR" || data.rarity == "SR"){
+            addUnlockedPacks(data.packs)
+        }
+    }
+
+    const handleClickEventPack = () => {
+        console.log("click!")
+    }
+
+    /**
+     * 
+     * Flip Card Event
+     * 
+     * @param {*} cardData 
+     */
+    const flipCard = (cardData) => {
+        console.log("Wusch")
+        console.log(cardData)
+        checkUnlockedPacksSingle(cardData)
+    }
+
+
+    /**
+     * 
+     * adds Unlocked Secret Packs to Selection
+     * 
+     * @param {} cardPacks 
+     */
+    const addUnlockedPacks = (cardPacks) => {
 
         setUnlockedPacks(prev => {
 
-            const existingItem = prev.find(
-                item => item.packName === packData.packName
-            )
+            const updatedPacks = [...prev]
 
-            if (existingItem) {
-                return prev
+            for (const cardPack of cardPacks) {
+
+                const exists = updatedPacks.find(
+                    item => item.packName === cardPack.pack_name
+                )
+
+                if (!exists && cardPack.pack_type == "Secret Pack") {
+
+                    updatedPacks.push({
+                        packName: cardPack.pack_name,
+                        packType: cardPack.pack_type
+                    })
+                }
             }
 
-            return [
-                ...prev,
-                {
-                    packName: packData.packName,
-                    id: packData.id
-                }
-            ]
+            return updatedPacks
         })
     }
 
@@ -107,20 +149,14 @@ function PacksimPage() {
 
                 <div className=" packGrid main-background">
                     {currPackContent.map((data) => {
-                        return <HiddenCard cardData={{name:data.name, 
+                        return <HiddenCard cardData={{
+                            name:data.name, 
                             ygoprodeckId: data.ygoprodeckId, 
+                            data:data,
                             currPack:currPack, 
-                            openPack:openPack}}/>
+                            openPack:openPack,
+                            flipCard:flipCard}}/>
                     })}
-                </div>
-
-                <div className=" h-10 w-100 d-flex justify-content-around">
-                    <div onClick={handleOpenPack}>
-                        Open Pack
-                    </div>
-                    <div onClick={handleNextPack}>
-                        Next pack
-                    </div>
                 </div>
             </div>
 
@@ -129,10 +165,21 @@ function PacksimPage() {
                 
                 <br />
 
-                <div className=" d-flex justify-content-center flex-column">
+                <div className=" secretPackSelection h-100 d-flex justify-content-center flex-column">
                     {unlockedPacks.map((data) => {
-                        return <div className=" d-flex justify-content-center">{data.packName}</div>
+                        return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                     })}
+                </div>
+            </div>
+        </div>
+
+        <div className=" h-10 w-100 d-flex justify-content-between">
+            <div className=" d-flex justify-content-around w-70">
+                <div onClick={handleOpenPack}>
+                    Open Pack
+                </div>
+                <div onClick={handleNextPack}>
+                    Next pack
                 </div>
             </div>
         </div>
