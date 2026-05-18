@@ -82,7 +82,7 @@ const PackSelectorPage = () => {
         <PageHeader />
         
         <div className=" h-100">
-            <Collection elementsPerRow={5}>
+            <Collection elementsPerRow={6}>
                 {masterPacks.map((data) => {
                     return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                 })}

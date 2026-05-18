@@ -3,12 +3,14 @@ import PageHeader from "../../page_blocks/header/Header"
 import YGOCard from "../../page_blocks/cards/YGOCard"
 import "../../../../assets/css/Packsim/packsim.css"
 
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import HiddenCard from "../../page_blocks/cards/HiddenCard"
 import { useEffect, useState } from "react"
 import { GetCardsFromSecretPacks } from "../../services/PackServices"
 import { GetSessionToken } from "../../services/TokenStorage"
 import MDMasterPack from "../../page_blocks/cards/MDMasterPack"
+import React from "react"
+import { Pages } from "../../../enums/EnumsPages"
 
 
 function PacksimPage() {
@@ -20,25 +22,31 @@ function PacksimPage() {
     const [currPackContent, setCurrPackContent] = useState([])
     const [pendingPacks, setPendingPacks] = useState([])
 
+    const [lockSecretPacks, setLockSecretPacks] = useState("")
+    const [hardLockSecretPacks, setHardLockSecretPacks] = useState("")
+    const [flippedCards, setFlippedCards] = useState(0)
+
+    const [flipToSecretPack, setFlipToSecretPack] = useState(false)
+
+    const navigate = useNavigate()
+
     const packs = location.state?.packs || []
 
     useEffect(() => {
-        console.log(packs)
-
         const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
-        
+
         const CurrPackData = {
             packName : dataPacks.data[currPack].packName,
             cards : dataPacks.data[currPack].cards
         }
 
-        console.log(CurrPackData)
-        console.log(CurrPackData.cards)
-
         setPendingPacks(dataPacks.data)
         setCurrPackContent(CurrPackData.cards)
 
         //setzte Unlocked Packs
+
+        setLockSecretPacks("lock")
+        setHardLockSecretPacks("")        
 
         //checkUnlockedPacks()
 
@@ -47,17 +55,65 @@ function PacksimPage() {
         };
     }, []);
 
-    const handleNextPack = (event) => {
-        setCurrPackContent(pendingPacks[currPack + 1]?.cards)
-        setCurrPack(currPack + 1)
-        setOpenPack(false)
+    
+    useEffect(() => {        
+        let tmpCurrPack = 0
 
-        console.log(pendingPacks)
+        const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
+        
+        const CurrPackData = {
+            packName : dataPacks.data[tmpCurrPack].packName,
+            cards : dataPacks.data[tmpCurrPack].cards
+        }
+
+        setCurrPack(tmpCurrPack)
+        setOpenPack(false)
+        setPendingPacks(dataPacks.data)
+        setCurrPackContent(CurrPackData.cards)
+        setUnlockedPacks([])
+        //setzte Unlocked Packs
+
+        setHardLockSecretPacks("")  
+
+        if (flipToSecretPack) {
+            setHardLockSecretPacks("lock")
+        }
+
+        //checkUnlockedPacks()
+
+        return () => {
+            
+        };
+    }, [location.state]);
+    
+
+    useEffect(() => {
+        if (currPack + 1 == pendingPacks.length){
+            if (flippedCards == 8) {
+                setLockSecretPacks("")
+            }
+        }
+
+        return () => {
+            
+        };
+    }, [flippedCards]);
+
+    const handleNextPack = (event) => {
+        if (currPack + 1 < pendingPacks.length){
+            setCurrPackContent(pendingPacks[currPack + 1]?.cards)
+            setCurrPack(currPack + 1)
+            setOpenPack(false)
+            setFlippedCards(0)
+        }
     }
 
     const handleOpenPack = (event) => {
-        setOpenPack(true)
-        checkUnlockedPacks()
+        if(!openPack){
+            setOpenPack(true)
+            checkUnlockedPacks()
+            setFlippedCards(8)
+        }
     }
 
     /**
@@ -89,8 +145,15 @@ function PacksimPage() {
         }
     }
 
-    const handleClickEventPack = () => {
-        console.log("click!")
+    const handleClickEventPack = (packData) => {
+        console.log(packData)
+        const newPack = {
+                name: packData.packName,
+                amount: 10
+            }
+        
+        setFlipToSecretPack(true)
+        goToPackSim(newPack)
     }
 
     /**
@@ -100,9 +163,10 @@ function PacksimPage() {
      * @param {*} cardData 
      */
     const flipCard = (cardData) => {
-        console.log("Wusch")
-        console.log(cardData)
         checkUnlockedPacksSingle(cardData)
+        setFlippedCards(flippedCards + 1)
+
+        setFlippedCards(flippedCards + 1)
     }
 
 
@@ -137,6 +201,14 @@ function PacksimPage() {
         })
     }
 
+    const goToPackSim = (pack) => {
+        navigate(Pages.PACK_SIM, {
+            state: {
+                packs: [pack]
+            }
+        })
+    }
+
     return <>
     <div className=" d-flex flex-column h-100 main-background">
         <PageHeader />
@@ -160,12 +232,12 @@ function PacksimPage() {
                 </div>
             </div>
 
-            <div className=" d-flex flex-column w-25  p-2">
+            <div style={{height: "100%"}} className={" d-flex flex-column w-25  p-2 "}>
                 <h2 className=" d-flex justify-content-center">Unlocked Packs</h2> 
                 
                 <br />
 
-                <div className=" secretPackSelection h-100 d-flex justify-content-center flex-column">
+                <div style={{maxHeight: "60vh", overflow:"auto"}} className={" h-100 secretPackSelection  d-flex justify-content-center flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
                     {unlockedPacks.map((data) => {
                         return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                     })}
@@ -173,13 +245,15 @@ function PacksimPage() {
             </div>
         </div>
 
-        <div className=" h-10 w-100 d-flex justify-content-between">
+        <div className={" h-10 w-100 d-flex justify-content-between"}>
             <div className=" d-flex justify-content-around w-70">
-                <div onClick={handleOpenPack}>
-                    Open Pack
+                <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
+                    <img className="iconSize align-self-center" src="src/assets/icons/other/unboxing.png" />
+                    <span>Open Pack</span>
                 </div>
-                <div onClick={handleNextPack}>
-                    Next pack
+                <div className="d-flex flex-column justify-content-center" onClick={handleNextPack}>
+                    <img className="iconSize align-self-center" src="src/assets/icons/other/next-button.png"></img>
+                    <span>Next pack</span>
                 </div>
             </div>
         </div>

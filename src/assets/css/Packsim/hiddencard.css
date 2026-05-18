@@ -1,6 +1,9 @@
 .hiddencard {
     width: 180px;
     height: 250px;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
 }
 
 .hiddencard img {
@@ -54,7 +57,7 @@
     background: linear-gradient(
         108deg,
         rgba(79, 108, 255, 1) 7%,
-        rgba(87, 252, 255, 0.47) 44%
+        rgba(248, 49, 232, 0.47) 44%
     );
 
     z-index: -1;
