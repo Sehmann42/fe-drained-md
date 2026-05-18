@@ -1,7 +1,9 @@
 import api from "../axios/Api";
+import { GetSessionToken } from "./TokenStorage";
 
 const BackendUrls = {
     GETALLSECRETPACKS : "/secretpacks/",
+    GETALLSECRETPACKSIMAGE : "/secretpacksimage/",
     GETSECRETPACKSFROMCARD : "/secretpacks/",
     OPENPACKFROMSECRETPACK : "/openpacks/"
 }
@@ -166,7 +168,6 @@ const DummydataSim = [
             {
                 name: "Sangan",
                 ygoprodeckId: 26202165,
-                amount: 4,
                 rarity: "R",
                 packs: [
                     {
@@ -530,11 +531,18 @@ export const GetSecretPackImage = async (packName) => {
         console.log(packName)
         
         if (import.meta.env.MODE == "development") {
-            return { success: true, data: (DummyDataMasterPackImage[packName]?.image_url) ? DummyDataMasterPackImage[packName]?.image_url : DummyDataMasterPackImage["Blessings of Nature"].image_url }
+            return { success: true, data: 
+                (DummyDataMasterPackImage[packName]?.image_url) ?
+                 DummyDataMasterPackImage[packName]?.image_url :
+                 DummyDataMasterPackImage["Blessings of Nature"].image_url }
         }
 
+        const GetSecretPackImageData = {
+            session: GetSessionToken(),
+            packName: packName
+        }
 
-        response = api.get(BackendUrls.GETALLSECRETPACKS, {session})
+        response = api.get(BackendUrls.GETALLSECRETPACKSIMAGE, GetSecretPackImageData)
 
         return { success: true, data: response.data }
     } catch(e) {

@@ -40,6 +40,8 @@ function CollectionPage() {
         
         const rawData = GetAllCardsFromCollection(GetSessionToken())
 
+        console.log(rawData)
+
         setDisplayedCards(rawData.data)
         setCollectedCards(rawData.data)
 
