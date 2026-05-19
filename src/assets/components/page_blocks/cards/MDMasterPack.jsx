@@ -14,10 +14,17 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
 
     useEffect(() => {
         
-        GetSecretPackImage(packData.packName).then((data) => {
-            console.log(data.data)
-            setSrcLink(data.data)
-        })
+        const fetchData = async () => {
+                const response = await GetSecretPackImage(packData.pack_name)
+
+                console.log(response)
+
+                const imageLink = response.data.image_url? response.data.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg"
+
+                setSrcLink(imageLink)
+        }
+
+        fetchData()
 
 
         return () => {
@@ -32,7 +39,7 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
             ></img>
 
             <span className=" align-self-center">
-                {packData.packName}
+                {packData.pack_name}
             </span>
         </div>
     </>

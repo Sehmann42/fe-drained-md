@@ -87,7 +87,7 @@ export const AddCardToCollection = (session, id) => {
             return { success: true, data: Dummydata }
         }
 
-        response = api.get(BackendUrls.GETALLCARDSFROMCOLLECTION, {session})
+        const response = api.get(BackendUrls.GETALLCARDSFROMCOLLECTION, {session})
 
         return { success: true, data: response.data }
     } catch(e) {

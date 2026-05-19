@@ -19,6 +19,10 @@ div[id=root] {
     height: 10% !important;
 }
 
+.h-81 {
+    height: 81vh !important; 
+}
+
 .w-1 {
     width: 1% !important
 }

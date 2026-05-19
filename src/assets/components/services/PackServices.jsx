@@ -3,7 +3,7 @@ import { GetSessionToken } from "./TokenStorage";
 
 const BackendUrls = {
     GETALLSECRETPACKS : "/secretpacks/",
-    GETALLSECRETPACKSIMAGE : "/secretpacksimage/",
+    GETSECRETPACKSIMAGE : "/secretpacksimage/",
     GETSECRETPACKSFROMCARD : "/secretpacks/",
     OPENPACKFROMSECRETPACK : "/openpacks/"
 }
@@ -524,43 +524,57 @@ const DummyDataMasterPackImage = {
     }
 }
 
+const packImageCache = new Map()
+
 export const GetSecretPackImage = async (packName) => {
-    try{
-        //Dev Mode:
 
-        console.log(packName)
-        
-        if (import.meta.env.MODE == "development") {
-            return { success: true, data: 
-                (DummyDataMasterPackImage[packName]?.image_url) ?
-                 DummyDataMasterPackImage[packName]?.image_url :
-                 DummyDataMasterPackImage["Blessings of Nature"].image_url }
-        }
-
-        const GetSecretPackImageData = {
-            session: GetSessionToken(),
-            packName: packName
-        }
-
-        response = api.get(BackendUrls.GETALLSECRETPACKSIMAGE, GetSecretPackImageData)
-
-        return { success: true, data: response.data }
-    } catch(e) {
-        return { success: false, error: e }
+    const cached = packImageCache.get(packName)
+    if (cached) {
+        return cached
     }
+
+    const promise = (async () => {
+        try {
+
+            const response = await api.post(
+                BackendUrls.GETSECRETPACKSIMAGE,
+                {
+                    session: GetSessionToken(),
+                    secret_pack: packName
+                }
+            )
+
+            const result = {
+                success: true,
+                data: response.data
+            }
+
+            return result
+
+        } catch (e) {
+            return { success: false, error: e }
+        }
+    })()
+
+    packImageCache.set(packName, promise)
+
+    return promise
 }
 
-export const GetAllSecretPacks = (session) => {
+export const GetAllSecretPacks = async (session) => {
     try{
         //Dev Mode:
+
+        /*
         
         if (import.meta.env.MODE == "development") {
             return { success: true, data: Dummydata }
         }
+        */
 
-        response = api.get(BackendUrls.GETALLSECRETPACKS, {session})
+        const response = await api.get(BackendUrls.GETALLSECRETPACKS)
 
-        return { success: true, data: response.data }
+        return  { success: true, response: response }
     } catch(e) {
         return { success: false, error: e }
     }
