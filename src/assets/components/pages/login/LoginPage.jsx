@@ -4,7 +4,7 @@ import {Pages} from '../../../enums/EnumsPages'
 import { useNavigate } from 'react-router-dom';
 import { LoginUser } from "../../services/AuthenticationServices"
 import { useState, useRef } from 'react';
-import { SetSessionToken } from '../../services/TokenStorage';
+import { GetSessionToken, SetSessionToken } from '../../services/TokenStorage';
 
 
 function LoginPage (){
@@ -28,15 +28,21 @@ function LoginPage (){
         const response = LoginUser(username,password)
 
         response.then((data) => {
-            if (!data.success){
+            console.log(data)
+
+            if (data.success != true){
                 //Backend Error
                 console.log(data.error)
                 return
             }
 
             //Safe Session in Local Storage
+            
+            const session = data.data.session
 
-            SetSessionToken(data.session)
+            console.log(session)
+            SetSessionToken(session)
+            console.log(GetSessionToken())
 
             navigate(Pages.COLLECTION)
         })

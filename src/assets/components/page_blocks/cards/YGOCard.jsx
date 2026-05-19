@@ -6,7 +6,7 @@ const YGOCard = ({cardData}) => {
     return <>
         <div className=" ygocard d-flex justify-content-center">
             <img
-                src={"https://images.ygoprodeck.com/images/cards/" + cardData.ygoprodeckId + ".jpg"}
+                src={cardData.image_url}
             ></img>
 
             <div className=" ygocard-amount">

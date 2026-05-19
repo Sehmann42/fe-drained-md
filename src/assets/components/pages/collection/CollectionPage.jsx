@@ -8,6 +8,7 @@ import { useState, useEffect } from "react"
 import SearchBar from "../../page_blocks/usability/SearchBar"
 import { GetAllCardsFromCollection } from "../../services/CollectionServices"
 import { GetSessionToken } from "../../services/TokenStorage"
+import LoadingPage from "../../loading_blocks/LoadingPage"
 
 function CollectionPage() {
     
@@ -15,6 +16,7 @@ function CollectionPage() {
     const [displayedCards, setDisplayedCards] = useState([])
 
     const [searchText, setSearchText] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     const handleChangeEvent = (event) => {
         setSearchText(event.target.value)
@@ -34,16 +36,25 @@ function CollectionPage() {
         setDisplayedCards(filtered)
     }
 
+    const getCollectionFromDb = async () => {
+        const response = await GetAllCardsFromCollection(GetSessionToken())
+        return response
+    }
+
     useEffect(() => {
         
         //Get all Cards From User Collection from Backend
-        
-        const rawData = GetAllCardsFromCollection(GetSessionToken())
 
-        console.log(rawData)
+        const fetchData = async () => {
+            const rawData = await getCollectionFromDb()
 
-        setDisplayedCards(rawData.data)
-        setCollectedCards(rawData.data)
+            setDisplayedCards(rawData.data.collection)
+            setCollectedCards(rawData.data.collection)
+
+            setIsLoading(false)
+        }
+
+        fetchData()
 
         return () => {
             
@@ -68,13 +79,18 @@ function CollectionPage() {
             </SearchBar>
         </div>
 
-        <Collection elementsPerRow={8}>
-            {
-                displayedCards.map((data) => {
-                    return <YGOCard cardData={data} />
-                })
+        <div className=" h-100">
+            { isLoading ? <LoadingPage />
+                :
+                <Collection elementsPerRow={8}>
+                    {
+                        displayedCards.map((data) => {
+                            return <YGOCard cardData={data} />
+                        })
+                    }
+                </Collection>
             }
-        </Collection>
+        </div>
 
         <PageFooter />
     </div>

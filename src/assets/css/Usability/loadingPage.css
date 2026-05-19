@@ -1,0 +1,15 @@
+.loadingSpinny {
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 1px;
+    animation: spinnySpin 3s linear infinite;
+}
+@keyframes spinnySpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
