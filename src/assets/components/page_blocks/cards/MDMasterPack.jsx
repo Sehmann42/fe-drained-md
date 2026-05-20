@@ -17,7 +17,7 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
         const fetchData = async () => {
                 const response = await GetSecretPackImage(packData.pack_name)
 
-                console.log(response)
+                //console.log(response)
 
                 const imageLink = response.data.image_url? response.data.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg"
 

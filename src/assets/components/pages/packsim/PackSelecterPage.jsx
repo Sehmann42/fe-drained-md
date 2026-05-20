@@ -72,7 +72,7 @@ const PackSelectorPage = () => {
             const fetchData = async () => {
                 const rawData = await GetAllSecretPacks(GetSessionToken())
 
-                console.log(rawData.response.data)
+                //console.log(rawData.response.data)
 
                 setMasterPacks(rawData.response.data)
                 setIsLoading(false)

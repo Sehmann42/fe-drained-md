@@ -33,6 +33,8 @@ function PacksimPage() {
     const packs = location.state?.packs || []
 
     useEffect(() => {
+
+        console.log(packs)
         const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
 
         const CurrPackData = {
@@ -101,6 +103,7 @@ function PacksimPage() {
 
     const handleNextPack = (event) => {
         if (currPack + 1 < pendingPacks.length){
+            handleOpenPack()
             setCurrPackContent(pendingPacks[currPack + 1]?.cards)
             setCurrPack(currPack + 1)
             setOpenPack(false)
@@ -223,7 +226,7 @@ function PacksimPage() {
                     {currPackContent.map((data) => {
                         return <HiddenCard cardData={{
                             name:data.name, 
-                            ygoprodeckId: data.ygoprodeckId, 
+                            id: data.id, 
                             data:data,
                             currPack:currPack, 
                             openPack:openPack,

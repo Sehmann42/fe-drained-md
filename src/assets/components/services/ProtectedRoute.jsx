@@ -22,23 +22,23 @@ export default function ProtectedRoute({ children }) {
   useEffect(() => {
     const check = async () => {
       const result = await checkIfTokesIsValid()
-      console.log(result)
+      //console.log(result)
       setIsValid(result)
     }
 
     check()
   }, [])
 
-  console.log(isValid)
+  //console.log(isValid)
 
   if (isValid === null) {
     return <div>Loading...</div>
   }
 
   if (isValid.data === false) {
-    console.log(GetSessionToken())
+    //console.log(GetSessionToken())
     DeleteSessionToken()
-    console.log("hallo????")
+    //console.log("hallo????")
     return <Navigate to={Pages.LOGIN} replace />
   }
 

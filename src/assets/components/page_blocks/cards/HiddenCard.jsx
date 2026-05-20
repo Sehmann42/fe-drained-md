@@ -20,6 +20,8 @@ const HiddenCard = ({cardData}) => {
 
     useEffect(() => {
 
+        console.log(cardData)
+
         if (cardData.data.rarity == "SR"){
             setCardRarity("isSR")
         }
@@ -30,7 +32,7 @@ const HiddenCard = ({cardData}) => {
         return () => {
             
         };
-    }, []);
+    }, [cardData]);
 
     useEffect(() => {
         setIsHidden(true)
@@ -61,7 +63,7 @@ const HiddenCard = ({cardData}) => {
             </div>
             :
             <div draggable="false" onClick={handleOnClick} className={"fadein hiddencard " + cardRarity}>
-                <YGOCard cardData={{name:cardData.name, ygoprodeckId:cardData.ygoprodeckId}} />
+                <YGOCard cardData={{name:cardData.name, id:cardData.data.id, image_url:cardData.data.image_url}} />
             </div>
         }
     </>

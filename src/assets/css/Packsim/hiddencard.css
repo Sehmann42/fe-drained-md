@@ -1,14 +1,26 @@
 .hiddencard {
     width: 180px;
     height: 250px;
+
+    position: relative;
+
     -webkit-user-drag: none;
     user-select: none;
     -moz-user-select: none;
+
+    overflow: visible;
 }
 
 .hiddencard img {
     width: 180px;
     height: 250px;
+
+    position: relative;
+    z-index: 1;
+
+    border-radius: 12px;
+
+    display: block;
 }
 
 .hiddencard.show {
@@ -19,9 +31,19 @@
     animation: fadeIn 0.4s ease forwards;
 }
 
+
+/* =========================
+   SR EFFECT
+========================= */
+
 .isSR {
     position: relative;
+
     border-radius: 12px;
+
+    isolation: isolate;
+
+    z-index: 0;
 }
 
 .isSR::before {
@@ -36,16 +58,28 @@
         rgba(255, 202, 87, 0.47) 44%
     );
 
-    z-index: -1;
-
     filter: blur(15px);
 
     border-radius: inherit;
+
+    z-index: -1;
+
+    pointer-events: none;
 }
+
+
+/* =========================
+   UR EFFECT
+========================= */
 
 .isUR {
     position: relative;
+
     border-radius: 12px;
+
+    isolation: isolate;
+
+    z-index: 0;
 }
 
 .isUR::before {
@@ -60,18 +94,26 @@
         rgba(248, 49, 232, 0.47) 44%
     );
 
-    z-index: -1;
-
     filter: blur(15px);
 
     border-radius: inherit;
+
+    z-index: -1;
+
+    pointer-events: none;
 }
+
+
+/* =========================
+   ANIMATIONS
+========================= */
 
 @keyframes fadeOut {
     from {
         opacity: 1;
         transform: scale(1);
     }
+
     to {
         opacity: 0;
         transform: scale(0.9);
@@ -83,6 +125,7 @@
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);

@@ -167,7 +167,8 @@ const DummydataSim = [
         cards: [
             {
                 name: "Sangan",
-                ygoprodeckId: 26202165,
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
                 rarity: "R",
                 packs: [
                     {
@@ -178,8 +179,8 @@ const DummydataSim = [
             },
             {
                 name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
                 rarity: "R",
                 packs: [
                     {
@@ -190,9 +191,9 @@ const DummydataSim = [
             },
             {
                 name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "N",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
                 packs: [
                     {
                         pack_name: "Master Pack",
@@ -202,9 +203,9 @@ const DummydataSim = [
             },
             {
                 name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "N",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
                 packs: [
                     {
                         pack_name: "Master Pack",
@@ -213,305 +214,283 @@ const DummydataSim = [
                 ]
             },
             {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    },
+
+                ]
+            },
+        ]
+    },
+    {
+        packName: "Master Pack",
+        cards: [
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
                 rarity: "UR",
                 packs: [
                     {
-                        pack_name: "Legends of seeeeeh",
-                        pack_type: "Secret Pack"
-                    },
-                    {
                         pack_name: "Master Pack",
                         pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of seeeeeh",
-                        pack_type: "Secret Pack"
                     },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Pfanne",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "SR",
-                packs: [
                     {
                         pack_name: "Legends of Kev",
                         pack_type: "Secret Pack"
                     },
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
                     {
                         pack_name: "Master Pack",
                         pack_type: "Normal Pack"
                     }
                 ]
             },
-        ],
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+        ]
     },
     {
         packName: "Master Pack",
         cards: [
             {
                 name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "R",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "R",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "N",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "N",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Pfanne",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Old",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Old",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
                 rarity: "SR",
                 packs: [
                     {
-                        pack_name: "Legends of Old",
-                        pack_type: "Secret Pack"
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
                     },
                     {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-        ],
-    },
-    {
-        packName: "Master Pack",
-        cards: [
-            {
-                name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "R",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
+                        pack_name: "Legends of Kev",
+                        pack_type: "Secret Pack"
+                    },
                 ]
             },
             {
                 name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "R",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "N",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Sangan",
-                ygoprodeckId: 26202165,
-                amount: 4,
-                rarity: "N",
-                packs: [
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Old",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Old",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
-                rarity: "UR",
-                packs: [
-                    {
-                        pack_name: "Legends of Old",
-                        pack_type: "Secret Pack"
-                    },
-                    {
-                        pack_name: "Master Pack",
-                        pack_type: "Normal Pack"
-                    }
-                ]
-            },
-            {
-                name: "Maiden of the Aqua",
-                ygoprodeckId: 17214465,
-                amount: 67,
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
                 rarity: "SR",
                 packs: [
                     {
-                        pack_name: "Legends of Old",
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    },
+                    {
+                        pack_name: "Legends of Smeff",
                         pack_type: "Secret Pack"
                     },
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "SR",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    },
+                    {
+                        pack_name: "Legends of Legends",
+                        pack_type: "Secret Pack"
+                    },
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
                     {
                         pack_name: "Master Pack",
                         pack_type: "Normal Pack"
                     }
                 ]
             },
-        ],
-    },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "UR",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    },
+                    {
+                        pack_name: "Legends of Kev",
+                        pack_type: "Secret Pack"
+                    },
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "UR",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    },
+                    {
+                        pack_name: "Legends of Zeldas",
+                        pack_type: "Secret Pack"
+                    },
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+            {
+                name: "Sangan",
+                id: 26202165,
+                image_url: "https://images.ygoprodeck.com/images/cards/55144522.jpg",
+                rarity: "R",
+                packs: [
+                    {
+                        pack_name: "Master Pack",
+                        pack_type: "Normal Pack"
+                    }
+                ]
+            },
+        ]
+    }
+            
 ]
 
 const DummyDataMasterPackImage = {
@@ -607,6 +586,8 @@ export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
 }
 
 export const GetCardsFromSecretPacks = (session, secretPacks) => {
+    console.log(secretPacks)
+
     try{
         const OpenSecretPackData = {
             session: session,

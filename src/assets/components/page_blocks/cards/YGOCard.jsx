@@ -3,6 +3,9 @@ import { useEffect } from "react"
 import "../../../css/Collection/ygocard.css"
 
 const YGOCard = ({cardData}) => {
+    useEffect(() => {
+        console.log(cardData)
+    },[])
     return <>
         <div className=" ygocard d-flex justify-content-center">
             <img
