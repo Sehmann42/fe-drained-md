@@ -2,10 +2,7 @@
 import { useEffect } from "react"
 import "../../../css/Collection/ygocard.css"
 
-const YGOCard = ({cardData}) => {
-    useEffect(() => {
-        console.log(cardData)
-    },[])
+const YGOCard = ({children, cardData}) => {
     return <>
         <div className=" ygocard d-flex justify-content-center">
             <img
@@ -15,6 +12,8 @@ const YGOCard = ({cardData}) => {
             <div className=" ygocard-amount">
                 {cardData.amount}
             </div>
+
+            {children}
         </div>
     </>
 }

@@ -34,7 +34,6 @@ function PacksimPage() {
 
     useEffect(() => {
 
-        console.log(packs)
         const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
 
         const CurrPackData = {

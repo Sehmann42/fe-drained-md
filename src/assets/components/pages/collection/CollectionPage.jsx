@@ -85,7 +85,20 @@ function CollectionPage() {
                 <Collection elementsPerRow={8}>
                     {
                         displayedCards.map((data) => {
-                            return <YGOCard cardData={data} />
+                            return <YGOCard cardData={data}>
+                                    <div className=" plusButton">
+                                        <img style={{
+                                            height: "50px",
+                                            width: "50px"
+                                        }} src="src/assets/icons/other/add.png" />
+                                    </div>
+                                    <div className=" subButton">
+                                        <img style={{
+                                            height: "50px",
+                                            width: "50px"
+                                        }} src="src/assets/icons/other/minus.png"/>
+                                    </div>
+                                    </YGOCard>
                         })
                     }
                 </Collection>
