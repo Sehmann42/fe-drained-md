@@ -1,4 +1,6 @@
 import api from "../axios/Api"
+import { GetAllSecretPacks } from "./PackServices"
+import { DeleteSessionToken, GetSessionToken } from "./TokenStorage"
 
 const BackendRoutes = {
     UserLogin: "/login/",
@@ -24,9 +26,13 @@ export const LoginUser = async (username, password) => {
 export const LogoutUser = async (session) => {
     try {
         
+        const LogoutData = {session: session}
+
         const response = await api.post(
-            BackendRoutes.UserLogin,
-            UserLogout)
+            BackendRoutes.UserLogout,
+            LogoutData)
+        
+        DeleteSessionToken()
 
         return { success: true, data: response.data }
     } catch (e) {

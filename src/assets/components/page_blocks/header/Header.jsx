@@ -1,9 +1,10 @@
 import React from "react"
 
 import "../../../css/Header/header.css"
-import { DeleteSessionToken } from "../../services/TokenStorage"
+import { DeleteSessionToken, GetSessionToken } from "../../services/TokenStorage"
 import { useNavigate } from "react-router-dom"
 import { Pages } from "../../../enums/EnumsPages"
+import { LogoutUser } from "../../services/AuthenticationServices"
 
 const PageHeader = () => {
 
@@ -18,7 +19,7 @@ const PageHeader = () => {
     }
 
     const handleOnClickLogout = (event) => {
-        DeleteSessionToken()
+        LogoutUser(GetSessionToken())
         navigate(Pages.LOGIN)
     }
 
