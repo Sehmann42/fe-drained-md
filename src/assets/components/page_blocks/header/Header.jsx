@@ -27,7 +27,7 @@ const PageHeader = () => {
     <div className=" d-flex justify-content-around header p-3">
         <div onClick={handleOnClickPackSim} className=" headerButton d-flex flex-column">
             <div className=" d-flex justify-content-center">
-                <img className=" iconHeader" src="icons/other/card-games.png"></img>
+                <img className=" iconHeader" src="/fe-drained-md/icons/other/card-games.png"></img>
             </div>
             <div className=" d-flex justify-content-center">
                 pack opener
@@ -35,7 +35,7 @@ const PageHeader = () => {
         </div>
         <div onClick={handleOnClickCollection} className=" headerButton">
             <div className=" d-flex justify-content-center">
-                <img className=" iconHeader" src="icons/other/box.png"></img>
+                <img className=" iconHeader" src="/fe-drained-md/icons/other/box.png"></img>
             </div>
             <div className=" d-flex justify-content-center">
                 collection
@@ -43,7 +43,7 @@ const PageHeader = () => {
         </div>  
         <div onClick={handleOnClickLogout} className=" headerButton">
             <div className=" d-flex justify-content-center">
-                <img className=" iconHeader" src="icons/other/logout.png"></img>
+                <img className=" iconHeader" src="/fe-drained-md/icons/other/logout.png"></img>
             </div>
             <div className=" d-flex justify-content-center">
                 logout
