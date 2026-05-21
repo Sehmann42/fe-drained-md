@@ -28,19 +28,28 @@ function CollectionPage() {
     }
 
     const filterData = (cardName) => {
+
         console.log(collectedCards)
 
+        let filtered = collectedCards
+
         if (!cardName.trim()) {
-            const filtered = collectedCards.filter(card => 
+
+            filtered = collectedCards.filter(card =>
                 card.amount > 0
             )
 
-            setDisplayedCards(filtered)
-            return
+        } else {
+
+            filtered = collectedCards.filter(card =>
+                card.name.toLowerCase().includes(cardName.toLowerCase()) &&
+                card.amount > 0
+            )
         }
 
-        const filtered = collectedCards.filter(card =>
-            card.name.toLowerCase().includes(cardName.toLowerCase()) && card.amount > 0
+        // Alphabetisch sortieren
+        filtered.sort((a, b) =>
+            a.name.localeCompare(b.name)
         )
 
         setDisplayedCards(filtered)

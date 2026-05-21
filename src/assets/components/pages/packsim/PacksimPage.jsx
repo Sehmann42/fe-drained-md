@@ -35,6 +35,8 @@ function PacksimPage() {
 
     const packs = location.state?.packs || []
 
+    const [newPacks, setNewPacks] = useState()
+
     useEffect(() => {
 
         const fetchData = async () => {
@@ -68,8 +70,6 @@ function PacksimPage() {
         };
     }, []);
 
-
-
     useEffect(() => {        
         let tmpCurrPack = 0
 
@@ -78,7 +78,7 @@ function PacksimPage() {
         if (diffState) {
             const fetchData = async () => {
 
-                const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
+                const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), newPacks)
                 
                 console.log(dataPacks)
 
@@ -176,6 +176,9 @@ function PacksimPage() {
 
     const handleClickEventPack = (packData) => {
         //console.log(packData)
+        console.log(packData)
+        console.log()
+
         const newPack = {
                 pack_id: packData.pack_id,
                 amount: 10
@@ -248,13 +251,19 @@ function PacksimPage() {
     const goToPackSim = (pack) => {
         setDiffState(true)
 
-        navigate(Pages.COLLECTION)
+        setNewPacks([pack])
+
+        console.log(pack)
+
+        /*
 
         navigate(Pages.PACK_SIM, {
             state: {
                 packs: [pack]
             }
         })
+
+        */
     }
 
     return <>
