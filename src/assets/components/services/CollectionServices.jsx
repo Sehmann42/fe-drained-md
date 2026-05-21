@@ -70,47 +70,192 @@ const Dummydata = [
         },
     ]
 
-export const GetAllCardsFromDB = (session) => {
-  return api.get(BackendUrls.GETALLCARDSFROMDB)
-    .then(res => ({
-      success: true,
-      data: res.data
-    }))
-    .catch(err => ({
-      success: false,
-      error: err
-    }))
+// =========================
+// CACHE
+// =========================
+
+// globale caches
+let cardsCache = null
+let cardsPromise = null
+
+const collectionCache = new Map()
+const collectionPromises = new Map()
+
+export const GetAllCardsFromDB = async () => {
+
+    // Daten bereits vorhanden
+    if (cardsCache) {
+        return {
+            success: true,
+            data: cardsCache,
+            cached: true
+        }
+    }
+
+    // Request läuft bereits
+    if (cardsPromise) {
+        return cardsPromise
+    }
+
+    // Neuer Request
+    cardsPromise = api
+        .get(BackendUrls.GETALLCARDSFROMDB)
+        .then((res) => {
+
+            cardsCache = res.data
+
+            return {
+                success: true,
+                data: res.data,
+                cached: false
+            }
+        })
+        .catch((err) => {
+
+            return {
+                success: false,
+                error: err
+            }
+        })
+        .finally(() => {
+            cardsPromise = null
+        })
+
+    return cardsPromise
 }
 
-export const GetAllCardsFromCollection = (session) => {
-  return api.post(BackendUrls.GETALLCARDSFROMCOLLECTION, { session })
-    .then(res => ({
-      success: true,
-      data: res.data
-    }))
-    .catch(err => ({
-      success: false,
-      error: err
-    }))
+export const GetAllCardsFromCollection = async (session) => {
+
+    // Cache Hit
+    if (collectionCache.has(session)) {
+        return {
+            success: true,
+            data: collectionCache.get(session),
+            cached: true
+        }
+    }
+
+    // Request läuft bereits
+    if (collectionPromises.has(session)) {
+        return collectionPromises.get(session)
+    }
+
+    // Neuer Request
+    const promise = api
+        .post(
+            BackendUrls.GETALLCARDSFROMCOLLECTION,
+            { session }
+        )
+        .then((res) => {
+
+            collectionCache.set(session, res.data)
+
+            return {
+                success: true,
+                data: res.data,
+                cached: false
+            }
+        })
+        .catch((err) => {
+
+            return {
+                success: false,
+                error: err
+            }
+        })
+        .finally(() => {
+            collectionPromises.delete(session)
+        })
+
+    collectionPromises.set(session, promise)
+
+    return promise
+}
+
+export const AddCardToCacheCollection = (id, cardData) => {
+    if (collectionCache) {
+            const tmpCollection = collectionCache.get(session);
+
+            if (tmpCollection?.collection) {
+
+                const existingItem = tmpCollection.collection.find(item => item.id === id);
+
+                if (existingItem) {
+                    // Item existiert → amount erhöhen
+                    existingItem.amount += 1;
+                } else {
+                    // Item existiert nicht → neu hinzufügen
+                    const collectionItem = {
+                        id: id,
+                        amount: 1,
+                        name: cardData.data.name,
+                        image_url: cardData.data.image_url
+                    };
+
+                    tmpCollection.collection.push(collectionItem);
+                }
+            }
+        }
 }
 
 export const AddCardToCollection = async (session, id) => {
-    try{
-        //Dev Mode:
-        
-        /*
 
-        if (import.meta.env.MODE == "development") {
-            return { success: true, data: Dummydata }
+    try {
+
+        const response = await api.post(
+            BackendUrls.ADDCARDTOCOLLECTION,
+            { session, id }
+        )
+
+        const newCard = response.data
+
+        // Cache aktualisieren
+        if (collectionCache.has(session)) {
+
+            const collectionData =
+                collectionCache.get(session)
+
+            if (collectionData?.collection) {
+
+                const existingItem =
+                    collectionData.collection.find(
+                        item => item.id === id
+                    )
+
+                if (existingItem) {
+
+                    existingItem.amount += 1
+
+                } else {
+
+                    collectionData.collection.push({
+                        id: id,
+                        amount: 1,
+                        name: newCard.name,
+                        image_url: newCard.image_url,
+                        rarity: newCard.rarity
+                    })
+                }
+
+                // Cache neu setzen
+                collectionCache.set(
+                    session,
+                    { ...collectionData }
+                )
+            }
         }
 
-        */
+        return {
+            success: true,
+            data: newCard
+        }
 
-        const response = await api.post(BackendUrls.ADDCARDTOCOLLECTION, {session, id})
+    } catch (err) {
 
-        return { success: response.data }
-    } catch(e) {
-        return { success: false, error: e }
+        return {
+            success: false,
+            error: err
+        }
     }
 }
 

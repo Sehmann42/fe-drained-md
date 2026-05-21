@@ -22,6 +22,9 @@ function PacksimPage() {
     const [currPackContent, setCurrPackContent] = useState([])
     const [pendingPacks, setPendingPacks] = useState([])
 
+    const [unlockedSecretPacks, setUnlockedSecretPacks] = useState([])
+    const [diffState, setDiffState] = useState(false)
+
     const [lockSecretPacks, setLockSecretPacks] = useState("")
     const [hardLockSecretPacks, setHardLockSecretPacks] = useState("")
     const [flippedCards, setFlippedCards] = useState(0)
@@ -37,6 +40,9 @@ function PacksimPage() {
         const fetchData = async () => {
             const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
 
+            console.log("Dataapcks")
+            console.log(dataPacks)
+
             const CurrPackData = {
                 packName : dataPacks.data[currPack].packName,
                 cards : dataPacks.data[currPack].cards
@@ -46,6 +52,8 @@ function PacksimPage() {
             setCurrPackContent(CurrPackData.cards)
 
             //setzte Unlocked Packs
+
+            setUnlockedSecretPacks(dataPacks.unlocked_packs)
 
             setLockSecretPacks("lock")
             setHardLockSecretPacks("") 
@@ -96,7 +104,7 @@ function PacksimPage() {
         return () => {
             
         };
-    }, [location.state]);
+    }, [location.state, diffState]);
     
 
     useEffect(() => {
@@ -140,7 +148,7 @@ function PacksimPage() {
         }
 
         for (const card of CurrPackData.cards) {
-            console.log(card)
+            //console.log(card)
             const CardData = {
                 rarity: card.rarity,
                 packs: card.packs
@@ -159,9 +167,9 @@ function PacksimPage() {
     }
 
     const handleClickEventPack = (packData) => {
-        console.log(packData)
+        //console.log(packData)
         const newPack = {
-                name: packData.packName,
+                pack_id: packData.pack_id,
                 amount: 10
             }
         
@@ -183,6 +191,16 @@ function PacksimPage() {
     }
 
 
+    const getPackId = (packName) => {
+        console.log(unlockedSecretPacks)
+
+        const pack = unlockedSecretPacks.find(
+            p => p.pack_name === packName
+        )
+
+        return pack?.pack_id
+    }
+
     /**
      * 
      * adds Unlocked Secret Packs to Selection
@@ -190,6 +208,8 @@ function PacksimPage() {
      * @param {} cardPacks 
      */
     const addUnlockedPacks = (cardPacks) => {
+
+        console.log(unlockedSecretPacks)
 
         setUnlockedPacks(prev => {
 
@@ -201,10 +221,13 @@ function PacksimPage() {
                     item => item.packName === cardPack.pack_name
                 )
 
+                const pack_id = getPackId(cardPack.pack_name)
+
                 if (!exists && cardPack.pack_type == "Secret Pack") {
 
                     updatedPacks.push({
                         packName: cardPack.pack_name,
+                        pack_id: pack_id,
                         packType: cardPack.pack_type
                     })
                 }
@@ -215,6 +238,8 @@ function PacksimPage() {
     }
 
     const goToPackSim = (pack) => {
+        setDiffState(true)
+
         navigate(Pages.PACK_SIM, {
             state: {
                 packs: [pack]

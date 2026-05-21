@@ -5,7 +5,7 @@ import "../../../css/Collection/ygocard.css"
 const YGOCard = ({children, cardData}) => {
     return <>
         <div className=" ygocard d-flex justify-content-center">
-            <img
+            <img loading="lazy"
                 src={cardData.image_url}
             ></img>
 

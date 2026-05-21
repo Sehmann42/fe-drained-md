@@ -59,11 +59,9 @@ function CollectionPage() {
     const handleOnClickAddCardInCollection = async (id) => {
         console.log(id)
         try{
+            let exists = collectedCards.some(card => card.id === id)
+
             const cardData = await addCard(id)
-
-            console.log(cardData)
-
-            const exists = collectedCards.some(card => card.id === id)
 
             if (exists) {
 
@@ -79,6 +77,8 @@ function CollectionPage() {
                     return card
                 })
 
+                //console.log(collectedCards)
+
                 const filtered = updatedCards.filter(card =>
                     card.amount > 0
                 )
@@ -91,8 +91,8 @@ function CollectionPage() {
                 const newCard = {
                     id,
                     amount: 1,
-                    image_url: cardData.success.data.image_url,
-                    name: cardData.success.data.name // falls du name nicht hast → später ersetzen
+                    image_url: cardData.data.data.image_url,
+                    name: cardData.data.data.name // falls du name nicht hast → später ersetzen
                 }
 
                 const filtered = collectedCards.filter(card =>
@@ -161,6 +161,7 @@ function CollectionPage() {
         const fetchAll = async () => {
 
             try {
+
                 setIsLoading(true)
                 setIsLoadingDB(true)
 
@@ -169,17 +170,27 @@ function CollectionPage() {
                     GetAllCardsFromDB()
                 ])
 
-                const collection = collectionRes?.data?.collection ?? []
-                const allCards = dbRes?.data?.data ?? []
+                const collection =
+                    collectionRes?.data?.collection ?? []
+
+                const allCards =
+                    dbRes?.data.data ?? []
 
                 setCollectedCards(collection)
                 setDisplayedCards(collection)
 
+                console.log(allCards)
+
                 setAllCardsFromDB(allCards)
 
             } catch (error) {
+
+                setIsLoading(false)
+                setIsLoadingDB(false)
                 console.error(error)
+
             } finally {
+
                 setIsLoading(false)
                 setIsLoadingDB(false)
             }

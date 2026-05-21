@@ -611,7 +611,7 @@ export const GetCardsFromSecretPacks = async (session, secretPacks) => {
         console.log(response)
         console.log(response.data.packs)
 
-        return { success: true, data: response.data.packs }
+        return { success: true, data: response.data.packs , unlocked_packs: response.data.unlocked_secret_packs}
     } catch(e) {
         return { success: false, error: e }
     }

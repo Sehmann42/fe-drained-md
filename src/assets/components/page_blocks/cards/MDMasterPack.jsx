@@ -19,6 +19,8 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
 
                 //console.log(response)
 
+                console.log(packData)
+
                 const imageLink = response.data.image_url? response.data.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg"
 
                 setSrcLink(imageLink)
@@ -34,7 +36,7 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
 
     return <>
         <div onClick={handleOnClick} className=" secretpack w-100 d-flex justify-content-center flex-column">
-            <img className=" align-self-center"
+            <img loading="lazy" className=" align-self-center"
                 src={srcLink}
             ></img>
 
