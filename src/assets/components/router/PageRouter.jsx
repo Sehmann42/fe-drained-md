@@ -21,8 +21,6 @@ function PageRouter() {
 
     useEffect(() => {
         navigate(Pages.LOGIN)
-        
-        
 
         if (GetSessionToken()){
             navigate(Pages.COLLECTION)

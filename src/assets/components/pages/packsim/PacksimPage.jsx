@@ -296,11 +296,11 @@ function PacksimPage() {
         <div className={" h-10 w-100 d-flex justify-content-between"}>
             <div className=" d-flex justify-content-around w-70">
                 <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
-                    <img className="iconSize align-self-center" src="src/assets/icons/other/unboxing.png" />
+                    <img className="iconSize align-self-center" src="icons/other/unboxing.png" />
                     <span>Open Pack</span>
                 </div>
                 <div className="d-flex flex-column justify-content-center" onClick={handleNextPack}>
-                    <img className="iconSize align-self-center" src="src/assets/icons/other/next-button.png"></img>
+                    <img className="iconSize align-self-center" src="icons/other/next-button.png"></img>
                     <span>Next pack</span>
                 </div>
             </div>
