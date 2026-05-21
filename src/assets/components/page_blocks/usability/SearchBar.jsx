@@ -2,9 +2,9 @@ import React from "react";
 
 import "../../../css/Usability/searchbar.css"
 
-const SearchBar = ({children}) => {
+const SearchBar = ({children, width}) => {
     return <>
-    <div className="searchbar w-25 p-1 d-flex justify-content-center">
+    <div className={"searchbar w-" + width + " p-1 d-flex justify-content-center"}>
         {children}
     </div>
         

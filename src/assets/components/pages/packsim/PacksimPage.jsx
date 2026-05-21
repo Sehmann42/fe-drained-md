@@ -34,20 +34,24 @@ function PacksimPage() {
 
     useEffect(() => {
 
-        const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
+        const fetchData = async () => {
+            const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
 
-        const CurrPackData = {
-            packName : dataPacks.data[currPack].packName,
-            cards : dataPacks.data[currPack].cards
-        }
+            const CurrPackData = {
+                packName : dataPacks.data[currPack].packName,
+                cards : dataPacks.data[currPack].cards
+            }
 
-        setPendingPacks(dataPacks.data)
-        setCurrPackContent(CurrPackData.cards)
+            setPendingPacks(dataPacks.data)
+            setCurrPackContent(CurrPackData.cards)
 
-        //setzte Unlocked Packs
+            //setzte Unlocked Packs
 
-        setLockSecretPacks("lock")
-        setHardLockSecretPacks("")        
+            setLockSecretPacks("lock")
+            setHardLockSecretPacks("") 
+            }
+
+        fetchData()
 
         //checkUnlockedPacks()
 
@@ -56,29 +60,36 @@ function PacksimPage() {
         };
     }, []);
 
-    
+
+
     useEffect(() => {        
         let tmpCurrPack = 0
 
-        const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
-        
-        const CurrPackData = {
-            packName : dataPacks.data[tmpCurrPack].packName,
-            cards : dataPacks.data[tmpCurrPack].cards
+        const fetchData = async () => {
+
+            const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
+            
+            const CurrPackData = {
+                packName : dataPacks.data[tmpCurrPack].packName,
+                cards : dataPacks.data[tmpCurrPack].cards
+            }
+
+            setCurrPack(tmpCurrPack)
+            setOpenPack(false)
+            setPendingPacks(dataPacks.data)
+            setCurrPackContent(CurrPackData.cards)
+            setUnlockedPacks([])
+            //setzte Unlocked Packs
+
+            setHardLockSecretPacks("")  
+
+            if (flipToSecretPack) {
+                setHardLockSecretPacks("lock")
+            }
+
         }
 
-        setCurrPack(tmpCurrPack)
-        setOpenPack(false)
-        setPendingPacks(dataPacks.data)
-        setCurrPackContent(CurrPackData.cards)
-        setUnlockedPacks([])
-        //setzte Unlocked Packs
-
-        setHardLockSecretPacks("")  
-
-        if (flipToSecretPack) {
-            setHardLockSecretPacks("lock")
-        }
+        fetchData()
 
         //checkUnlockedPacks()
 

@@ -585,24 +585,33 @@ export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
     }
 }
 
-export const GetCardsFromSecretPacks = (session, secretPacks) => {
+export const GetCardsFromSecretPacks = async (session, secretPacks) => {
     console.log(secretPacks)
 
     try{
         const OpenSecretPackData = {
             session: session,
-            secretPacks: secretPacks
+            secretpacks: secretPacks
         }
+
+        console.log(OpenSecretPackData)
 
         //Dev Mode:
         
+        /*
+
         if (import.meta.env.MODE == "development") {
             return { success: true, data: DummydataSim }
         }
 
-        response = api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData)
+        */
 
-        return { success: true, data: response.data }
+        const response = await api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData)
+
+        console.log(response)
+        console.log(response.data.packs)
+
+        return { success: true, data: response.data.packs }
     } catch(e) {
         return { success: false, error: e }
     }

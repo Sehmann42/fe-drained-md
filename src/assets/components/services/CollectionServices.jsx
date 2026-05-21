@@ -1,7 +1,10 @@
 import api from "../axios/Api";
 
 const BackendUrls = {
-    GETALLCARDSFROMCOLLECTION: "/collection/"
+    GETALLCARDSFROMCOLLECTION: "/collection/",
+    ADDCARDTOCOLLECTION:"/addcard/",
+    REMOVECARDFROMCOLLECTION:"/removecard/",
+    GETALLCARDSFROMDB:"/allcards"
 }
 
 const Dummydata = [
@@ -67,6 +70,18 @@ const Dummydata = [
         },
     ]
 
+export const GetAllCardsFromDB = (session) => {
+  return api.get(BackendUrls.GETALLCARDSFROMDB)
+    .then(res => ({
+      success: true,
+      data: res.data
+    }))
+    .catch(err => ({
+      success: false,
+      error: err
+    }))
+}
+
 export const GetAllCardsFromCollection = (session) => {
   return api.post(BackendUrls.GETALLCARDSFROMCOLLECTION, { session })
     .then(res => ({
@@ -79,33 +94,41 @@ export const GetAllCardsFromCollection = (session) => {
     }))
 }
 
-export const AddCardToCollection = (session, id) => {
+export const AddCardToCollection = async (session, id) => {
     try{
         //Dev Mode:
         
+        /*
+
         if (import.meta.env.MODE == "development") {
             return { success: true, data: Dummydata }
         }
 
-        const response = api.get(BackendUrls.GETALLCARDSFROMCOLLECTION, {session})
+        */
 
-        return { success: true, data: response.data }
+        const response = await api.post(BackendUrls.ADDCARDTOCOLLECTION, {session, id})
+
+        return { success: response.data }
     } catch(e) {
         return { success: false, error: e }
     }
 }
 
-export const RemoveCardFromCollection = (session, id) => {
+export const RemoveCardFromCollection = async (session, id) => {
     try{
         //Dev Mode:
         
+        /*
+
         if (import.meta.env.MODE == "development") {
             return { success: true, data: Dummydata }
         }
 
-        response = api.get(BackendUrls.GETALLCARDSFROMCOLLECTION, {session})
+        */
 
-        return { success: true, data: response.data }
+        const response = await api.post(BackendUrls.REMOVECARDFROMCOLLECTION, {session, id})
+
+        return { success: response.data }
     } catch(e) {
         return { success: false, error: e }
     }

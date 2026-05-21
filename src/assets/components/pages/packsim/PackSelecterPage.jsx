@@ -48,8 +48,8 @@ const PackSelectorPage = () => {
         } else {
 
             const newItem = {
+                pack_id: packData.pack_id,
                 name: packData.pack_name,
-                id: packData.pack_id,
                 amount: 1
             }
 
@@ -58,9 +58,16 @@ const PackSelectorPage = () => {
     }
 
     const goToPackSim = () => {
+        const filterBasket = basket.map(item => {
+            return {
+                pack_id: item.pack_id,
+                amount: item.amount
+            }
+        })
+
         navigate(Pages.PACK_SIM, {
             state: {
-                packs: basket
+                packs: filterBasket
             }
         })
     }
