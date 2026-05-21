@@ -44,7 +44,7 @@ function PacksimPage() {
             console.log(dataPacks)
 
             const CurrPackData = {
-                packName : dataPacks.data[currPack].packName,
+                pack_name : dataPacks.data[currPack].packName,
                 cards : dataPacks.data[currPack].cards
             }
 
@@ -73,31 +73,35 @@ function PacksimPage() {
     useEffect(() => {        
         let tmpCurrPack = 0
 
-        const fetchData = async () => {
+        if (diffState) {
+            const fetchData = async () => {
 
-            const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
-            
-            const CurrPackData = {
-                packName : dataPacks.data[tmpCurrPack].packName,
-                cards : dataPacks.data[tmpCurrPack].cards
+                const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
+                
+                const CurrPackData = {
+                    pack_name : dataPacks.data[tmpCurrPack].packName,
+                    cards : dataPacks.data[tmpCurrPack].cards
+                }
+
+                setCurrPack(tmpCurrPack)
+                setOpenPack(false)
+                setPendingPacks(dataPacks.data)
+                setCurrPackContent(CurrPackData.cards)
+                setUnlockedPacks([])
+                //setzte Unlocked Packs
+
+                setHardLockSecretPacks("")  
+
+                if (flipToSecretPack) {
+                    setHardLockSecretPacks("lock")
+                }
+
             }
 
-            setCurrPack(tmpCurrPack)
-            setOpenPack(false)
-            setPendingPacks(dataPacks.data)
-            setCurrPackContent(CurrPackData.cards)
-            setUnlockedPacks([])
-            //setzte Unlocked Packs
-
-            setHardLockSecretPacks("")  
-
-            if (flipToSecretPack) {
-                setHardLockSecretPacks("lock")
-            }
-
+            fetchData()
         }
 
-        fetchData()
+        
 
         //checkUnlockedPacks()
 
@@ -143,7 +147,7 @@ function PacksimPage() {
      */
     const checkUnlockedPacks = () => {
         const CurrPackData = {
-            packName : pendingPacks[currPack]?.packName,
+            pack_name : pendingPacks[currPack]?.pack_name,
             cards : pendingPacks[currPack]?.cards,
         }
 
@@ -191,11 +195,11 @@ function PacksimPage() {
     }
 
 
-    const getPackId = (packName) => {
+    const getPackId = (pack_name) => {
         console.log(unlockedSecretPacks)
 
         const pack = unlockedSecretPacks.find(
-            p => p.pack_name === packName
+            p => p.pack_name === pack_name
         )
 
         return pack?.pack_id
@@ -218,7 +222,7 @@ function PacksimPage() {
             for (const cardPack of cardPacks) {
 
                 const exists = updatedPacks.find(
-                    item => item.packName === cardPack.pack_name
+                    item => item.pack_name === cardPack.pack_name
                 )
 
                 const pack_id = getPackId(cardPack.pack_name)
@@ -226,7 +230,7 @@ function PacksimPage() {
                 if (!exists && cardPack.pack_type == "Secret Pack") {
 
                     updatedPacks.push({
-                        packName: cardPack.pack_name,
+                        pack_name: cardPack.pack_name,
                         pack_id: pack_id,
                         packType: cardPack.pack_type
                     })
