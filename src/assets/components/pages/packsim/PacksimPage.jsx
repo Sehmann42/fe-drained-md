@@ -73,11 +73,15 @@ function PacksimPage() {
     useEffect(() => {        
         let tmpCurrPack = 0
 
+        console.log("SEITEN WECHSEL!")
+
         if (diffState) {
             const fetchData = async () => {
 
-                const dataPacks = GetCardsFromSecretPacks(GetSessionToken(), packs)
+                const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
                 
+                console.log(dataPacks)
+
                 const CurrPackData = {
                     pack_name : dataPacks.data[tmpCurrPack].packName,
                     cards : dataPacks.data[tmpCurrPack].cards
@@ -243,6 +247,8 @@ function PacksimPage() {
 
     const goToPackSim = (pack) => {
         setDiffState(true)
+
+        navigate(Pages.COLLECTION)
 
         navigate(Pages.PACK_SIM, {
             state: {

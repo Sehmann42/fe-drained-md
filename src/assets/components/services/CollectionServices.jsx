@@ -127,6 +127,7 @@ export const GetAllCardsFromDB = async () => {
 export const GetAllCardsFromCollection = async (session) => {
 
     // Cache Hit
+    /*
     if (collectionCache.has(session)) {
         return {
             success: true,
@@ -134,6 +135,7 @@ export const GetAllCardsFromCollection = async (session) => {
             cached: true
         }
     }
+    */
 
     // Request läuft bereits
     if (collectionPromises.has(session)) {
