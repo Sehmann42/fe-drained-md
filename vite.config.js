@@ -4,7 +4,7 @@ import babel from '@rolldown/plugin-babel'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/fe-drained-md/",
+  base: import.meta.env.VITE_BASE,
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })
