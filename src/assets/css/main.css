@@ -67,3 +67,74 @@ div[id=root] {
     color: white;
     user-select: none;
 }
+
+/* =========================
+   SR EFFECT
+========================= */
+
+.isSR {
+    position: relative;
+
+    border-radius: 12px;
+
+    isolation: isolate;
+
+    z-index: 0;
+}
+
+.isSR::before {
+    content: "";
+
+    position: absolute;
+    inset: -5px;
+
+    background: linear-gradient(
+        108deg,
+        rgba(255, 91, 79, 1) 7%,
+        rgba(255, 202, 87, 0.47) 44%
+    );
+
+    filter: blur(15px);
+
+    border-radius: inherit;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   UR EFFECT
+========================= */
+
+.isUR {
+    position: relative;
+
+    border-radius: 12px;
+
+    isolation: isolate;
+
+    z-index: 0;
+}
+
+.isUR::before {
+    content: "";
+
+    position: absolute;
+    inset: -5px;
+
+    background: linear-gradient(
+        108deg,
+        rgba(79, 108, 255, 1) 7%,
+        rgba(248, 49, 232, 0.47) 44%
+    );
+
+    filter: blur(15px);
+
+    border-radius: inherit;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
