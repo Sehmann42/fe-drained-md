@@ -294,7 +294,7 @@ function PacksimPage() {
                 
                 <br />
 
-                <div style={{maxHeight: "60vh", overflow:"auto"}} className={" h-100 secretPackSelection  d-flex justify-content-center flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
+                <div style={{maxHeight: "60vh", overflow:"auto", flexShrink:"0"}} className={" h-100 secretPackSelection  d-flex flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
                     {unlockedPacks.map((data) => {
                         return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                     })}
