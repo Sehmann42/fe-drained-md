@@ -6,7 +6,7 @@ import Collection from "../../page_blocks/collection/Collection"
 import YGOCard from "../../page_blocks/cards/YGOCard"
 import { useState, useEffect } from "react"
 import SearchBar from "../../page_blocks/usability/SearchBar"
-import { AddCardToCollection, GetAllCardsFromCollection, RemoveCardFromCollection, GetAllCardsFromDB } from "../../services/CollectionServices"
+import { AddCardToCollection, GetAllCardsFromCollection, RemoveCardFromCollection, GetAllCardsFromDB, ExportCollection } from "../../services/CollectionServices"
 import { GetSessionToken } from "../../services/TokenStorage"
 import LoadingPage from "../../loading_blocks/LoadingPage"
 
@@ -149,6 +149,10 @@ function CollectionPage() {
         }
     }
 
+    const handleOnClickExportCollection = (event) => {
+        exportCollection()
+    }
+
     const addCard = async (id) => {
         const response = await AddCardToCollection(GetSessionToken(), id)
         return response
@@ -156,6 +160,33 @@ function CollectionPage() {
 
     const removeCard = (id) => {
         const response = RemoveCardFromCollection(GetSessionToken(), id)
+    }
+
+    const exportCollection = async () => {
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        try{
+
+            const data = await ExportCollection(GetSessionToken())
+
+            const filename = "collection.ydk"
+
+            download(filename, data.data)
+        }catch(e){
+            console.error(e)
+        }
     }
 
     const filteredCards =
@@ -213,18 +244,28 @@ function CollectionPage() {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
         
-        <div className=" h-10 p-3 d-flex w-100 justify-content-start align-items-center">
-            <h4>Suchen : </h4>
+        <div className=" h-10 p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
+            <div className=" w-80 d-flex">
+                <h4>Suchen : </h4>
 
-            <span className=" w-1" />
+                <span className=" w-1" />
 
-            <SearchBar width={25}>
-                <input
-                 value={searchText}
-                 onChange={handleChangeEvent}
-                 type="text" 
-                 className=" w-95"/>
-            </SearchBar>
+                <SearchBar width={50}>
+                    <input
+                    value={searchText}
+                    onChange={handleChangeEvent}
+                    type="text" 
+                    className=" w-95"/>
+                </SearchBar>
+            </div>
+
+            <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
+                <img style={{width: "40px", height: "40px"}} src="/icons/other/export.png" />
+                <span>
+                    Export
+                </span>
+            </div>
+            
         </div>
 
         <div className="d-flex h-100">
