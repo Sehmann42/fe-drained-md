@@ -586,7 +586,7 @@ export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
 }
 
 export const GetCardsFromSecretPacks = async (session, secretPacks) => {
-    console.log(secretPacks)
+    //console.log(secretPacks)
 
     try{
         const OpenSecretPackData = {
@@ -594,7 +594,7 @@ export const GetCardsFromSecretPacks = async (session, secretPacks) => {
             secretpacks: secretPacks
         }
 
-        console.log(OpenSecretPackData)
+        //console.log(OpenSecretPackData)
 
         //Dev Mode:
         
@@ -608,8 +608,8 @@ export const GetCardsFromSecretPacks = async (session, secretPacks) => {
 
         const response = await api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData)
 
-        console.log(response)
-        console.log(response.data.packs)
+        //console.log(response)
+        //console.log(response.data.packs)
 
         return { success: true, data: response.data.packs , unlocked_packs: response.data.unlocked_secret_packs}
     } catch(e) {

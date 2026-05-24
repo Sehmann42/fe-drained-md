@@ -198,6 +198,8 @@ function CollectionPage() {
 
     useEffect(() => {
 
+        console.log(GetSessionToken())
+
         const fetchAll = async () => {
 
             try {
