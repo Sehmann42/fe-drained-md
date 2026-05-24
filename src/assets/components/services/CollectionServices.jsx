@@ -4,7 +4,8 @@ const BackendUrls = {
     GETALLCARDSFROMCOLLECTION: "/collection/",
     ADDCARDTOCOLLECTION:"/addcard/",
     REMOVECARDFROMCOLLECTION:"/removecard/",
-    GETALLCARDSFROMDB:"/allcards"
+    GETALLCARDSFROMDB:"/allcards",
+    SYNCTODB:"/docs"
 }
 
 const Dummydata = [
@@ -278,5 +279,15 @@ export const RemoveCardFromCollection = async (session, id) => {
         return { success: response.data }
     } catch(e) {
         return { success: false, error: e }
+    }
+}
+
+export const SyncCollectionToYGODB = async (session) => {
+    try{
+
+        const response = await api.post(BackendUrls.SYNCTODB, {session})
+
+    }catch(e){
+        return { success: false, error: e}
     }
 }

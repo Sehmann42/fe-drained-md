@@ -239,13 +239,13 @@ function CollectionPage() {
                                         <img style={{
                                             height: "50px",
                                             width: "50px"
-                                        }} src="/fe-drained-md/icons/other/add.png" />
+                                        }} src="/icons/other/add.png" />
                                     </div>
                                     <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
                                         <img style={{
                                             height: "50px",
                                             width: "50px"
-                                        }} src="/fe-drained-md/icons/other/minus.png"/>
+                                        }} src="/icons/other/minus.png"/>
                                     </div>
                                     </YGOCard>
                         })
@@ -288,7 +288,7 @@ function CollectionPage() {
                                         >
                                             <img
                                                 style={{ height: "50px", width: "50px" }}
-                                                src="/fe-drained-md/icons/other/add.png"
+                                                src="/icons/other/add.png"
                                             />
                                         </div>
 
@@ -298,7 +298,7 @@ function CollectionPage() {
                                         >
                                             <img
                                                 style={{ height: "50px", width: "50px" }}
-                                                src="/fe-drained-md/icons/other/minus.png"
+                                                src="/icons/other/minus.png"
                                             />
                                         </div>
                                     </YGOCard>
