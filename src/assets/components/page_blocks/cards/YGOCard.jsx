@@ -12,10 +12,13 @@ const YGOCard = ({children, cardData}) => {
 
         //console.log(rarity)
 
-        if (rarity == "SR"){
+        if (rarity == "R"){
+            setCardRarity("isR")
+        }
+        else if (rarity == "SR"){
             setCardRarity("isSR")
         }
-        if (rarity == "UR"){
+        else if (rarity == "UR"){
             setCardRarity("isUR")
         }
 

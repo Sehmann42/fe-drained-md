@@ -69,10 +69,10 @@ div[id=root] {
 }
 
 /* =========================
-   SR EFFECT
+   R EFFECT
 ========================= */
 
-.isSR {
+.isR {
     position: relative;
 
     border-radius: 12px;
@@ -82,17 +82,13 @@ div[id=root] {
     z-index: 0;
 }
 
-.isSR::before {
+.isR::before {
     content: "";
 
     position: absolute;
     inset: -5px;
 
-    background: linear-gradient(
-        108deg,
-        rgba(255, 91, 79, 1) 7%,
-        rgba(255, 202, 87, 0.47) 44%
-    );
+    background: rgb(31, 81, 245) 7%;
 
     filter: blur(15px);
 
