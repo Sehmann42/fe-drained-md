@@ -18,7 +18,7 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
                 //Deprecated
                 //const response = await GetSecretPackImage(packData.pack_name)
 
-                console.log(packData)
+                //console.log(packData)
 
                 const imageLink = packData.image_url? packData.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg"
 

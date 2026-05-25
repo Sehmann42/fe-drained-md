@@ -40,6 +40,8 @@ function PacksimPage() {
     useEffect(() => {
 
         const fetchData = async () => {
+            console.log("wusch")
+
             const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
 
             //console.log("Dataapcks")

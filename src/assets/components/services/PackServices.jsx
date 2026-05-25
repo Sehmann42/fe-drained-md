@@ -585,8 +585,13 @@ export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
     }
 }
 
+const openPackPromises = new Map()
+
 export const GetCardsFromSecretPacks = async (session, secretPacks) => {
     //console.log(secretPacks)
+    if (openPackPromises.has(session)){
+        return openPackPromises.get(session)
+    }
 
     try{
         const OpenSecretPackData = {
@@ -605,7 +610,6 @@ export const GetCardsFromSecretPacks = async (session, secretPacks) => {
         }
 
         */
-
         const response = await api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData)
 
         //console.log(response)

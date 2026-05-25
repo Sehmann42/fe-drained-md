@@ -218,6 +218,8 @@ function CollectionPage() {
                 const allCards =
                     dbRes?.data.data ?? []
 
+                console.log(collection.length)
+                
                 setCollectedCards(collection)
                 setDisplayedCards(collection)
 
