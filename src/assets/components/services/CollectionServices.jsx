@@ -4,6 +4,7 @@ const BackendUrls = {
     GETALLCARDSFROMCOLLECTION: "/collection/",
     ADDCARDTOCOLLECTION:"/addcard/",
     REMOVECARDFROMCOLLECTION:"/removecard/",
+    REMOVECARDSFROMCOLLECTION:"/removecards/",
     GETALLCARDSFROMDB:"/allcards",
     EXPORTCOLLECTION:"/collection/export/ydk",
     SYNCTODB:"/docs"
@@ -280,6 +281,65 @@ export const RemoveCardFromCollection = async (session, id) => {
         return { success: response.data }
     } catch(e) {
         return { success: false, error: e }
+    }
+}
+
+let cachedCards = []
+let removeTimeout = null
+
+export const RemoveCardsFromCollection = async (session, id) => {
+    console.log("hmm?")
+
+    try {
+
+        cachedCards.push(id)
+
+        // alten Timer zurücksetzen
+        if (removeTimeout) {
+            clearTimeout(removeTimeout)
+        }
+
+        // Promise zurückgeben
+        return new Promise((resolve) => {
+
+            removeTimeout = setTimeout(async () => {
+                try {
+
+                    console.log(cachedCards)
+
+                    const cardsToRemove = [...cachedCards]
+
+                    // Cache direkt leeren
+                    cachedCards = []
+
+                    const response = await api.post(
+                        BackendUrls.REMOVECARDSFROMCOLLECTION,
+                        {
+                            session,
+                            ids: cardsToRemove
+                        }
+                    )
+
+                    resolve({
+                        success: response.data
+                    })
+
+                } catch (e) {
+                    resolve({
+                        success: false,
+                        error: e
+                    })
+                }
+            }, 500) // wartet 500ms nach letztem Spam-Klick
+        })
+
+    } catch (e) {
+        console.log(e)
+
+        return {
+            success: false,
+            error: e
+        }
     }
 }
 

@@ -6,7 +6,7 @@ import Collection from "../../page_blocks/collection/Collection"
 import YGOCard from "../../page_blocks/cards/YGOCard"
 import { useState, useEffect } from "react"
 import SearchBar from "../../page_blocks/usability/SearchBar"
-import { AddCardToCollection, GetAllCardsFromCollection, RemoveCardFromCollection, GetAllCardsFromDB, ExportCollection } from "../../services/CollectionServices"
+import { AddCardToCollection, GetAllCardsFromCollection, RemoveCardsFromCollection, GetAllCardsFromDB, ExportCollection } from "../../services/CollectionServices"
 import { GetSessionToken } from "../../services/TokenStorage"
 import LoadingPage from "../../loading_blocks/LoadingPage"
 
@@ -159,7 +159,7 @@ function CollectionPage() {
     }
 
     const removeCard = (id) => {
-        const response = RemoveCardFromCollection(GetSessionToken(), id)
+        const response = RemoveCardsFromCollection(GetSessionToken(), id)
     }
 
     const exportCollection = async () => {
@@ -221,7 +221,7 @@ function CollectionPage() {
                 setCollectedCards(collection)
                 setDisplayedCards(collection)
 
-                console.log(allCards)
+                //console.log(allCards)
 
                 setAllCardsFromDB(allCards)
 
