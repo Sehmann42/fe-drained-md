@@ -35,7 +35,7 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
 
     return <>
         <div onClick={handleOnClick} className=" secretpack w-100 d-flex justify-content-center flex-column">
-            <img loading="lazy" className=" align-self-center"
+            <img className=" align-self-center"
                 src={srcLink}
             ></img>
 
