@@ -355,7 +355,7 @@ export const SyncCollectionToYGODB = async (session) => {
 
 export const ExportCollection = async (session) => {
     try{
-        const response = await api.post(BackendUrls.EXPORTCOLLECTION, {session})
+        const response = await api.post(BackendUrls.EXPORTCOLLECTION, {session: session})
 
         return {success: true, data: response.data}
     }catch(e){
