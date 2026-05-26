@@ -15,6 +15,7 @@ import Cookies from 'js-cookie'
 import PackSelectorPage from '../pages/packsim/PackSelecterPage'
 import DeckSelectorPage from '../pages/collection/DeckSelectorPage'
 import { GetSessionToken } from '../services/TokenStorage'
+import CreditsPage from '../pages/credits/CreditsPage'
 
 function PageRouter() {
     const navigate = useNavigate()
@@ -70,6 +71,13 @@ function PageRouter() {
                     <ProtectedRoute>
                         <DeckSelectorPage />
                     </ProtectedRoute>}
+                />
+
+                <Route
+                    path={Pages.CREDITS}
+                    element={
+                    <CreditsPage />
+                    }
                 />
             </Routes>
         </Suspense>

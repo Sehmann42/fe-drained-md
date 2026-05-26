@@ -24,7 +24,7 @@ const HiddenCard = ({cardData}) => {
             setCardRarity("")
         }
         if (cardData.data.rarity == "R"){
-            setCardRarity("")
+            setCardRarity("isR")
         }
         if (cardData.data.rarity == "SR"){
             setCardRarity("isSR")

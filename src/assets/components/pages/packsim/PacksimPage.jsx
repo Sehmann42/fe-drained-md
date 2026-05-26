@@ -40,10 +40,12 @@ function PacksimPage() {
     useEffect(() => {
 
         const fetchData = async () => {
+            console.log("wusch")
+
             const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
 
-            console.log("Dataapcks")
-            console.log(dataPacks)
+            //console.log("Dataapcks")
+            //console.log(dataPacks)
 
             const CurrPackData = {
                 pack_name : dataPacks.data[currPack].packName,
@@ -176,8 +178,8 @@ function PacksimPage() {
 
     const handleClickEventPack = (packData) => {
         //console.log(packData)
-        console.log(packData)
-        console.log()
+        //console.log(packData)
+        //console.log()
 
         const newPack = {
                 pack_id: packData.pack_id,
@@ -197,19 +199,25 @@ function PacksimPage() {
     const flipCard = (cardData) => {
         checkUnlockedPacksSingle(cardData)
         setFlippedCards(flippedCards + 1)
-
-        setFlippedCards(flippedCards + 1)
     }
 
 
     const getPackId = (pack_name) => {
-        console.log(unlockedSecretPacks)
+        //console.log(unlockedSecretPacks)
 
         const pack = unlockedSecretPacks.find(
             p => p.pack_name === pack_name
         )
 
         return pack?.pack_id
+    }
+
+    const getPackImage = (pack_name) => {
+        const pack = unlockedSecretPacks.find(
+            p => p.pack_name === pack_name
+        )
+
+        return pack?.image_url
     }
 
     /**
@@ -220,7 +228,8 @@ function PacksimPage() {
      */
     const addUnlockedPacks = (cardPacks) => {
 
-        console.log(unlockedSecretPacks)
+        //console.log(unlockedSecretPacks)
+        //console.log(cardPacks)
 
         setUnlockedPacks(prev => {
 
@@ -233,13 +242,15 @@ function PacksimPage() {
                 )
 
                 const pack_id = getPackId(cardPack.pack_name)
+                const pack_image = getPackImage(cardPack.pack_name)
 
                 if (!exists && cardPack.pack_type == "Secret Pack") {
 
                     updatedPacks.push({
                         pack_name: cardPack.pack_name,
                         pack_id: pack_id,
-                        packType: cardPack.pack_type
+                        packType: cardPack.pack_type,
+                        image_url: pack_image
                     })
                 }
             }
@@ -253,7 +264,7 @@ function PacksimPage() {
 
         setNewPacks([pack])
 
-        console.log(pack)
+        //console.log(pack)
 
         /*
 
@@ -305,11 +316,11 @@ function PacksimPage() {
         <div className={" h-10 w-100 d-flex justify-content-between"}>
             <div className=" d-flex justify-content-around w-70">
                 <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
-                    <img className="iconSize align-self-center" src="/fe-drained-md/icons/other/unboxing.png" />
+                    <img className="iconSize align-self-center" src="/icons/other/unboxing.png" />
                     <span>Open Pack</span>
                 </div>
                 <div className="d-flex flex-column justify-content-center" onClick={handleNextPack}>
-                    <img className="iconSize align-self-center" src="/fe-drained-md/icons/other/next-button.png"></img>
+                    <img className="iconSize align-self-center" src="/icons/other/next-button.png"></img>
                     <span>Next pack</span>
                 </div>
             </div>

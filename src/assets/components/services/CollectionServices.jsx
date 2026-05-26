@@ -4,7 +4,10 @@ const BackendUrls = {
     GETALLCARDSFROMCOLLECTION: "/collection/",
     ADDCARDTOCOLLECTION:"/addcard/",
     REMOVECARDFROMCOLLECTION:"/removecard/",
-    GETALLCARDSFROMDB:"/allcards"
+    REMOVECARDSFROMCOLLECTION:"/removecards/",
+    GETALLCARDSFROMDB:"/allcards",
+    EXPORTCOLLECTION:"/collection/export/ydk",
+    SYNCTODB:"/docs"
 }
 
 const Dummydata = [
@@ -278,5 +281,84 @@ export const RemoveCardFromCollection = async (session, id) => {
         return { success: response.data }
     } catch(e) {
         return { success: false, error: e }
+    }
+}
+
+let cachedCards = []
+let removeTimeout = null
+
+export const RemoveCardsFromCollection = async (session, id) => {
+    console.log("hmm?")
+
+    try {
+
+        cachedCards.push(id)
+
+        // alten Timer zurücksetzen
+        if (removeTimeout) {
+            clearTimeout(removeTimeout)
+        }
+
+        // Promise zurückgeben
+        return new Promise((resolve) => {
+
+            removeTimeout = setTimeout(async () => {
+                try {
+
+                    console.log(cachedCards)
+
+                    const cardsToRemove = [...cachedCards]
+
+                    // Cache direkt leeren
+                    cachedCards = []
+
+                    const response = await api.post(
+                        BackendUrls.REMOVECARDSFROMCOLLECTION,
+                        {
+                            session,
+                            ids: cardsToRemove
+                        }
+                    )
+
+                    resolve({
+                        success: response.data
+                    })
+
+                } catch (e) {
+                    resolve({
+                        success: false,
+                        error: e
+                    })
+                }
+            }, 500) // wartet 500ms nach letztem Spam-Klick
+        })
+
+    } catch (e) {
+        console.log(e)
+
+        return {
+            success: false,
+            error: e
+        }
+    }
+}
+
+export const SyncCollectionToYGODB = async (session) => {
+    try{
+
+        const response = await api.post(BackendUrls.SYNCTODB, {session})
+
+    }catch(e){
+        return { success: false, error: e}
+    }
+}
+
+export const ExportCollection = async (session) => {
+    try{
+        const response = await api.post(BackendUrls.EXPORTCOLLECTION, {session: session})
+
+        return {success: true, data: response.data}
+    }catch(e){
+        return { success: false, error: e}
     }
 }

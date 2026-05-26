@@ -15,13 +15,12 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
     useEffect(() => {
         
         const fetchData = async () => {
-                const response = await GetSecretPackImage(packData.pack_name)
+                //Deprecated
+                //const response = await GetSecretPackImage(packData.pack_name)
 
-                //console.log(response)
+                //console.log(packData)
 
-                console.log(packData)
-
-                const imageLink = response.data.image_url? response.data.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg"
+                const imageLink = packData.image_url? packData.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg"
 
                 setSrcLink(imageLink)
         }

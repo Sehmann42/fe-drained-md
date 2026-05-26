@@ -5,5 +5,6 @@ export const Pages = {
     DECKBUILDER: "/builder",
     DECKSELECTOR: "/deckselector",
     PACKSELECTOR: "/packselector",
+    CREDITS: "/credits",
     SECRET: "/pfanne"
 }
