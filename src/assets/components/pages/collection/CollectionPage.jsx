@@ -9,6 +9,9 @@ import SearchBar from "../../page_blocks/usability/SearchBar"
 import { AddCardToCollection, GetAllCardsFromCollection, RemoveCardsFromCollection, GetAllCardsFromDB, ExportCollection } from "../../services/CollectionServices"
 import { GetSessionToken } from "../../services/TokenStorage"
 import LoadingPage from "../../loading_blocks/LoadingPage"
+import IconExport from "../../page_blocks/icons/IconExport"
+import IconAddCard from "../../page_blocks/icons/IconAddCard"
+import IconRemoveCard from "../../page_blocks/icons/IconRemoveCard"
 
 function CollectionPage() {
     
@@ -264,7 +267,7 @@ function CollectionPage() {
             </div>
 
             <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
-                <img style={{width: "40px", height: "40px"}} src={import.meta.env.VITE_BASE + "/icons/other/export.png"} />
+                <IconExport />
                 <span>
                     Export
                 </span>
@@ -281,16 +284,10 @@ function CollectionPage() {
                         displayedCards.map((data) => {
                             return <YGOCard cardData={data}>
                                     <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
-                                        <img style={{
-                                            height: "50px",
-                                            width: "50px"
-                                        }} src={import.meta.env.VITE_BASE + "/icons/other/add.png"} />
+                                        <IconAddCard />
                                     </div>
                                     <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
-                                        <img style={{
-                                            height: "50px",
-                                            width: "50px"
-                                        }} src={import.meta.env.VITE_BASE + "/icons/other/minus.png"}/>
+                                        <IconRemoveCard />
                                     </div>
                                     </YGOCard>
                         })
@@ -327,24 +324,12 @@ function CollectionPage() {
                             ).map((card_data) => {
                                 return (
                                     <YGOCard key={card_data.id} cardData={card_data}>
-                                        <div
-                                            onClick={() => handleOnClickAddCardInCollection(card_data.id)}
-                                            className="plusButton"
-                                        >
-                                            <img
-                                                style={{ height: "50px", width: "50px" }}
-                                                src={import.meta.env.VITE_BASE + "/icons/other/add.png"}
-                                            />
+                                        <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                                            <IconAddCard />
                                         </div>
 
-                                        <div
-                                            onClick={() => handleOnClickRemoveCardInCollection(card_data.id)}
-                                            className="subButton"
-                                        >
-                                            <img
-                                                style={{ height: "50px", width: "50px" }}
-                                                src={import.meta.env.VITE_BASE + "/icons/other/minus.png"}
-                                            />
+                                        <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                            <IconRemoveCard />
                                         </div>
                                     </YGOCard>
                                 )
