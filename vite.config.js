@@ -7,7 +7,6 @@ export default ({ mode }) => {
 
   // https://vite.dev/config/
   return defineConfig({
-    base: env.VITE_BASE || "/",
     plugins: [
       react(),
       babel({ presets: [reactCompilerPreset()] })
