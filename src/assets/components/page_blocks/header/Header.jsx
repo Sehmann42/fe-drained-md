@@ -5,6 +5,9 @@ import { DeleteSessionToken, GetSessionToken } from "../../services/TokenStorage
 import { useNavigate } from "react-router-dom"
 import { Pages } from "../../../enums/EnumsPages"
 import { LogoutUser } from "../../services/AuthenticationServices"
+import IconGoToPackSim from "../icons/IconGoToPackSim"
+import IconGoToCollection from "../icons/IconGoToCollection"
+import IconLogout from "../icons/IconLogout"
 
 const PageHeader = () => {
 
@@ -27,7 +30,7 @@ const PageHeader = () => {
     <div className=" d-flex justify-content-around header p-3">
         <div onClick={handleOnClickPackSim} className=" headerButton d-flex flex-column">
             <div className=" d-flex justify-content-center">
-                <img className=" iconHeader" src={import.meta.env.VITE_BASE + "/icons/other/card-games.png"}></img>
+                <IconGoToPackSim />
             </div>
             <div className=" d-flex justify-content-center">
                 pack opener
@@ -35,7 +38,7 @@ const PageHeader = () => {
         </div>
         <div onClick={handleOnClickCollection} className=" headerButton">
             <div className=" d-flex justify-content-center">
-                <img className=" iconHeader" src={import.meta.env.VITE_BASE + "/icons/other/box.png"}></img>
+                <IconGoToCollection />
             </div>
             <div className=" d-flex justify-content-center">
                 collection
@@ -43,7 +46,7 @@ const PageHeader = () => {
         </div>  
         <div onClick={handleOnClickLogout} className=" headerButton">
             <div className=" d-flex justify-content-center">
-                <img className=" iconHeader" src={import.meta.env.VITE_BASE + "/icons/other/logout.png"}></img>
+                <IconLogout />
             </div>
             <div className=" d-flex justify-content-center">
                 logout

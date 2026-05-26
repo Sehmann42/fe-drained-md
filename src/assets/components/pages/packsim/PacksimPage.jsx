@@ -11,6 +11,8 @@ import { GetSessionToken } from "../../services/TokenStorage"
 import MDMasterPack from "../../page_blocks/cards/MDMasterPack"
 import React from "react"
 import { Pages } from "../../../enums/EnumsPages"
+import IconUnpackPack from "../../page_blocks/icons/IconUnpackPack"
+import IconOpenNextPack from "../../page_blocks/icons/IconOpenNextPack"
 
 
 function PacksimPage() {
@@ -316,11 +318,11 @@ function PacksimPage() {
         <div className={" h-10 w-100 d-flex justify-content-between"}>
             <div className=" d-flex justify-content-around w-70">
                 <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
-                    <img className="iconSize align-self-center" src="/icons/other/unboxing.png" />
+                    <IconUnpackPack />
                     <span>Open Pack</span>
                 </div>
                 <div className="d-flex flex-column justify-content-center" onClick={handleNextPack}>
-                    <img className="iconSize align-self-center" src="/icons/other/next-button.png"></img>
+                    <IconOpenNextPack />
                     <span>Next pack</span>
                 </div>
             </div>
