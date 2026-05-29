@@ -21,6 +21,10 @@ const PageHeader = () => {
         navigate(Pages.COLLECTION)
     }
 
+    const handleOnClickCampaigns = (event) => {
+        navigate(Pages.CAMPAIGNS)
+    }
+
     const handleOnClickLogout = (event) => {
         LogoutUser(GetSessionToken())
         navigate(Pages.LOGIN)
@@ -36,6 +40,7 @@ const PageHeader = () => {
                 pack opener
             </div>
         </div>
+
         <div onClick={handleOnClickCollection} className=" headerButton">
             <div className=" d-flex justify-content-center">
                 <IconGoToCollection />
@@ -43,7 +48,17 @@ const PageHeader = () => {
             <div className=" d-flex justify-content-center">
                 collection
             </div>
-        </div>  
+        </div>
+
+        <div onClick={handleOnClickCampaigns} className=" headerButton">
+            <div className=" d-flex justify-content-center">
+                <IconGoToCollection />
+            </div>
+            <div className=" d-flex justify-content-center">
+                campaigns
+            </div>
+        </div>
+
         <div onClick={handleOnClickLogout} className=" headerButton">
             <div className=" d-flex justify-content-center">
                 <IconLogout />

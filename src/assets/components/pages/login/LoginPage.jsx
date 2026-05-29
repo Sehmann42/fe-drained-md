@@ -28,7 +28,7 @@ function LoginPage (){
         const response = LoginUser(username,password)
 
         response.then((data) => {
-            console.log(data)
+            //console.log(data)
 
             if (data.success != true){
                 //Backend Error
@@ -40,11 +40,11 @@ function LoginPage (){
             
             const session = data.data.session
 
-            console.log(session)
+            //console.log(session)
             SetSessionToken(session)
-            console.log(GetSessionToken())
+            //console.log(GetSessionToken())
 
-            navigate(Pages.COLLECTION)
+            navigate(Pages.CAMPAIGNS)
         })
     }
 
