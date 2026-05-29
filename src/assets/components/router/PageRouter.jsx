@@ -26,7 +26,7 @@ function PageRouter() {
         navigate(Pages.LOGIN)
 
         if (GetSessionToken()){
-            navigate(Pages.COLLECTION)
+            navigate(Pages.CAMPAIGNS)
         }
 
         return () => {
@@ -41,6 +41,14 @@ function PageRouter() {
                 <Route
                     path={Pages.LOGIN}
                     element={<LoginPage />}
+                />
+
+                <Route
+                    path={Pages.CAMPAIGNS}
+                    element={
+                        <ProtectedRoute>
+                            <CampaignSelectionPage />
+                        </ProtectedRoute>}
                 />
                 
                 <Route
@@ -79,13 +87,6 @@ function PageRouter() {
                     path={Pages.CREDITS}
                     element={
                     <CreditsPage />
-                    }
-                />
-
-                <Route
-                    path={Pages.CAMPAIGNS}
-                    element={
-                    <CampaignSelectionPage />
                     }
                 />
             </Routes>

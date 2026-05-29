@@ -9,7 +9,7 @@ import IconGoToPackSim from "../icons/IconGoToPackSim"
 import IconGoToCollection from "../icons/IconGoToCollection"
 import IconLogout from "../icons/IconLogout"
 
-const PageHeader = () => {
+const PageHeader = ({blockPageChange = false}) => {
 
     const navigate = useNavigate()
 
@@ -32,7 +32,7 @@ const PageHeader = () => {
 
     return <>
     <div className=" d-flex justify-content-around header p-3">
-        <div onClick={handleOnClickPackSim} className=" headerButton d-flex flex-column">
+        <div onClick={handleOnClickPackSim} className={(blockPageChange ? " blocked" : "") + " headerButton d-flex flex-column"}>
             <div className=" d-flex justify-content-center">
                 <IconGoToPackSim />
             </div>
@@ -41,7 +41,7 @@ const PageHeader = () => {
             </div>
         </div>
 
-        <div onClick={handleOnClickCollection} className=" headerButton">
+        <div onClick={handleOnClickCollection} className={(blockPageChange ? " blocked" : "") +  " headerButton"}>
             <div className=" d-flex justify-content-center">
                 <IconGoToCollection />
             </div>

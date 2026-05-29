@@ -1,6 +1,6 @@
 
 
-const CampaignItem = ({data}) => {
+const CampaignItem = ({data, handleOnClickEvent}) => {
 
     const CampaignItemData = {
         campaignName: data.name,
@@ -10,7 +10,7 @@ const CampaignItem = ({data}) => {
     return <>
     <div style={{
         height: "200px",
-    }} className=" campaignItem d-flex flex-column p-3">
+    }} className=" campaignItem d-flex flex-column p-3" onClick={handleOnClickEvent}>
         <h5 className=" text-center">
             {CampaignItemData.campaignName}
         </h5>

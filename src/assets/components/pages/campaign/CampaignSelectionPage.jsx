@@ -9,16 +9,29 @@ import { GetSessionToken } from "../../services/TokenStorage"
 
 import "../../../css/Campaign/campaingsselector.css"
 import InviteItem from "../../page_blocks/campaign/InviteItem"
-import IconAddCard from "../../page_blocks/icons/IconAddCard"
+import { useNavigate } from "react-router-dom"
+import { Pages } from "../../../enums/EnumsPages"
+import NewCampaignItem from "../../page_blocks/campaign/NewCampaignItem"
 
 
 const CampaignSelectionPage = () => {
     
+    const navigate = useNavigate()
+
     const [isLoading, setIsLoading] = useState(true)
     const [showInvites, setShowInvites] = useState(false)
 
     const [campaigns, setCampaigns] = useState([])
     const [invites, setInvites] = useState([])
+
+    const handleOnClickCampaign = (data) => {
+        //Hier muss dann auch mit State gearbeitet werden
+        navigate(Pages.COLLECTION)
+    }
+
+    const handleOnClickNewCampaign = (data) => {
+        console.log("Hallo Campaign!")
+    }
 
     useEffect(() => {
         
@@ -44,7 +57,7 @@ const CampaignSelectionPage = () => {
 
     return <>
     <div className=" h-100 d-flex flex-column main-background">
-        <PageHeader />
+        <PageHeader blockPageChange={true} />
 
         {isLoading ? <LoadingPage /> : 
             <div style={{maxHeight: "81vh"}} className=" h-100 d-flex main-background p-2">
@@ -53,20 +66,9 @@ const CampaignSelectionPage = () => {
                     <h2>Campaigns</h2>
                     <Collection maxHeight="72vh" elementsPerRow={showInvites ? 4 : 6}>
                         {
-                            campaigns.map((data) => { return <CampaignItem data={data} /> })
+                            campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} /> })
                         }
-                        <div style={{
-                            height: "200px",
-                        }} className=" campaignItem d-flex justify-content-center align-items-center">
-                            <div>
-                                <div className=" d-flex align-items-center justify-content-center">
-                                    <IconAddCard />
-                                </div>
-                                <div>
-                                    <b>New Campaign</b>
-                                </div>
-                            </div>
-                        </div>
+                        <NewCampaignItem handleOnClickNewCampaign={handleOnClickNewCampaign} />
                     </Collection>
                 </div>
 
