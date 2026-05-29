@@ -250,6 +250,7 @@ function CollectionPage() {
     return <>
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
+
         <div style={{maxHeight: "81vh"}}>
              <div style={{maxHeight: "81vh"}} className=" h-10 p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
                 <div className=" w-80 d-flex">
@@ -279,7 +280,7 @@ function CollectionPage() {
                 <div style={{height: "72vh"}} className=" w-65">
                     { isLoading ? <LoadingPage />
                     :
-                    <Collection elementsPerRow={6}>
+                    <Collection maxHeight="69vh" elementsPerRow={6}>
                         {
                             displayedCards.map((data) => {
                                 return <YGOCard cardData={data}>
@@ -314,7 +315,7 @@ function CollectionPage() {
                         { isLoadingDB ? <LoadingPage />
                         :
                         
-                        <Collection elementsPerRow={3}>
+                        <Collection maxHeight="62vh" elementsPerRow={3}>
                             {
                                 (dbSearchText.length >= 3
                                     ? allCardFromDB.filter(card_data =>
@@ -342,8 +343,6 @@ function CollectionPage() {
                 </div>
             </div>
         </div>
-
-       
 
         <PageFooter />
     </div>

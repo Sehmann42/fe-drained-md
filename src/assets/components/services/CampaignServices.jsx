@@ -52,14 +52,46 @@ const dummyDataCampaings = [
     },
 ]
 
-const dummyDataInvites = [{test:"wurscht"}]
+const dummyDataInvites = [
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+]
 
 export async function ServiceGetCampaignsFromUser(session) {
 
     try {
+        if (enviroment == "development"){
+            return {success: true, campaigns: dummyDataCampaings}
+        }
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export async function ServiceGetInvitesFromUser(session) {
+
+    try {
         
         if (enviroment == "development"){
-            return {success: true, campaigns: dummyDataCampaings, invites: dummyDataInvites}
+            return {success: true, invites: dummyDataInvites}
         }
 
     }catch(e){

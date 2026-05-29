@@ -1,42 +1,41 @@
 /* Modern browsers — Chrome 121+, Edge 121+, Firefox, Safari 18.2+ */
 * {
-  scrollbar-width: 8px;
-  scrollbar-color: #1e1b4b #3730a3;
+  scrollbar-width: 6px;
+  scrollbar-color: #64748b #f1f5f9;
 }
 
 /* Legacy WebKit — older Chrome/Edge/Safari, radius, borders & shadows */
 *::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 *::-webkit-scrollbar-track {
-  background-color: transparent;
-  border-radius: 0px;
+  background-color: #f1f5f9;
+  border-radius: 3px;
   padding: 1px;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: transparent;
+  background-color: #e2e8f0;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: transparent;
+  background-color: #cbd5e1;
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  border-radius: 11px;
-  min-height: 30px;
-  box-shadow: 0 0 6px rgba(129,140,248, 0.60);
+  background-color: #64748b;
+  border-radius: 3px;
+  min-height: 40px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: transparent;
+  background-color: #475569;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: transparent;
+  background-color: #334155;
 }
 
 *::-webkit-scrollbar-button {

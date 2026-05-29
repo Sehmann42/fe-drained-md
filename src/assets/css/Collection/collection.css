@@ -13,8 +13,6 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     scrollbar-gutter: stable;
-    height: 77vh;
-    max-height: 77vh;
 }
 
 .plusButton , .subButton {
