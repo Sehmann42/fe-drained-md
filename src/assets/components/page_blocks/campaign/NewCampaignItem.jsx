@@ -5,13 +5,40 @@ import * as bootstrap from 'bootstrap';
 
 import "../../../css/Usability/createcampaign.css"
 import Collection from "../collection/Collection";
+import { ServiceGetFriendsListFromUser } from "../../services/CampaignServices";
+import { GetSessionToken } from "../../services/TokenStorage";
+import FriendsListItem from "./FriendsListItem";
+import { useNavigate } from "react-router-dom";
+import { Pages } from "../../../enums/EnumsPages";
+import LoadingPage from "../../loading_blocks/LoadingPage";
 
-const NewCampaignItem = ({createNewCampaign}) => {
+const NewCampaignItem = () => {
 
     const campaignModalRef = useRef(null)
     const campaignModalInstance = useRef(null)
 
+    const [friendsList, setFriendsList] = useState([])
     const [toBeInvitedFriends, setToBeInvitedFriends] = useState([])
+
+    const [isLoading, setIsLoading] = useState(true)
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        
+        const fetchData = async () => {
+            const friendListData = await ServiceGetFriendsListFromUser(GetSessionToken())
+            console.log(friendListData)
+
+            setFriendsList(friendListData.friends)
+        }
+
+        fetchData()
+
+        return () => {
+            
+        };
+    }, []);
 
     useEffect(() => {
 
@@ -27,11 +54,23 @@ const NewCampaignItem = ({createNewCampaign}) => {
     }, [campaignModalRef])
 
     const openNewCampaignModal = () => {
+        const fetchData = async () => {
+            
+            setIsLoading(false)
+        }
+
+        fetchData()
+
         campaignModalInstance.current?.show()
+        
     }
 
     const closeNewCampaignModal = () => {
         campaignModalInstance.current?.hide()
+    }
+
+    const createNewCampaign = () => {
+        navigate(Pages.COLLECTION)
     }
 
     return <>
@@ -56,40 +95,45 @@ const NewCampaignItem = ({createNewCampaign}) => {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="formCampaignCreationNameInput" class="form-label">Campaign Name</label>
-                                <input type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="name@example.com" />
-                            </div>
+                        {isLoading ? <LoadingPage /> :
+                            <form>
+                                <div class="mb-3">
+                                    <label for="formCampaignCreationNameInput" class="form-label">Campaign Name</label>
+                                    <input type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="name@example.com" />
+                                </div>
 
-                            <div>
-                                <h2> Invites </h2>
-                                <div className=" d-flex justify-content-between">
-                                    <div className="w-50 p-3">
-                                        <select className="form-select " aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div>
+                                <div>
+                                    <h2> Invites </h2>
+                                    <div className=" d-flex justify-content-between">
+                                        <div className="w-50">
+                                            <h5>Deine Freunde</h5>
+                                            <Collection elementsPerRow={1} maxHeight="20vh">
+                                                {
+                                                    friendsList.map((data) => {
+                                                        return <FriendsListItem friendName={data}  />
+                                                    })
+                                                }
+                                            </Collection>
+                                        </div>
 
-                                    <div style={{margin: "0 25px"}} className="vl"/>
+                                        <div style={{margin: "0 25px"}} className="vl"/>
 
-                                    <div className=" w-50">
-                                        <Collection elementsPerRow={1} maxHeight="20vh">
-                                            {
-                                                toBeInvitedFriends.map((data) => <span>Checke ich gerade nicht</span>)
-                                            }
-                                        </Collection>
+                                        <div className=" w-50">
+                                            <h5>Hinzugefügte Freunde</h5>
+                                            <Collection elementsPerRow={1} maxHeight="20vh">
+                                                {
+                                                    toBeInvitedFriends.map((data) => <FriendsListItem friendName={data} add={false} />)
+                                                }
+                                            </Collection>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        }
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Understood</button>
+                        <button disabled={isLoading} onClick={() => createNewCampaign()} type="button" class="btn btn-primary">Understood</button>
                     </div>
                 </div>
             </div>

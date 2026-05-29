@@ -68,7 +68,7 @@ const CampaignSelectionPage = () => {
                         {
                             campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} /> })
                         }
-                        <NewCampaignItem createNewCampaign={createNewCampaign} />
+                        <NewCampaignItem />
                     </Collection>
                 </div>
 

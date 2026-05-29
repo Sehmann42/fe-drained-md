@@ -75,6 +75,10 @@ const dummyDataInvites = [
     },
 ]
 
+const dummyDataFriendsList = [
+    "Pfanne", "Kev"
+]
+
 export async function ServiceGetCampaignsFromUser(session) {
 
     try {
@@ -96,5 +100,17 @@ export async function ServiceGetInvitesFromUser(session) {
 
     }catch(e){
         console.log(e)
+    }
+}
+
+export async function ServiceGetFriendsListFromUser(session) {
+    try{
+        if (enviroment == "development"){
+            return {success: true, friends: dummyDataFriendsList}
+        }
+
+
+    }catch(e){
+        console.error(e)
     }
 }
