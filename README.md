@@ -1,17 +1,48 @@
-# Frontend for Master Duel Pack Sim
+# Master Duel Pack Simulator
 
-This is a Repo which functions as a Pack Sim for YGO Master Duel. This is specifically made to simulate the YGO Master Sage series from Wheel Spinner Dzeef.
+A frontend project for a **Yu-Gi-Oh! Master Duel** pack simulator inspired by the *Master Saga* series created by Wheel Spinner Dzeef.
 
-This Project has been built within 5 days :)
+This application is designed to simulate pack openings and progression mechanics similar to those featured in the series.
 
-## Usage
+## Features
 
-To Install just type
+* Simulated Master Duel pack openings
+* Frontend interface for pack generation and progression
+* Inspired by the *Master Saga* challenge format
 
-npm i
+## Getting Started
 
-npm run dev / prod
+### Installation
 
-## Backend
+Clone the repository and install dependencies:
 
-Currently the Backend is not available for Public. So... you cant really use this if you clone this repo :/
+```bash
+npm install
+```
+
+### Running the Project
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Run the production build:
+
+
+```bash
+npm run prod
+```
+
+## Backend Availability
+
+The backend services used by this project are currently **not publicly available**.
+
+Because of this, cloning the repository alone will not provide a fully functional experience at this time.
+
+## Disclaimer
+
+This project is a fan-made simulator and is not affiliated with or endorsed by Konami or Yu-Gi-Oh! Master Duel.
+
+Special inspiration credit goes to Wheel Spinner Dzeef and the *Master Saga* series.

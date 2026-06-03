@@ -13,10 +13,13 @@ import React from "react"
 import { Pages } from "../../../enums/EnumsPages"
 import IconUnpackPack from "../../page_blocks/icons/IconUnpackPack"
 import IconOpenNextPack from "../../page_blocks/icons/IconOpenNextPack"
+import LoadingPage from "../../loading_blocks/LoadingPage"
 
 
 function PacksimPage() {
     const location = useLocation()
+
+    const [isLoading, setIsLoading] = useState(true)
 
     const [currPack, setCurrPack] = useState(0)
     const [openPack, setOpenPack] = useState(false)
@@ -42,28 +45,35 @@ function PacksimPage() {
     useEffect(() => {
 
         const fetchData = async () => {
-            console.log("wusch")
+            try{
+                console.log("wusch")
 
-            const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
+                const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), packs)
 
-            //console.log("Dataapcks")
-            //console.log(dataPacks)
+                //console.log("Dataapcks")
+                //console.log(dataPacks)
 
-            const CurrPackData = {
-                pack_name : dataPacks.data[currPack].packName,
-                cards : dataPacks.data[currPack].cards
+                const CurrPackData = {
+                    pack_name : dataPacks.data[currPack].packName,
+                    cards : dataPacks.data[currPack].cards
+                }
+
+                setPendingPacks(dataPacks.data)
+                setCurrPackContent(CurrPackData.cards)
+
+                //setzte Unlocked Packs
+
+                setUnlockedSecretPacks(dataPacks.unlocked_packs)
+
+                setLockSecretPacks("lock")
+                setHardLockSecretPacks("") 
+            }catch(e){
+                console.error(e)
+            }finally{
+                setIsLoading(false)
             }
-
-            setPendingPacks(dataPacks.data)
-            setCurrPackContent(CurrPackData.cards)
-
-            //setzte Unlocked Packs
-
-            setUnlockedSecretPacks(dataPacks.unlocked_packs)
-
-            setLockSecretPacks("lock")
-            setHardLockSecretPacks("") 
-            }
+            
+        }
 
         fetchData()
 
@@ -77,33 +87,37 @@ function PacksimPage() {
     useEffect(() => {        
         let tmpCurrPack = 0
 
-        console.log("SEITEN WECHSEL!")
-
         if (diffState) {
+            console.log("SEITEN WECHSEL!")
             const fetchData = async () => {
 
-                const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), newPacks)
+                try{
+                    const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), newPacks)
                 
-                console.log(dataPacks)
+                    console.log(dataPacks)
 
-                const CurrPackData = {
-                    pack_name : dataPacks.data[tmpCurrPack].packName,
-                    cards : dataPacks.data[tmpCurrPack].cards
+                    const CurrPackData = {
+                        pack_name : dataPacks.data[tmpCurrPack].packName,
+                        cards : dataPacks.data[tmpCurrPack].cards
+                    }
+
+                    setCurrPack(tmpCurrPack)
+                    setOpenPack(false)
+                    setPendingPacks(dataPacks.data)
+                    setCurrPackContent(CurrPackData.cards)
+                    setUnlockedPacks([])
+                    //setzte Unlocked Packs
+
+                    setHardLockSecretPacks("")  
+
+                    if (flipToSecretPack) {
+                        setHardLockSecretPacks("lock")
+                    }
+                }catch(e){
+                    console.error(e)
+                }finally{
+                    setIsLoading(false)
                 }
-
-                setCurrPack(tmpCurrPack)
-                setOpenPack(false)
-                setPendingPacks(dataPacks.data)
-                setCurrPackContent(CurrPackData.cards)
-                setUnlockedPacks([])
-                //setzte Unlocked Packs
-
-                setHardLockSecretPacks("")  
-
-                if (flipToSecretPack) {
-                    setHardLockSecretPacks("lock")
-                }
-
             }
 
             fetchData()
@@ -188,6 +202,7 @@ function PacksimPage() {
                 amount: 10
             }
         
+        setIsLoading(true)
         setFlipToSecretPack(true)
         goToPackSim(newPack)
     }
@@ -289,19 +304,23 @@ function PacksimPage() {
 
                 <span className=" align-self-center"> Pack Opened {currPack + 1} / {pendingPacks.length}</span>
 
-                <div className=" packGrid main-background">
-                    {currPackContent.map((data) => {
-                        return <HiddenCard cardData={{
-                            name:data.name, 
-                            id: data.id, 
-                            data:data,
-                            currPack:currPack, 
-                            openPack:openPack,
-                            flipCard:flipCard}}/>
-                    })}
-                </div>
+                {
+                    (isLoading) ? <LoadingPage /> :
+                    <div className=" packGrid main-background">
+                        {currPackContent.map((data) => {
+                            return <HiddenCard cardData={{
+                                name:data.name, 
+                                id: data.id, 
+                                data:data,
+                                currPack:currPack, 
+                                openPack:openPack,
+                                flipCard:flipCard}}/>
+                        })}
+                    </div>
+                }
+                
             </div>
-
+                
             <div style={{height: "100%"}} className={" d-flex flex-column w-25  p-2 "}>
                 <h2 className=" d-flex justify-content-center">Unlocked Packs</h2> 
                 
@@ -313,6 +332,7 @@ function PacksimPage() {
                     })}
                 </div>
             </div>
+
         </div>
 
         <div className={" h-10 w-100 d-flex justify-content-between"}>

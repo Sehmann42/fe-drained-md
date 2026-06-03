@@ -20,17 +20,16 @@ const HiddenCard = ({cardData}) => {
 
     useEffect(() => {
 
-        if (cardData.data.rarity == "N"){
-            setCardRarity("")
-        }
         if (cardData.data.rarity == "R"){
             setCardRarity("isR")
         }
-        if (cardData.data.rarity == "SR"){
+        else if (cardData.data.rarity == "SR"){
             setCardRarity("isSR")
         }
-        if (cardData.data.rarity == "UR"){
+        else if (cardData.data.rarity == "UR"){
             setCardRarity("isUR")
+        }else{
+            setCardRarity("")
         }
 
         return () => {

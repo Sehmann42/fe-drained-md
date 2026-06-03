@@ -250,94 +250,96 @@ function CollectionPage() {
     return <>
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
-        
-        <div className=" h-10 p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
-            <div className=" w-80 d-flex">
-                <h4>Suchen : </h4>
 
-                <span className=" w-1" />
+        <div style={{maxHeight: "81vh"}}>
+             <div style={{maxHeight: "81vh"}} className=" h-10 p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
+                <div className=" w-80 d-flex">
+                    <h4>Suchen : </h4>
 
-                <SearchBar width={50}>
-                    <input
-                    value={searchText}
-                    onChange={handleChangeEvent}
-                    type="text" 
-                    className=" w-95"/>
-                </SearchBar>
-            </div>
+                    <span className=" w-1" />
 
-            <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
-                <IconExport />
-                <span>
-                    Export
-                </span>
-            </div>
-            
-        </div>
-
-        <div className="d-flex h-100">
-            <div style={{height: "72vh"}} className=" w-65">
-                { isLoading ? <LoadingPage />
-                :
-                <Collection elementsPerRow={6}>
-                    {
-                        displayedCards.map((data) => {
-                            return <YGOCard cardData={data}>
-                                    <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
-                                        <IconAddCard />
-                                    </div>
-                                    <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
-                                        <IconRemoveCard />
-                                    </div>
-                                    </YGOCard>
-                        })
-                    }
-                </Collection>
-            }
-            </div>
-            
-
-            <div className=" w-35 h-100">
-                <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
-                    <span>Suchen : </span>
-
-                    <SearchBar width={70}>
+                    <SearchBar width={50}>
                         <input
-                        value={dbSearchText}
-                        onChange={(event) => setDbSearchText(event.target.value)}
+                        value={searchText}
+                        onChange={handleChangeEvent}
                         type="text" 
-                        className=" w-100"/>
+                        className=" w-95"/>
                     </SearchBar>
                 </div>
 
-                <div style={{height: "65vh"}} className="">
-                    { isLoadingDB ? <LoadingPage />
+                <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
+                    <IconExport />
+                    <span>
+                        Export
+                    </span>
+                </div>
+                
+            </div>
+
+            <div style={{maxHeight: "81vh"}} className="d-flex">
+                <div style={{height: "72vh"}} className=" w-65">
+                    { isLoading ? <LoadingPage />
                     :
-                    
-                    <Collection elementsPerRow={3}>
+                    <Collection maxHeight="69vh" elementsPerRow={6}>
                         {
-                            (dbSearchText.length >= 3
-                                ? allCardFromDB.filter(card_data =>
-                                    card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
-                                )
-                                : []
-                            ).map((card_data) => {
-                                return (
-                                    <YGOCard key={card_data.id} cardData={card_data}>
-                                        <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                            displayedCards.map((data) => {
+                                return <YGOCard cardData={data}>
+                                        <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
                                             <IconAddCard />
                                         </div>
-
-                                        <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                        <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
                                             <IconRemoveCard />
                                         </div>
-                                    </YGOCard>
-                                )
+                                        </YGOCard>
                             })
                         }
                     </Collection>
-            
-                    }
+                }
+                </div>
+                
+
+                <div className=" w-35 h-100">
+                    <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
+                        <span>Suchen : </span>
+
+                        <SearchBar width={70}>
+                            <input
+                            value={dbSearchText}
+                            onChange={(event) => setDbSearchText(event.target.value)}
+                            type="text" 
+                            className=" w-100"/>
+                        </SearchBar>
+                    </div>
+
+                    <div style={{height: "65vh"}} className="">
+                        { isLoadingDB ? <LoadingPage />
+                        :
+                        
+                        <Collection maxHeight="62vh" elementsPerRow={3}>
+                            {
+                                (dbSearchText.length >= 3
+                                    ? allCardFromDB.filter(card_data =>
+                                        card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
+                                    )
+                                    : []
+                                ).map((card_data) => {
+                                    return (
+                                        <YGOCard key={card_data.id} cardData={card_data}>
+                                            <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                                                <IconAddCard />
+                                            </div>
+
+                                            <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                                <IconRemoveCard />
+                                            </div>
+                                        </YGOCard>
+                                    )
+                                })
+                            }
+                        </Collection>
+                
+                        }
+                    </div>
                 </div>
             </div>
         </div>

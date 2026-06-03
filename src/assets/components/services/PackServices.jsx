@@ -1,5 +1,5 @@
 import api from "../axios/Api";
-import { GetSessionToken } from "./TokenStorage";
+import { GetCampaignToken, GetSessionToken } from "./TokenStorage";
 
 const BackendUrls = {
     GETALLSECRETPACKS : "/secretpacks/",
@@ -561,7 +561,7 @@ export const GetAllSecretPacks = async (session) => {
 
 export const GetSecretPacksFromCard = (session, cardId) => {
     try{
-        response = api.get(BackendUrls.GETSECRETPACKSFROMCARD, {session})
+        const response = api.get(BackendUrls.GETSECRETPACKSFROMCARD, {session})
 
         return { success: true, data: response.data }
     } catch(e) {
@@ -596,10 +596,11 @@ export const GetCardsFromSecretPacks = async (session, secretPacks) => {
     try{
         const OpenSecretPackData = {
             session: session,
-            secretpacks: secretPacks
+            secretpacks: secretPacks,
+            campaign_id: GetCampaignToken()
         }
 
-        //console.log(OpenSecretPackData)
+        console.log(OpenSecretPackData)
 
         //Dev Mode:
         

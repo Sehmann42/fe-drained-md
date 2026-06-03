@@ -1,10 +1,13 @@
+const pageBase = import.meta.env.VITE_BASE
+
 export const Pages = {
-    LOGIN: import.meta.env.VITE_BASE + "/",
-    COLLECTION: import.meta.env.VITE_BASE + "/collection",
-    PACK_SIM: import.meta.env.VITE_BASE + "/simulator",
-    DECKBUILDER: import.meta.env.VITE_BASE + "/builder",
-    DECKSELECTOR: import.meta.env.VITE_BASE + "/deckselector",
-    PACKSELECTOR: import.meta.env.VITE_BASE + "/packselector",
-    CREDITS: import.meta.env.VITE_BASE + "/credits",
-    SECRET: import.meta.env.VITE_BASE + "/pfanne"
+    LOGIN: pageBase + "/",
+    COLLECTION: pageBase + "/collection",
+    PACK_SIM: pageBase + "/simulator",
+    DECKBUILDER: pageBase + "/builder",
+    DECKSELECTOR: pageBase + "/deckselector",
+    PACKSELECTOR: pageBase + "/packselector",
+    CREDITS: pageBase + "/credits",
+    CAMPAIGNS: pageBase + "/campaigns",
+    SECRET: pageBase + "/pfanne"
 }

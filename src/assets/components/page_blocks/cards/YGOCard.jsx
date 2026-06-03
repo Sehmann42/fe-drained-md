@@ -20,9 +20,11 @@ const YGOCard = ({children, cardData}) => {
         }
         else if (rarity == "UR"){
             setCardRarity("isUR")
+        }else{
+            setCardRarity("")
         }
 
-    }, []);
+    }, [cardData]);
 
     return <>
         <div className={" ygocard d-flex justify-content-center " + cardRarity}>

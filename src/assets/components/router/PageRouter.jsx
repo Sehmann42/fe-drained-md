@@ -5,17 +5,19 @@ import LoadingPage from '../loading_blocks/LoadingPage'
 import PacksimPage from '../pages/packsim/PacksimPage'
 import LoginPage from '../pages/login/LoginPage'
 import CollectionPage from '../pages/collection/CollectionPage'
+import CreditsPage from '../pages/credits/CreditsPage'
+import CampaignSelectionPage from '../pages/campaign/CampaignSelectionPage'
 
 import { Pages } from '../../enums/EnumsPages'
 
 import "../../css/main.css"
+import "../../css/Usability/scrollbar.css"
 import { StorageCookies } from '../../enums/EnumsCookies'
 import ProtectedRoute from '../services/ProtectedRoute'
 import Cookies from 'js-cookie'
 import PackSelectorPage from '../pages/packsim/PackSelecterPage'
 import DeckSelectorPage from '../pages/collection/DeckSelectorPage'
 import { GetSessionToken } from '../services/TokenStorage'
-import CreditsPage from '../pages/credits/CreditsPage'
 
 function PageRouter() {
     const navigate = useNavigate()
@@ -24,7 +26,7 @@ function PageRouter() {
         navigate(Pages.LOGIN)
 
         if (GetSessionToken()){
-            navigate(Pages.COLLECTION)
+            navigate(Pages.CAMPAIGNS)
         }
 
         return () => {
@@ -39,6 +41,14 @@ function PageRouter() {
                 <Route
                     path={Pages.LOGIN}
                     element={<LoginPage />}
+                />
+
+                <Route
+                    path={Pages.CAMPAIGNS}
+                    element={
+                        <ProtectedRoute>
+                            <CampaignSelectionPage />
+                        </ProtectedRoute>}
                 />
                 
                 <Route
