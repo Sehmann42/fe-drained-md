@@ -1,5 +1,12 @@
 
+import api from "../axios/Api"
+
 const enviroment = import.meta.env.MODE
+
+const CampaignUrls = {
+    CREATE: "/campaign/create",
+    GET: "/campaign/get"
+}
 
 const dummyDataCampaings = [
     {
@@ -52,6 +59,8 @@ const dummyDataCampaings = [
     },
 ]
 
+/*
+
 const dummyDataInvites = [
     {
         campaign_name:"Master Sage",
@@ -75,16 +84,42 @@ const dummyDataInvites = [
     },
 ]
 
+*/
+
+const dummyDataInvites = []
+
 const dummyDataFriendsList = [
     "Pfanne", "Kev"
 ]
 
+export async function ServiceCreateCampaign(campaignName, session) {
+    const CreateData = {
+        campaign_name : campaignName,
+        session : session
+    }
+
+    const response = await api.post(CampaignUrls.CREATE, CreateData)
+
+    return response
+}
+
 export async function ServiceGetCampaignsFromUser(session) {
 
+    const GetCampaignData = {
+        session: session
+    }
+
+    console.log(import.meta.env)
+
     try {
-        if (enviroment == "development"){
+        if (enviroment == "development" && false){
             return {success: true, campaigns: dummyDataCampaings}
         }
+
+        const response = await api.post(CampaignUrls.GET,GetCampaignData)
+
+        return response.data
+        
     }catch(e){
         console.log(e)
     }

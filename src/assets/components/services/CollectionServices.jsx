@@ -1,4 +1,5 @@
 import api from "../axios/Api";
+import { GetCampaignToken } from "./TokenStorage";
 
 const BackendUrls = {
     GETALLCARDSFROMCOLLECTION: "/collection/",
@@ -145,11 +146,16 @@ export const GetAllCardsFromCollection = async (session) => {
         return collectionPromises.get(session)
     }
 
+    const GetAllCardsFromCollection = {
+        session: session,
+        campaign_id: GetCampaignToken()
+    }
+
     // Neuer Request
     const promise = api
         .post(
             BackendUrls.GETALLCARDSFROMCOLLECTION,
-            { session }
+            GetAllCardsFromCollection
         )
         .then((res) => {
 
@@ -205,11 +211,17 @@ export const AddCardToCacheCollection = (id, cardData) => {
 
 export const AddCardToCollection = async (session, id) => {
 
+    const AddCardData = {
+        session: session,
+        id: id,
+        campaign_id: GetCampaignToken()
+    }
+
     try {
 
         const response = await api.post(
             BackendUrls.ADDCARDTOCOLLECTION,
-            { session, id }
+            AddCardData
         )
 
         const newCard = response.data
@@ -276,7 +288,13 @@ export const RemoveCardFromCollection = async (session, id) => {
 
         */
 
-        const response = await api.post(BackendUrls.REMOVECARDFROMCOLLECTION, {session, id})
+        const RemoveCardData = {
+            session: session,
+            id: id,
+            campaign_id: GetCampaignToken()
+        }
+
+        const response = await api.post(BackendUrls.REMOVECARDFROMCOLLECTION, RemoveCardData)
 
         return { success: response.data }
     } catch(e) {
@@ -288,7 +306,7 @@ let cachedCards = []
 let removeTimeout = null
 
 export const RemoveCardsFromCollection = async (session, id) => {
-    console.log("hmm?")
+    
 
     try {
 
@@ -305,19 +323,20 @@ export const RemoveCardsFromCollection = async (session, id) => {
             removeTimeout = setTimeout(async () => {
                 try {
 
-                    console.log(cachedCards)
-
                     const cardsToRemove = [...cachedCards]
 
                     // Cache direkt leeren
                     cachedCards = []
 
+                    const RemoveCardsFromCollectionData = {
+                        session: session,
+                        ids: cardsToRemove,
+                        campaign_id: GetCampaignToken()
+                    }
+
                     const response = await api.post(
                         BackendUrls.REMOVECARDSFROMCOLLECTION,
-                        {
-                            session,
-                            ids: cardsToRemove
-                        }
+                        RemoveCardsFromCollectionData
                     )
 
                     resolve({

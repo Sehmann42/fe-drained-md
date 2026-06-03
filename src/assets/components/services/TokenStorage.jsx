@@ -15,3 +15,17 @@ export const GetSessionToken = () => {
 export const DeleteSessionToken = () => {
     Cookies.remove(StorageCookies.SESSION)
 }
+
+export const SetCampaignToken = (campaign_id) => {
+    Cookies.set(StorageCookies.CAMPAIGN, 
+                    campaign_id, 
+                    {expires: 200000})
+}
+
+export const GetCampaignToken = () => {
+    return Cookies.get(StorageCookies.CAMPAIGN)
+}
+
+export const DeleteCampaignToken = () => {
+    Cookies.remove(StorageCookies.CAMPAIGN)
+}

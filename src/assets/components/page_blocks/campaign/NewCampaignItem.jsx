@@ -5,8 +5,8 @@ import * as bootstrap from 'bootstrap';
 
 import "../../../css/Usability/createcampaign.css"
 import Collection from "../collection/Collection";
-import { ServiceGetFriendsListFromUser } from "../../services/CampaignServices";
-import { GetSessionToken } from "../../services/TokenStorage";
+import { ServiceGetFriendsListFromUser, ServiceCreateCampaign } from "../../services/CampaignServices";
+import { GetSessionToken, SetCampaignToken } from "../../services/TokenStorage";
 import FriendsListItem from "./FriendsListItem";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../../../enums/EnumsPages";
@@ -17,6 +17,7 @@ const NewCampaignItem = () => {
     const campaignModalRef = useRef(null)
     const campaignModalInstance = useRef(null)
 
+    const [campaignName, setCampaignName] = useState("")
     const [friendsList, setFriendsList] = useState([])
     const [toBeInvitedFriends, setToBeInvitedFriends] = useState([])
 
@@ -70,7 +71,21 @@ const NewCampaignItem = () => {
     }
 
     const createNewCampaign = () => {
-        navigate(Pages.COLLECTION)
+        const handleRequest = async () => {
+            let campaignId = 0
+            try{
+                const response = await ServiceCreateCampaign(campaignName, GetSessionToken())
+
+                campaignId = response.data.campaign_id
+            }catch(e){
+                console.error(e)
+            }finally{
+                SetCampaignToken(campaignId)
+                navigate(Pages.COLLECTION)
+            }
+        }
+
+        handleRequest()
     }
 
     return <>
@@ -99,7 +114,7 @@ const NewCampaignItem = () => {
                             <form>
                                 <div class="mb-3">
                                     <label for="formCampaignCreationNameInput" class="form-label">Campaign Name</label>
-                                    <input type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="name@example.com" />
+                                    <input value={campaignName} onChange={(event) => setCampaignName(event.target.value)} type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="Master Saga" />
                                 </div>
 
                                 <div>

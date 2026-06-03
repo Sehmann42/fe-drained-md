@@ -5,7 +5,7 @@ import Collection from "../../page_blocks/collection/Collection"
 import CampaignItem from "../../page_blocks/campaign/CampaignItem"
 import LoadingPage from "../../loading_blocks/LoadingPage"
 import { ServiceGetCampaignsFromUser, ServiceGetInvitesFromUser} from "../../services/CampaignServices"
-import { GetSessionToken } from "../../services/TokenStorage"
+import { GetSessionToken, SetCampaignToken } from "../../services/TokenStorage"
 
 import "../../../css/Campaign/campaingsselector.css"
 import InviteItem from "../../page_blocks/campaign/InviteItem"
@@ -24,8 +24,9 @@ const CampaignSelectionPage = () => {
     const [campaigns, setCampaigns] = useState([])
     const [invites, setInvites] = useState([])
 
-    const handleOnClickCampaign = (data) => {
+    const handleOnClickCampaign = (campaign_id) => {
         //Hier muss dann auch mit State gearbeitet werden
+        SetCampaignToken(campaign_id)
         navigate(Pages.COLLECTION)
     }
 
@@ -36,19 +37,25 @@ const CampaignSelectionPage = () => {
     useEffect(() => {
         
         const fetchData = async () => {
+            try{
+                const data = await ServiceGetCampaignsFromUser(GetSessionToken())
+                console.log(data)
+                
+                console.log(data.data.length)
 
-            const data = await ServiceGetCampaignsFromUser(GetSessionToken())
-            //console.log(data)
+                const dataInvites = await ServiceGetInvitesFromUser(GetSessionToken())
 
-            const dataInvites = await ServiceGetInvitesFromUser(GetSessionToken())
-
-            setCampaigns(data.campaigns)
-            setInvites(dataInvites.invites)
-            setShowInvites(dataInvites.invites.length > 0)
+                setCampaigns(data.data)
+                setInvites(dataInvites.invites)
+                setShowInvites(dataInvites.invites.length > 0)
+            }catch(error) {
+                console.error(error)
+            }finally {
+                setIsLoading(false)
+            }
         }
  
         fetchData()
-        setIsLoading(false)
 
         return () => {
             
