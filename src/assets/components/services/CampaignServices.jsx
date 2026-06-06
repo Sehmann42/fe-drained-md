@@ -109,8 +109,6 @@ export async function ServiceGetCampaignsFromUser(session) {
         session: session
     }
 
-    console.log(import.meta.env)
-
     try {
         if (enviroment == "development" && false){
             return {success: true, campaigns: dummyDataCampaings}
@@ -133,6 +131,8 @@ export async function ServiceGetInvitesFromUser(session) {
             return {success: true, invites: dummyDataInvites}
         }
 
+        return {success: true, invites: dummyDataInvites}
+
     }catch(e){
         console.log(e)
     }
@@ -143,6 +143,8 @@ export async function ServiceGetFriendsListFromUser(session) {
         if (enviroment == "development"){
             return {success: true, friends: dummyDataFriendsList}
         }
+
+        return {success: true, friends: dummyDataFriendsList}
 
 
     }catch(e){

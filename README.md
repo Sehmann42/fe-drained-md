@@ -8,7 +8,9 @@ This application is designed to simulate pack openings and progression mechanics
 
 * Simulated Master Duel pack openings
 * Frontend interface for pack generation and progression
-* Inspired by the *Master Saga* challenge format
+* Display of the Opened Secret Packs of a SR or UR Card
+* Creating Campaigns for different formats and multiple Card Collections
+* Inviting Friends to your campaigns, for shared Banned List (currently worked on)
 
 ## Getting Started
 
