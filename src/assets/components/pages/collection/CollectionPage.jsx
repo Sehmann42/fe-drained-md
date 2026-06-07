@@ -251,8 +251,8 @@ function CollectionPage() {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
 
-        <div style={{maxHeight: "81vh"}}>
-             <div style={{maxHeight: "81vh"}} className=" h-10 p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
+        <div className=" h-100">
+            <div style={{maxHeight: "81vh"}} className="p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
                 <div className=" w-80 d-flex">
                     <h4>Suchen : </h4>
 
@@ -276,8 +276,8 @@ function CollectionPage() {
                 
             </div>
 
-            <div style={{maxHeight: "81vh"}} className="d-flex">
-                <div style={{height: "72vh"}} className=" w-65">
+            <div className="d-flex">
+                <div className=" w-65">
                     { isLoading ? <LoadingPage />
                     :
                     <Collection maxHeight="69vh" elementsPerRow={6}>

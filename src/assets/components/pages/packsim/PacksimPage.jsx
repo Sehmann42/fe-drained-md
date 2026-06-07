@@ -298,7 +298,7 @@ function PacksimPage() {
     <div className=" d-flex flex-column h-100 main-background">
         <PageHeader />
 
-        <div className=" h-100 d-flex p-3 justify-content-between">
+        <div style={{height: "75vh"}} className="d-flex p-3 justify-content-between">
             <div className=" d-flex flex-column w-70 p-2 ">
                 <h2 className=" align-self-center">Pack Opener</h2>
 
@@ -321,21 +321,20 @@ function PacksimPage() {
                 
             </div>
                 
-            <div style={{height: "100%"}} className={" d-flex flex-column w-25  p-2 "}>
+            <div className={" d-flex flex-column w-25  p-2 "}>
                 <h2 className=" d-flex justify-content-center">Unlocked Packs</h2> 
                 
                 <br />
 
-                <div style={{maxHeight: "60vh", overflow:"auto", flexShrink:"0"}} className={" h-100 secretPackSelection  d-flex flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
+                <div style={{maxHeight: "64vh", overflow:"auto", flexShrink:"0"}} className={" h-100 secretPackSelection  d-flex flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
                     {unlockedPacks.map((data) => {
                         return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                     })}
                 </div>
             </div>
-
         </div>
 
-        <div className={" h-10 w-100 d-flex justify-content-between"}>
+        <div className={" w-100 d-flex justify-content-between"}>
             <div className=" d-flex justify-content-around w-70">
                 <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
                     <IconUnpackPack />
@@ -350,7 +349,6 @@ function PacksimPage() {
 
         <PageFooter />
     </div>
-        
     </>
 }
 
