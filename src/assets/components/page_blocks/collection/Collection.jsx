@@ -7,6 +7,7 @@ const Collection = ({children, elementsPerRow, maxHeight = "77vh"}) => {
             <div style={{height: maxHeight}} className=" collection">
                 <div
                     style={{
+                        gridAutoRows: "auto",
                         gridTemplateColumns: "repeat(" + elementsPerRow + ", 1fr)",
                         height: maxHeight,
                         maxHeight: maxHeight,

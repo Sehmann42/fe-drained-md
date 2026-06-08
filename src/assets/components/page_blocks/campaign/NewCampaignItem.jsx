@@ -11,6 +11,7 @@ import FriendsListItem from "./FriendsListItem";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../../../enums/EnumsPages";
 import LoadingPage from "../../loading_blocks/LoadingPage";
+import ListObject from "../wrapper/ListObject";
 
 const NewCampaignItem = () => {
 
@@ -74,7 +75,7 @@ const NewCampaignItem = () => {
         const handleRequest = async () => {
             let campaignId = 0
             try{
-                const response = await ServiceCreateCampaign(campaignName, GetSessionToken())
+                const response = await ServiceCreateCampaign(campaignName, GetSessionToken(), toBeInvitedFriends)
 
                 campaignId = response.data.campaign_id
             }catch(e){
@@ -84,7 +85,8 @@ const NewCampaignItem = () => {
                 navigate(Pages.COLLECTION)
             }
         }
-
+        
+        setIsLoading(true)
         handleRequest()
     }
 
@@ -102,7 +104,15 @@ const NewCampaignItem = () => {
             </div>
         </div>
 
-        <div ref={campaignModalRef} className="modal modal-lg fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div 
+            ref={campaignModalRef} 
+            className="modal modal-lg fade" 
+            data-bs-backdrop="static" 
+            data-bs-keyboard="false" 
+            tabindex="-1" 
+            aria-labelledby="staticBackdropLabel" 
+            aria-hidden="true">
+
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content main-background">
                     <div class="modal-header">
@@ -113,42 +123,45 @@ const NewCampaignItem = () => {
                         {isLoading ? <LoadingPage /> :
                             <form>
                                 <div class="mb-3">
-                                    <label for="formCampaignCreationNameInput" class="form-label">Campaign Name</label>
+                                    <label for="formCampaignCreationNameInput" class="form-label"><h3>Campaign Name</h3></label>
                                     <input value={campaignName} onChange={(event) => setCampaignName(event.target.value)} type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="Master Saga" />
                                 </div>
 
                                 <div>
-                                    <h2> Invites </h2>
+                                    <h3> Invites </h3>
                                     <div className=" d-flex justify-content-between">
                                         <div className="w-50">
                                             <h5>Deine Freunde</h5>
-                                            <Collection elementsPerRow={1} maxHeight="20vh">
+                                            <br />
+                                            <ListObject maxHeight="20vh">
                                                 {
                                                     friendsList.map((data) => {
                                                         return <FriendsListItem friendName={data}  />
                                                     })
                                                 }
-                                            </Collection>
+                                            </ListObject>
                                         </div>
 
                                         <div style={{margin: "0 25px"}} className="vl"/>
 
                                         <div className=" w-50">
                                             <h5>Hinzugefügte Freunde</h5>
-                                            <Collection elementsPerRow={1} maxHeight="20vh">
+                                            <br />
+                                            <ListObject maxHeight="20vh">
                                                 {
                                                     toBeInvitedFriends.map((data) => <FriendsListItem friendName={data} add={false} />)
                                                 }
-                                            </Collection>
+                                            </ListObject>
                                         </div>
                                     </div>
+                                    <br/>
                                 </div>
                             </form>
                         }
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button disabled={isLoading} onClick={() => createNewCampaign()} type="button" class="btn btn-primary">Understood</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button disabled={isLoading} onClick={() => createNewCampaign()} type="button" class="btn btn-primary">Create Campaign!</button>
                     </div>
                 </div>
             </div>

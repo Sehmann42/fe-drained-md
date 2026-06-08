@@ -89,10 +89,10 @@ const dummyDataInvites = [
 const dummyDataInvites = []
 
 const dummyDataFriendsList = [
-    "Pfanne", "Kev"
+    "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev"
 ]
 
-export async function ServiceCreateCampaign(campaignName, session) {
+export async function ServiceCreateCampaign(campaignName, session, addedFriends) {
     const CreateData = {
         campaign_name : campaignName,
         session : session
