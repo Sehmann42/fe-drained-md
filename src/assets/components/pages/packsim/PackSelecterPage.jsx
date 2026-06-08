@@ -24,8 +24,6 @@ const PackSelectorPage = () => {
 
     const handleClickEventPack = (packData) => {
 
-        console.log(packData)
-
         const existingItem = basket.find(
             item => item.name === packData.pack_name
         )
@@ -96,12 +94,12 @@ const PackSelectorPage = () => {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
         
-        <div className=" h-81">
+        <div className=" body">
 
             {
                 isLoading ? <LoadingPage /> :
                 <>
-                    <Collection elementsPerRow={6}>
+                    <Collection maxHeight="100%" elementsPerRow={6}>
                         {masterPacks.map((data) => {
                             return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
                         })}

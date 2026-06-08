@@ -1,16 +1,14 @@
 import "../../../css/Collection/collection.css"
 
-const Collection = ({children, elementsPerRow, maxHeight = "77vh"}) => {
+const Collection = ({children, elementsPerRow, maxHeight = "95%"}) => {
 
     return <>
-        <div className=" h-100 p-3 flexShrink">
+        <div className=" h-100 p-3">
             <div style={{height: maxHeight}} className=" collection">
                 <div
                     style={{
                         gridAutoRows: "auto",
                         gridTemplateColumns: "repeat(" + elementsPerRow + ", 1fr)",
-                        height: maxHeight,
-                        maxHeight: maxHeight,
                     }}
 
                     className=" 

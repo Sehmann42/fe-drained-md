@@ -251,8 +251,8 @@ function CollectionPage() {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
 
-        <div className=" h-100">
-            <div style={{maxHeight: "81vh"}} className="p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
+        <div className=" body">
+            <div className="p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
                 <div className=" w-80 d-flex">
                     <h4>Suchen : </h4>
 
@@ -276,11 +276,11 @@ function CollectionPage() {
                 
             </div>
 
-            <div className="d-flex">
-                <div className=" w-65">
+            <div className="d-flex h-100">
+                <div className=" w-65 h-100">
                     { isLoading ? <LoadingPage />
                     :
-                    <Collection maxHeight="69vh" elementsPerRow={6}>
+                    <Collection maxHeight="87%" elementsPerRow={6}>
                         {
                             displayedCards.map((data) => {
                                 return <YGOCard cardData={data}>
@@ -311,11 +311,10 @@ function CollectionPage() {
                         </SearchBar>
                     </div>
 
-                    <div style={{height: "65vh"}} className="">
+                    <div className=" h-100">
                         { isLoadingDB ? <LoadingPage />
                         :
-                        
-                        <Collection maxHeight="62vh" elementsPerRow={3}>
+                        <Collection maxHeight="77%" elementsPerRow={3}>
                             {
                                 (dbSearchText.length >= 3
                                     ? allCardFromDB.filter(card_data =>
@@ -337,7 +336,6 @@ function CollectionPage() {
                                 })
                             }
                         </Collection>
-                
                         }
                     </div>
                 </div>

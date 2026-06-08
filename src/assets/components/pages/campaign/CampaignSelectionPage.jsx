@@ -67,11 +67,12 @@ const CampaignSelectionPage = () => {
         <PageHeader blockPageChange={true} />
 
         {isLoading ? <LoadingPage /> : 
-            <div style={{maxHeight: "81vh"}} className=" h-100 d-flex main-background p-2">
+        <div className=" body">
+            <div className=" h-100 d-flex main-background p-2">
                 
                 <div className={showInvites ? "w-70" : "w-100"}>
                     <h2>Campaigns</h2>
-                    <Collection maxHeight="72vh" elementsPerRow={showInvites ? 4 : 6}>
+                    <Collection maxHeight="95%" elementsPerRow={showInvites ? 4 : 6}>
                         {
                             campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} /> })
                         }
@@ -81,13 +82,14 @@ const CampaignSelectionPage = () => {
 
                 <div className={showInvites ? "w-30" : "d-none"}>
                     <h2>Invites</h2>
-                    <Collection maxHeight="72vh" elementsPerRow={1}>
+                    <Collection maxHeight="100vh" elementsPerRow={1}>
                         {
                             invites.map((data) => { return <InviteItem data={data} /> })
                         }
                     </Collection>
                 </div>
             </div>
+        </div>
         }
 
         <PageFooter />

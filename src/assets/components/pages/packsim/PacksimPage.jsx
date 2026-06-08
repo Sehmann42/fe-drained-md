@@ -298,7 +298,7 @@ function PacksimPage() {
     <div className=" d-flex flex-column h-100 main-background">
         <PageHeader />
 
-        <div style={{height: "75vh"}} className="d-flex p-3 justify-content-between">
+        <div className="body d-flex p-3 justify-content-between ">
             <div className=" d-flex flex-column w-70 p-2 ">
                 <h2 className=" align-self-center">Pack Opener</h2>
 

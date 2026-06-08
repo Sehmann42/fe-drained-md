@@ -1,7 +1,5 @@
 .header {
-    
-    position: relative;
-    top: 0;
+    flex-shrink: 0;
     width: 100%;
     background: #2e2e2e;
     background: linear-gradient(108deg, rgba(46, 46, 46, 1) 33%, rgba(79, 79, 79, 1) 100%);
