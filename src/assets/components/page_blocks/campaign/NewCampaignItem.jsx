@@ -82,12 +82,34 @@ const NewCampaignItem = () => {
                 console.error(e)
             }finally{
                 SetCampaignToken(campaignId)
+                console.log(toBeInvitedFriends)
                 navigate(Pages.COLLECTION)
             }
         }
         
         setIsLoading(true)
         handleRequest()
+    }
+
+    const handleOnClick = (itemData) => {
+        const FriendListData = {
+            add: itemData.add,
+            friendName: itemData.friendName
+        }
+
+        if(FriendListData.add){
+            const newFriendsList = friendsList.filter((item) => item != FriendListData.friendName)
+            setFriendsList(newFriendsList)
+            let copyToBeFriends = [...toBeInvitedFriends]
+            copyToBeFriends.push(FriendListData.friendName)
+            setToBeInvitedFriends(copyToBeFriends)
+        }else{
+            const newToBeFriendsList = toBeInvitedFriends.filter((item) => item != FriendListData.friendName)
+            setToBeInvitedFriends(newToBeFriendsList)
+            let copyFriendsList = [...friendsList]
+            copyFriendsList.push(FriendListData.friendName)
+            setFriendsList(copyFriendsList)
+        }
     }
 
     return <>
@@ -136,7 +158,7 @@ const NewCampaignItem = () => {
                                             <ListObject maxHeight="20vh">
                                                 {
                                                     friendsList.map((data) => {
-                                                        return <FriendsListItem friendName={data}  />
+                                                        return <FriendsListItem handleOnClick={handleOnClick} friendName={data}  />
                                                     })
                                                 }
                                             </ListObject>
@@ -149,7 +171,7 @@ const NewCampaignItem = () => {
                                             <br />
                                             <ListObject maxHeight="20vh">
                                                 {
-                                                    toBeInvitedFriends.map((data) => <FriendsListItem friendName={data} add={false} />)
+                                                    toBeInvitedFriends.map((data) => <FriendsListItem handleOnClick={handleOnClick} friendName={data} add={false} />)
                                                 }
                                             </ListObject>
                                         </div>

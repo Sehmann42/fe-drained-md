@@ -12,7 +12,7 @@ const FriendsListItem = ({friendName, handleOnClick , add = true}) => {
                 {friendName}
             </span>
 
-            <div onClick={handleOnClick}>
+            <div className=" machKlick" onClick={() => handleOnClick({add: add, friendName: friendName})}>
                 {
                     add ? <IconAddCard ratio="30px"/> : <IconRemoveCard ratio="30px" />
                 }
