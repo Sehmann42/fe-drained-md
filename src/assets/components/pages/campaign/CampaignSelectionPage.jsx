@@ -12,6 +12,7 @@ import InviteItem from "../../page_blocks/campaign/InviteItem"
 import { useNavigate } from "react-router-dom"
 import { Pages } from "../../../enums/EnumsPages"
 import NewCampaignItem from "../../page_blocks/campaign/NewCampaignItem"
+import FriendsList from "../../page_blocks/friendsList/FriendsList"
 
 
 const CampaignSelectionPage = () => {
@@ -22,7 +23,10 @@ const CampaignSelectionPage = () => {
     const [showInvites, setShowInvites] = useState(false)
 
     const [campaigns, setCampaigns] = useState([])
+    const [currFriends, setCurrFriends] = useState([])
     const [invites, setInvites] = useState([])
+
+    
 
     const handleOnClickCampaign = (campaign_id) => {
         //Hier muss dann auch mit State gearbeitet werden
@@ -38,12 +42,10 @@ const CampaignSelectionPage = () => {
         
         const fetchData = async () => {
             try{
-                const data = await ServiceGetCampaignsFromUser(GetSessionToken())
-                console.log(data)
-                
-                console.log(data.data.length)
-
-                const dataInvites = await ServiceGetInvitesFromUser(GetSessionToken())
+                const [data, dataInvites] = await Promise.all([
+                    await ServiceGetCampaignsFromUser(GetSessionToken()),
+                    await ServiceGetInvitesFromUser(GetSessionToken())
+                ])
 
                 setCampaigns(data.data)
                 setInvites(dataInvites.invites)
@@ -69,10 +71,12 @@ const CampaignSelectionPage = () => {
         {isLoading ? <LoadingPage /> : 
         <div className=" body">
             <div className=" h-100 d-flex main-background p-2">
-                
-                <div className={showInvites ? "w-70" : "w-100"}>
+
+                <FriendsList />
+
+                <div className={(showInvites ? "w-70" : "w-100") + " d-flex flex-column"}>
                     <h2>Campaigns</h2>
-                    <Collection maxHeight="95%" elementsPerRow={showInvites ? 4 : 6}>
+                    <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 6}>
                         {
                             campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} /> })
                         }
@@ -80,9 +84,9 @@ const CampaignSelectionPage = () => {
                     </Collection>
                 </div>
 
-                <div className={showInvites ? "w-30" : "d-none"}>
+                <div className={(showInvites ? "w-30" : "w-100") + " d-flex flex-column"}>
                     <h2>Invites</h2>
-                    <Collection maxHeight="100vh" elementsPerRow={1}>
+                    <Collection maxHeight="100%" elementsPerRow={1}>
                         {
                             invites.map((data) => { return <InviteItem data={data} /> })
                         }

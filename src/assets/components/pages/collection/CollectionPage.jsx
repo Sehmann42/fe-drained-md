@@ -248,17 +248,17 @@ function CollectionPage() {
     }, [])
 
     return <>
-    <div className=" d-flex flex-column main-background h-100">
+    <div className=" d-flex flex-column main-background h-100 overflow-hidden">
         <PageHeader />
 
-        <div className=" body">
-            <div className="p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
-                <div className=" w-80 d-flex">
+        <div className=" body row overflow-hidden">
+
+            <div className=" p-3 w-65 d-flex justify-content-between">
+                <div className=" w-70 d-flex align-items-center">
+                    <div className=" w-1" />
                     <h4>Suchen : </h4>
-
-                    <span className=" w-1" />
-
-                    <SearchBar width={50}>
+                    <div className=" w-1" />
+                    <SearchBar width={"80%"}>
                         <input
                         value={searchText}
                         onChange={handleChangeEvent}
@@ -273,71 +273,67 @@ function CollectionPage() {
                         Export
                     </span>
                 </div>
-                
             </div>
 
-            <div className="d-flex h-100">
-                <div className=" w-65 h-100">
+            <div className=" d-flex flex-column w-65 h-100">
                     { isLoading ? <LoadingPage />
                     :
                     <Collection maxHeight="87%" elementsPerRow={6}>
                         {
                             displayedCards.map((data) => {
-                                return <YGOCard cardData={data}>
-                                        <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
-                                            <IconAddCard />
-                                        </div>
-                                        <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
-                                            <IconRemoveCard />
-                                        </div>
+                                return  <YGOCard cardData={data}>
+                                            <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
+                                                <IconAddCard />
+                                            </div>
+                                            <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
+                                                <IconRemoveCard />
+                                            </div>
                                         </YGOCard>
                             })
                         }
                     </Collection>
                 }
-                </div>
+            </div>
                 
+            <div className=" d-flex flex-column w-20 h-100">
+                <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
+                    <span>Suchen : </span>
 
-                <div className=" w-35 h-100">
-                    <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
-                        <span>Suchen : </span>
+                    <SearchBar width={70}>
+                        <input
+                        value={dbSearchText}
+                        onChange={(event) => setDbSearchText(event.target.value)}
+                        type="text" 
+                        className=" w-100"/>
+                    </SearchBar>
+                </div>
 
-                        <SearchBar width={70}>
-                            <input
-                            value={dbSearchText}
-                            onChange={(event) => setDbSearchText(event.target.value)}
-                            type="text" 
-                            className=" w-100"/>
-                        </SearchBar>
-                    </div>
+                <div className=" h-100">
+                    { isLoadingDB ? <LoadingPage />
+                    :
+                    <Collection maxHeight="77%" elementsPerRow={3}>
+                        {
+                            (dbSearchText.length >= 3
+                                ? allCardFromDB.filter(card_data =>
+                                    card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
+                                )
+                                : []
+                            ).map((card_data) => {
+                                return (
+                                    <YGOCard key={card_data.id} cardData={card_data}>
+                                        <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                                            <IconAddCard />
+                                        </div>
 
-                    <div className=" h-100">
-                        { isLoadingDB ? <LoadingPage />
-                        :
-                        <Collection maxHeight="77%" elementsPerRow={3}>
-                            {
-                                (dbSearchText.length >= 3
-                                    ? allCardFromDB.filter(card_data =>
-                                        card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
-                                    )
-                                    : []
-                                ).map((card_data) => {
-                                    return (
-                                        <YGOCard key={card_data.id} cardData={card_data}>
-                                            <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
-                                                <IconAddCard />
-                                            </div>
-
-                                            <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
-                                                <IconRemoveCard />
-                                            </div>
-                                        </YGOCard>
-                                    )
-                                })
-                            }
-                        </Collection>
+                                        <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                            <IconRemoveCard />
+                                        </div>
+                                    </YGOCard>
+                                )
+                            })
                         }
-                    </div>
+                    </Collection>
+                    }
                 </div>
             </div>
         </div>

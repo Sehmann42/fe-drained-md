@@ -98,7 +98,8 @@ const PackSelectorPage = () => {
 
             {
                 isLoading ? <LoadingPage /> :
-                <>
+                <div className=" h-100 d-flex flex-column">
+                    <h2>Campaigns</h2>
                     <Collection maxHeight="100%" elementsPerRow={6}>
                         {masterPacks.map((data) => {
                             return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
@@ -112,7 +113,7 @@ const PackSelectorPage = () => {
                             })}
                         </Basket>
                     </div>
-                </>
+                </div>
             }
         </div>
 

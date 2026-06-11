@@ -59,8 +59,6 @@ const dummyDataCampaings = [
     },
 ]
 
-/*
-
 const dummyDataInvites = [
     {
         campaign_name:"Master Sage",
@@ -82,11 +80,27 @@ const dummyDataInvites = [
         campaign_name:"Master Sage",
         invite_by:"Pfanne"
     },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
 ]
-
-*/
-
-const dummyDataInvites = []
 
 const dummyDataFriendsList = [
     "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev"
