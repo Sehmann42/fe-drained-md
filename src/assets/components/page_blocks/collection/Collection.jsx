@@ -4,7 +4,7 @@ const Collection = ({children, elementsPerRow, maxHeight = "95%"}) => {
 
     return <>
 
-        <div style={{minHeight: 0, overflow: "hidden"}} className="flex-grow-1">
+        <div style={{minHeight: 0, overflow: "hidden"}} className=" flex-grow-1">
             <div className=" h-100 p-3">
                 <div style={{height: maxHeight}} className=" collection">
                     <div
