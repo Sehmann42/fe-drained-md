@@ -275,8 +275,8 @@ function CollectionPage() {
                         </div>
                 </div>
 
-                <div style={{minHeight: 0}} className=" d-flex h-100">
-                    <div style={{minHeight: 0}} className=" w-100 d-flex flex-column">
+                <div style={{minHeight: 0}} className=" w-100 d-flex h-100">
+                    <div style={{minHeight: 0}} className=" w-70 d-flex flex-column">
                         { isLoading ? <LoadingPage />
                             :
                             <Collection maxHeight="100%" elementsPerRow={6}>
