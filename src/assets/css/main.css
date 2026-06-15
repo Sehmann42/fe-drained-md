@@ -166,3 +166,9 @@ div[id=root] {
 .machKlick {
     cursor: pointer;
 }
+
+.body {
+    flex: 1;
+    overflow:hidden;
+}
+

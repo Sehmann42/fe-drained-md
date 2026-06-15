@@ -1,5 +1,14 @@
 .friends-list-item {
     border: 2px solid white;
     border-radius: 20px;
-    height: 10%;
+    padding: 5px;
+    
+}
+
+.friends-list-item span {
+    white-space: nowrap;
+    text-overflow: ellipsis !important;
+    overflow-x: hidden;
+    width: 70%;
+    font-size: 1.1rem;
 }

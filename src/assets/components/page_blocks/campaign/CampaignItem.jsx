@@ -26,7 +26,7 @@ const CampaignItem = ({data, handleOnClickEvent}) => {
         <div>
             <br />
         </div>
-        <div className=" overflow-auto d-flex flex-column" style={{maxHeight: "250px"}}>
+        <div className=" overflow-auto d-flex flex-column" style={{maxHeight: "150px"}}>
             <b>Spieler:</b> {
             
                 CampaignItemData.campaignPlayers.map((data) => {

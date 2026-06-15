@@ -225,6 +225,8 @@ export const AddCardToCollection = async (session, id) => {
         )
 
         const newCard = response.data
+        
+        /*
 
         // Cache aktualisieren
         if (collectionCache.has(session)) {
@@ -261,6 +263,8 @@ export const AddCardToCollection = async (session, id) => {
                 )
             }
         }
+
+        */
 
         return {
             success: true,

@@ -30,27 +30,27 @@ function CollectionPage() {
         filterData(event.target.value)
     }
 
-    const filterData = (cardName) => {
+    const filterData = (cardName, updatedCollection = []) => {
 
-        console.log(collectedCards)
-
-        let filtered = collectedCards
+        let filtered =
+            updatedCollection.length > 0
+                ? updatedCollection
+                : collectedCards
 
         if (!cardName.trim()) {
 
-            filtered = collectedCards.filter(card =>
+            filtered = filtered.filter(card =>
                 card.amount > 0
             )
 
         } else {
 
-            filtered = collectedCards.filter(card =>
+            filtered = filtered.filter(card =>
                 card.name.toLowerCase().includes(cardName.toLowerCase()) &&
                 card.amount > 0
             )
         }
 
-        // Alphabetisch sortieren
         filtered.sort((a, b) =>
             a.name.localeCompare(b.name)
         )
@@ -69,7 +69,8 @@ function CollectionPage() {
     }
 
     const handleOnClickAddCardInCollection = async (id) => {
-        console.log(id)
+        let updatedCards = collectedCards
+
         try{
             let exists = collectedCards.some(card => card.id === id)
 
@@ -77,7 +78,7 @@ function CollectionPage() {
 
             if (exists) {
 
-                const updatedCards = collectedCards.map((card) => {
+                updatedCards = collectedCards.map((card) => {
 
                     if (card.id === id) {
                         return {
@@ -96,29 +97,25 @@ function CollectionPage() {
                 )
 
                 setCollectedCards(filtered)
-                setDisplayedCards(filtered)
 
             } else {
-
                 const newCard = {
                     id,
                     amount: 1,
                     image_url: cardData.data.data.image_url,
+                    rarity: cardData.data.data.rarity,
                     name: cardData.data.data.name // falls du name nicht hast → später ersetzen
                 }
 
-                const filtered = collectedCards.filter(card =>
-                    card.amount > 0
-                )
-                
-                const updatedCards = [...filtered, newCard]
+                updatedCards = [...collectedCards, newCard]
 
                 setCollectedCards(updatedCards)
-                setDisplayedCards(updatedCards)
             }
 
         }catch(e){
             console.error(e)
+        }finally{
+            filterData(searchText, updatedCards)
         }
 
     }
@@ -141,12 +138,7 @@ function CollectionPage() {
 
             setCollectedCards(updatedCards)
 
-            const filtered = updatedCards.filter(card =>
-                card.amount > 0
-            )
-
-            setDisplayedCards(filtered)
-
+            filterData(searchText, updatedCards)
         }catch(e){
             console.error(e)
         }
@@ -248,101 +240,96 @@ function CollectionPage() {
     }, [])
 
     return <>
-    <div className=" d-flex flex-column main-background h-100">
+    <div className=" d-flex flex-column main-background h-100 overflow-hidden">
         <PageHeader />
 
-        <div className=" h-100">
-            <div style={{maxHeight: "81vh"}} className="p-3 d-flex w-65 align-items-center justify-content-between align-items-center">
-                <div className=" w-80 d-flex">
-                    <h4>Suchen : </h4>
+        <div className=" body">
+            <div className="h-100 d-flex flex-column overflow-hidden">
+                <div style={{minHeight: 0}} className=" w-70 p-3 d-flex justify-content-between ">
+                        <div className=" w-70 d-flex align-items-center">
+                            <div className=" w-1" />
+                            <h4>Suchen : </h4>
+                            <div className=" w-1" />
+                            <SearchBar width={"80%"}>
+                                <input
+                                value={searchText}
+                                onChange={handleChangeEvent}
+                                type="text" 
+                                className=" w-95"/>
+                            </SearchBar>
+                        </div>
 
-                    <span className=" w-1" />
-
-                    <SearchBar width={50}>
-                        <input
-                        value={searchText}
-                        onChange={handleChangeEvent}
-                        type="text" 
-                        className=" w-95"/>
-                    </SearchBar>
+                        <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
+                            <IconExport />
+                            <span>
+                                Export
+                            </span>
+                        </div>
                 </div>
 
-                <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
-                    <IconExport />
-                    <span>
-                        Export
-                    </span>
-                </div>
-                
-            </div>
-
-            <div className="d-flex">
-                <div className=" w-65">
-                    { isLoading ? <LoadingPage />
-                    :
-                    <Collection maxHeight="69vh" elementsPerRow={6}>
-                        {
-                            displayedCards.map((data) => {
-                                return <YGOCard cardData={data}>
-                                        <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
-                                            <IconAddCard />
-                                        </div>
-                                        <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
-                                            <IconRemoveCard />
-                                        </div>
-                                        </YGOCard>
-                            })
+                <div style={{minHeight: 0}} className=" w-100 d-flex h-100">
+                    <div style={{minHeight: 0}} className=" w-70 d-flex flex-column">
+                        { isLoading ? <LoadingPage />
+                            :
+                            <Collection maxHeight="100%" elementsPerRow={6}>
+                                {
+                                    displayedCards.map((data) => {
+                                        return  <YGOCard cardData={data}>
+                                                    <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
+                                                        <IconAddCard />
+                                                    </div>
+                                                    <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
+                                                        <IconRemoveCard />
+                                                    </div>
+                                                </YGOCard>
+                                    })
+                                }
+                            </Collection>
                         }
-                    </Collection>
-                }
-                </div>
-                
-
-                <div className=" w-35 h-100">
-                    <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
-                        <span>Suchen : </span>
-
-                        <SearchBar width={70}>
-                            <input
-                            value={dbSearchText}
-                            onChange={(event) => setDbSearchText(event.target.value)}
-                            type="text" 
-                            className=" w-100"/>
-                        </SearchBar>
                     </div>
 
-                    <div style={{height: "65vh"}} className="">
+                    <div style={{minHeight: 0}} className=" w-35 d-flex flex-column">
+                        <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
+                            <span>Suchen : </span>
+
+                            <SearchBar width={"70%"}>
+                                <input
+                                value={dbSearchText}
+                                onChange={(event) => setDbSearchText(event.target.value)}
+                                type="text" 
+                                className=" w-100"/>
+                            </SearchBar>
+                        </div>
+
                         { isLoadingDB ? <LoadingPage />
-                        :
-                        
-                        <Collection maxHeight="62vh" elementsPerRow={3}>
-                            {
-                                (dbSearchText.length >= 3
-                                    ? allCardFromDB.filter(card_data =>
-                                        card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
-                                    )
-                                    : []
-                                ).map((card_data) => {
-                                    return (
-                                        <YGOCard key={card_data.id} cardData={card_data}>
-                                            <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
-                                                <IconAddCard />
-                                            </div>
+                            :
+                            <Collection maxHeight="100%" elementsPerRow={3}>
+                                {
+                                    (dbSearchText.length >= 3
+                                        ? allCardFromDB.filter(card_data =>
+                                            card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
+                                        )
+                                        : []
+                                    ).map((card_data) => {
+                                        return (
+                                            <YGOCard key={card_data.id} cardData={card_data}>
+                                                <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                                                    <IconAddCard />
+                                                </div>
 
-                                            <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
-                                                <IconRemoveCard />
-                                            </div>
-                                        </YGOCard>
-                                    )
-                                })
+                                                <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                                    <IconRemoveCard />
+                                                </div>
+                                            </YGOCard>
+                                        )
+                                    })
+                                }
+                            </Collection>
                             }
-                        </Collection>
-                
-                        }
                     </div>
-                </div>
+                </div>        
             </div>
-        </div>
+        </div>  
 
         <PageFooter />
     </div>

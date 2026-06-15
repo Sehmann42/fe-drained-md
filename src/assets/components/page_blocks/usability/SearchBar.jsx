@@ -4,7 +4,7 @@ import "../../../css/Usability/searchbar.css"
 
 const SearchBar = ({children, width}) => {
     return <>
-    <div className={"searchbar w-" + width + " p-1 d-flex justify-content-center"}>
+    <div style={{ width: width}} className={"searchbar p-1 d-flex justify-content-center"}>
         {children}
     </div>
         
