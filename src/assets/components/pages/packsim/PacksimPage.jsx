@@ -300,7 +300,7 @@ function PacksimPage() {
 
         <div className="body d-flex p-3 ">
             <div className="d-flex flex-column overflow-hidden w-100">
-                <div className=" w-100 d-flex h-100">
+                <div style={{ minHeight: 0 }} className=" w-100 d-flex h-100">
                     <div style={{minHeight: 0}} className=" d-flex flex-column w-70 p-2 ">
                         <h2 className=" align-self-center">Pack Opener</h2>
 
@@ -329,7 +329,7 @@ function PacksimPage() {
                         <br />
 
                         <div 
-                            style={{flex:"1" , overflow:"auto"}} 
+                            style={{flex:"1" , overflow:"auto", minHeight: 0}} 
                             className={" secretPackSelection  d-flex flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
                             {unlockedPacks.map((data) => {
                                 return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
