@@ -30,27 +30,27 @@ function CollectionPage() {
         filterData(event.target.value)
     }
 
-    const filterData = (cardName) => {
+    const filterData = (cardName, updatedCollection = []) => {
 
-        console.log(collectedCards)
-
-        let filtered = collectedCards
+        let filtered =
+            updatedCollection.length > 0
+                ? updatedCollection
+                : collectedCards
 
         if (!cardName.trim()) {
 
-            filtered = collectedCards.filter(card =>
+            filtered = filtered.filter(card =>
                 card.amount > 0
             )
 
         } else {
 
-            filtered = collectedCards.filter(card =>
+            filtered = filtered.filter(card =>
                 card.name.toLowerCase().includes(cardName.toLowerCase()) &&
                 card.amount > 0
             )
         }
 
-        // Alphabetisch sortieren
         filtered.sort((a, b) =>
             a.name.localeCompare(b.name)
         )
@@ -69,7 +69,8 @@ function CollectionPage() {
     }
 
     const handleOnClickAddCardInCollection = async (id) => {
-        console.log(id)
+        let updatedCards = collectedCards
+
         try{
             let exists = collectedCards.some(card => card.id === id)
 
@@ -77,7 +78,7 @@ function CollectionPage() {
 
             if (exists) {
 
-                const updatedCards = collectedCards.map((card) => {
+                updatedCards = collectedCards.map((card) => {
 
                     if (card.id === id) {
                         return {
@@ -96,29 +97,25 @@ function CollectionPage() {
                 )
 
                 setCollectedCards(filtered)
-                setDisplayedCards(filtered)
 
             } else {
-
                 const newCard = {
                     id,
                     amount: 1,
                     image_url: cardData.data.data.image_url,
+                    rarity: cardData.data.data.rarity,
                     name: cardData.data.data.name // falls du name nicht hast → später ersetzen
                 }
 
-                const filtered = collectedCards.filter(card =>
-                    card.amount > 0
-                )
-                
-                const updatedCards = [...filtered, newCard]
+                updatedCards = [...collectedCards, newCard]
 
                 setCollectedCards(updatedCards)
-                setDisplayedCards(updatedCards)
             }
 
         }catch(e){
             console.error(e)
+        }finally{
+            filterData(searchText, updatedCards)
         }
 
     }
@@ -141,12 +138,7 @@ function CollectionPage() {
 
             setCollectedCards(updatedCards)
 
-            const filtered = updatedCards.filter(card =>
-                card.amount > 0
-            )
-
-            setDisplayedCards(filtered)
-
+            filterData(searchText, updatedCards)
         }catch(e){
             console.error(e)
         }
