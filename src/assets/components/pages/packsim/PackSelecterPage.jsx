@@ -101,9 +101,15 @@ const PackSelectorPage = () => {
                 <div className=" h-100 d-flex flex-column">
                     <h2>Campaigns</h2>
                     <Collection maxHeight="100%" elementsPerRow={6}>
-                        {masterPacks.map((data) => {
-                            return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
-                        })}
+                        {
+                            [...masterPacks].sort((a, b) => {
+                                if (a.pack_name == "Master Pack") return -1;
+                                if (b.pack_name == "Master Pack") return 1;
+                                return 0
+                            }).map((data) => {
+                                return <MDMasterPack key={data.pack_name} handleClickEventPack={handleClickEventPack} packData={data} />
+                            })
+                        }
                     </Collection>
 
                     <div className=" basketPositon">
