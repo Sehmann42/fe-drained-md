@@ -8,6 +8,7 @@ import { LogoutUser } from "../../services/AuthenticationServices"
 import IconGoToPackSim from "../icons/IconGoToPackSim"
 import IconGoToCollection from "../icons/IconGoToCollection"
 import IconLogout from "../icons/IconLogout"
+import IconCampaignCollection from "../icons/IconCampaignCollection"
 
 const PageHeader = ({blockPageChange = false}) => {
 
@@ -54,7 +55,7 @@ const PageHeader = ({blockPageChange = false}) => {
 
         <div onClick={handleOnClickCampaigns} className=" headerButton">
             <div className=" d-flex justify-content-center">
-                <IconGoToCollection />
+                <IconCampaignCollection />
             </div>
             <div className=" d-flex justify-content-center">
                 campaigns

@@ -7,14 +7,14 @@ import "../../../css/Campaign/friendsListItem.css"
 const FriendsListItem = ({friendName, handleOnClick , add = true}) => {
 
     return <>
-        <div className=" friends-list-item w-100 d-flex justify-content-between">
-            <div>
+        <div className=" my-2 friends-list-item w-100 d-flex justify-content-between">
+            <span className=" d-flex align-items-center">
                 {friendName}
-            </div>
+            </span>
 
-            <div onClick={handleOnClick}>
+            <div className=" machKlick" onClick={() => handleOnClick({add: add, friendName: friendName})}>
                 {
-                    add ? <IconAddCard /> : <IconRemoveCard />
+                    add ? <IconAddCard ratio="30px"/> : <IconRemoveCard ratio="30px" />
                 }
             </div>
         </div>

@@ -24,8 +24,6 @@ const PackSelectorPage = () => {
 
     const handleClickEventPack = (packData) => {
 
-        console.log(packData)
-
         const existingItem = basket.find(
             item => item.name === packData.pack_name
         )
@@ -96,15 +94,22 @@ const PackSelectorPage = () => {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
         
-        <div className=" h-81">
+        <div className=" body">
 
             {
                 isLoading ? <LoadingPage /> :
-                <>
-                    <Collection elementsPerRow={6}>
-                        {masterPacks.map((data) => {
-                            return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
-                        })}
+                <div className=" h-100 d-flex flex-column">
+                    <h2>Campaigns</h2>
+                    <Collection maxHeight="100%" elementsPerRow={6}>
+                        {
+                            [...masterPacks].sort((a, b) => {
+                                if (a.pack_name == "Master Pack") return -1;
+                                if (b.pack_name == "Master Pack") return 1;
+                                return 0
+                            }).map((data) => {
+                                return <MDMasterPack key={data.pack_name} handleClickEventPack={handleClickEventPack} packData={data} />
+                            })
+                        }
                     </Collection>
 
                     <div className=" basketPositon">
@@ -114,7 +119,7 @@ const PackSelectorPage = () => {
                             })}
                         </Basket>
                     </div>
-                </>
+                </div>
             }
         </div>
 

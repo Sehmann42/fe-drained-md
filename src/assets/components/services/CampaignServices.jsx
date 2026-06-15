@@ -59,8 +59,6 @@ const dummyDataCampaings = [
     },
 ]
 
-/*
-
 const dummyDataInvites = [
     {
         campaign_name:"Master Sage",
@@ -82,17 +80,33 @@ const dummyDataInvites = [
         campaign_name:"Master Sage",
         invite_by:"Pfanne"
     },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
+    {
+        campaign_name:"Master Sage",
+        invite_by:"Pfanne"
+    },
 ]
-
-*/
-
-const dummyDataInvites = []
 
 const dummyDataFriendsList = [
-    "Pfanne", "Kev"
+    "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev"
 ]
 
-export async function ServiceCreateCampaign(campaignName, session) {
+export async function ServiceCreateCampaign(campaignName, session, addedFriends) {
     const CreateData = {
         campaign_name : campaignName,
         session : session

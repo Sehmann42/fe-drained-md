@@ -298,59 +298,63 @@ function PacksimPage() {
     <div className=" d-flex flex-column h-100 main-background">
         <PageHeader />
 
-        <div className=" h-100 d-flex p-3 justify-content-between">
-            <div className=" d-flex flex-column w-70 p-2 ">
-                <h2 className=" align-self-center">Pack Opener</h2>
+        <div className="body d-flex p-3 ">
+            <div className="d-flex flex-column overflow-hidden w-100">
+                <div style={{ minHeight: 0 }} className=" w-100 d-flex h-100">
+                    <div style={{minHeight: 0}} className=" d-flex flex-column w-70 p-2 ">
+                        <h2 className=" align-self-center">Pack Opener</h2>
 
-                <span className=" align-self-center"> Pack Opened {currPack + 1} / {pendingPacks.length}</span>
+                        <span className=" align-self-center"> Pack Opened {currPack + 1} / {pendingPacks.length}</span>
 
-                {
-                    (isLoading) ? <LoadingPage /> :
-                    <div className=" packGrid main-background">
-                        {currPackContent.map((data) => {
-                            return <HiddenCard cardData={{
-                                name:data.name, 
-                                id: data.id, 
-                                data:data,
-                                currPack:currPack, 
-                                openPack:openPack,
-                                flipCard:flipCard}}/>
-                        })}
+                        {
+                            (isLoading) ? <LoadingPage /> :
+                            <div className=" packGrid main-background">
+                                {currPackContent.map((data) => {
+                                    return <HiddenCard cardData={{
+                                        name:data.name, 
+                                        id: data.id, 
+                                        data:data,
+                                        currPack:currPack, 
+                                        openPack:openPack,
+                                        flipCard:flipCard}}/>
+                                })}
+                            </div>
+                        }
+                    
                     </div>
-                }
-                
-            </div>
-                
-            <div style={{height: "100%"}} className={" d-flex flex-column w-25  p-2 "}>
-                <h2 className=" d-flex justify-content-center">Unlocked Packs</h2> 
-                
-                <br />
 
-                <div style={{maxHeight: "60vh", overflow:"auto", flexShrink:"0"}} className={" h-100 secretPackSelection  d-flex flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
-                    {unlockedPacks.map((data) => {
-                        return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
-                    })}
+                    <div style={{minHeight: 0}} className=" d-flex flex-column w-20 p-2 ">
+                        <h2 className=" d-flex justify-content-center">Unlocked Packs</h2> 
+                        
+                        <br />
+
+                        <div 
+                            style={{flex:"1" , overflow:"auto", minHeight: 0}} 
+                            className={" secretPackSelection  d-flex flex-column " + lockSecretPacks + " " + hardLockSecretPacks}>
+                            {unlockedPacks.map((data) => {
+                                return <MDMasterPack handleClickEventPack={handleClickEventPack} packData={data} />
+                            })}
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-
-        <div className={" h-10 w-100 d-flex justify-content-between"}>
-            <div className=" d-flex justify-content-around w-70">
-                <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
-                    <IconUnpackPack />
-                    <span>Open Pack</span>
-                </div>
-                <div className="d-flex flex-column justify-content-center" onClick={handleNextPack}>
-                    <IconOpenNextPack />
-                    <span>Next pack</span>
+                <div style={{minHeight: 0}} className=" d-flex justify-content-between">
+                    <div className=" d-flex justify-content-around w-70">
+                        <div className="d-flex flex-column justify-content-center" onClick={handleOpenPack}>
+                            <IconUnpackPack />
+                            <span>Open Pack</span>
+                        </div>
+                        <div className="d-flex flex-column justify-content-center" onClick={handleNextPack}>
+                            <IconOpenNextPack />
+                            <span>Next pack</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <PageFooter />
     </div>
-        
     </>
 }
 
