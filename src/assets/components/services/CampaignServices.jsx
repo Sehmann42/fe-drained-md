@@ -183,8 +183,10 @@ export async function ServiceGetInvitesFromUser(session) {
 }
 
 export async function ServiceAcceptInviteToCampaign(session, invite_id) {
+    console.log("wir treffen hier aber schon ein oder?")
+
     try{
-        if (enviroment == "development"){
+        if (enviroment == "development" && false){
             return {success: true, friends: dummyDataFriendsList}
         }
 
@@ -192,9 +194,12 @@ export async function ServiceAcceptInviteToCampaign(session, invite_id) {
             "session" : session,
             "invite_id" : invite_id
         }
+
+        console.log("wucsh?")
         
         const response = await api.post(CampaignUrls.ACCEPT_CAMPAIGN, AcceptInviteData)
 
+        console.log("accepted? maybe?")
         console.log(response)
 
         return response.data

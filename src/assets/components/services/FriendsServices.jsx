@@ -20,7 +20,7 @@ export async function ServiceGetFriendsListFromUser(session) {
         
         const response = await api.post(FriendUrls.GETFRIEND, GetFriendData)
 
-        console.log(response)
+        //console.log(response)
 
         return {success: response.data.success, friends: response.data.data}
 
@@ -43,7 +43,7 @@ export async function ServiceAddFriend(session, username) {
         
         const response = await api.post(FriendUrls.ADDFRIEND, AddFriendData)
 
-        console.log(response)
+        //console.log(response)
 
         return {success: response.data.success, friends: response.data.data}
 
@@ -66,7 +66,7 @@ export async function ServiceRemoveFriend(session, user_id) {
         
         const response = await api.post(FriendUrls.REMOVEFRIEND, RemoveFriendData)
 
-        console.log(response)
+        //console.log(response)
 
         return {success: response.data.success, friends: response.data.data}
 

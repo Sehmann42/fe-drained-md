@@ -26,7 +26,31 @@ const CampaignSelectionPage = () => {
     const [currFriends, setCurrFriends] = useState([])
     const [invites, setInvites] = useState([])
 
-    
+    const handleOnClickInviteItem = () => {
+        setIsLoading(true)
+    }
+
+     const resolveOnClickInviteItem = (inviteId) => {
+
+        const resolveClick = async () => {
+            try{
+                const data = await ServiceGetCampaignsFromUser(GetSessionToken())
+                
+                console.log(invites)
+
+                const newInvites = invites.filter((item) => item.pid != inviteId)
+                
+                setCampaigns(data.data)
+                setInvites(newInvites)
+            }catch(e){
+                console.error(e)
+            }finally{
+                setIsLoading(false)
+            }
+        } 
+
+        resolveClick()
+    }
 
     const handleOnClickCampaign = (campaign_id) => {
         //Hier muss dann auch mit State gearbeitet werden
@@ -89,7 +113,7 @@ const CampaignSelectionPage = () => {
                     <h2>Invites</h2>
                     <Collection maxHeight="100%" elementsPerRow={1}>
                         {
-                            invites.map((data) => { return <InviteItem data={data} /> })
+                            invites.map((data) => { return <InviteItem key={data.pid} data={data} handleOnInviteItemClick={handleOnClickInviteItem} resolveOnCLickEvent={resolveOnClickInviteItem}/> })
                         }
                     </Collection>
                 </div>
