@@ -100,12 +100,6 @@ const NewCampaignItem = () => {
     }
 
     const handleOnClick = (itemData) => {
-        console.log(itemData)
-
-        console.log(friendsList)
-
-        console.log(toBeInvitedFriends)
-
         const FriendListData = {
             add: itemData.add,
             username: itemData.username,

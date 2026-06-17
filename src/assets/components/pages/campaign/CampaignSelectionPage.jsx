@@ -35,8 +35,6 @@ const CampaignSelectionPage = () => {
         const resolveClick = async () => {
             try{
                 const data = await ServiceGetCampaignsFromUser(GetSessionToken())
-                
-                console.log(invites)
 
                 const newInvites = invites.filter((item) => item.pid != inviteId)
                 

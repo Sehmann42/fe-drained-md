@@ -132,8 +132,6 @@ export async function ServiceInviteUsersToCampaign(session, users, campaign_id){
         campaign_id: campaign_id
     }
 
-    console.log(InviteData)
-
     const response = await api.post(CampaignUrls.INVITE_TO_CAMPAIGN, InviteData)
     return response
 }
@@ -172,9 +170,6 @@ export async function ServiceGetInvitesFromUser(session) {
 
         const response = await api.post(CampaignUrls.GET_ALL_INVITES, GetInviteData)
 
-        console.log("response from backend")
-        console.log(response)
-
         return {success: true, invites: response.data.data}
 
     }catch(e){
@@ -183,7 +178,6 @@ export async function ServiceGetInvitesFromUser(session) {
 }
 
 export async function ServiceAcceptInviteToCampaign(session, invite_id) {
-    console.log("wir treffen hier aber schon ein oder?")
 
     try{
         if (enviroment == "development" && false){
@@ -194,13 +188,8 @@ export async function ServiceAcceptInviteToCampaign(session, invite_id) {
             "session" : session,
             "invite_id" : invite_id
         }
-
-        console.log("wucsh?")
         
         const response = await api.post(CampaignUrls.ACCEPT_CAMPAIGN, AcceptInviteData)
-
-        console.log("accepted? maybe?")
-        console.log(response)
 
         return response.data
     }catch(e){
@@ -220,8 +209,6 @@ export async function ServiceDeleteCampaign(session, campaign_id) {
         }
         
         const response = await api.post(CampaignUrls.DELETE_CAMPAIGN, DeleteCampaignData)
-
-        console.log(response)
 
         return response.data
     }catch(e){
