@@ -5,7 +5,7 @@ import * as bootstrap from 'bootstrap';
 
 import "../../../css/Usability/createcampaign.css"
 import Collection from "../collection/Collection";
-import { ServiceCreateCampaign } from "../../services/CampaignServices";
+import { ServiceCreateCampaign, ServiceInviteUsersToCampaign } from "../../services/CampaignServices";
 import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
 import { GetSessionToken, SetCampaignToken } from "../../services/TokenStorage";
 import FriendsListItem from "./FriendsListItem";
@@ -31,6 +31,8 @@ const NewCampaignItem = () => {
         
         const fetchData = async () => {
             const friendListData = await ServiceGetFriendsListFromUser(GetSessionToken())
+
+            console.log(friendListData)
 
             setFriendsList(friendListData.friends)
         }
@@ -75,9 +77,15 @@ const NewCampaignItem = () => {
         const handleRequest = async () => {
             let campaignId = 0
             try{
-                const response = await ServiceCreateCampaign(campaignName, GetSessionToken(), toBeInvitedFriends)
+                const response = await ServiceCreateCampaign(campaignName, GetSessionToken())
 
                 campaignId = response.data.campaign_id
+                
+                console.log(toBeInvitedFriends)
+
+                const userIds = toBeInvitedFriends.map((item) => item.with)
+                
+                const responseZwo = await ServiceInviteUsersToCampaign(GetSessionToken(), userIds, campaignId)
             }catch(e){
                 console.error(e)
             }finally{
@@ -92,22 +100,29 @@ const NewCampaignItem = () => {
     }
 
     const handleOnClick = (itemData) => {
+        console.log(itemData)
+
+        console.log(friendsList)
+
+        console.log(toBeInvitedFriends)
+
         const FriendListData = {
             add: itemData.add,
-            friendName: itemData.friendName
+            username: itemData.username,
+            with: itemData.with
         }
 
         if(FriendListData.add){
-            const newFriendsList = friendsList.filter((item) => item != FriendListData.friendName)
+            const newFriendsList = friendsList.filter((item) => item.username != FriendListData.username)
             setFriendsList(newFriendsList)
             let copyToBeFriends = [...toBeInvitedFriends]
-            copyToBeFriends.push(FriendListData.friendName)
+            copyToBeFriends.push(FriendListData)
             setToBeInvitedFriends(copyToBeFriends)
         }else{
-            const newToBeFriendsList = toBeInvitedFriends.filter((item) => item != FriendListData.friendName)
+            const newToBeFriendsList = toBeInvitedFriends.filter((item) => item.username != FriendListData.username)
             setToBeInvitedFriends(newToBeFriendsList)
             let copyFriendsList = [...friendsList]
-            copyFriendsList.push(FriendListData.friendName)
+            copyFriendsList.push(FriendListData)
             setFriendsList(copyFriendsList)
         }
     }
@@ -158,7 +173,7 @@ const NewCampaignItem = () => {
                                             <ListObject maxHeight="20vh">
                                                 {
                                                     friendsList.map((data) => {
-                                                        return <FriendsListItem handleOnClick={handleOnClick} friendName={data.username}  />
+                                                        return <FriendsListItem handleOnClick={handleOnClick} username={data.username} userId={data.with} />
                                                     })
                                                 }
                                             </ListObject>
@@ -171,7 +186,7 @@ const NewCampaignItem = () => {
                                             <br />
                                             <ListObject maxHeight="20vh">
                                                 {
-                                                    toBeInvitedFriends.map((data) => <FriendsListItem handleOnClick={handleOnClick} friendName={data} add={false} />)
+                                                    toBeInvitedFriends.map((data) => <FriendsListItem handleOnClick={handleOnClick} username={data.username} userId={data.with} add={false} />)
                                                 }
                                             </ListObject>
                                         </div>

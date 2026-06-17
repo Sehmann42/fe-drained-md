@@ -19,8 +19,6 @@ const FriendsList = ({width = "20%"}) => {
                 
                 const data = await ServiceGetFriendsListFromUser(GetSessionToken())
 
-                console.log(data)
-
                 setFriends(data.friends)
 
             }catch(e){
@@ -54,7 +52,7 @@ const FriendsList = ({width = "20%"}) => {
                 isLoading? <LoadingPage /> :
                 <Collection maxHeight="100%">
                     {
-                        friends.map((data) => { return <span>tmp</span>})
+                        friends.map((data) => { return <span>{data.username} : {data.status}</span>})
                     }
                 </Collection>
             }

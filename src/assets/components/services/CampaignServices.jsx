@@ -114,7 +114,7 @@ const dummyDataFriendsList = [
     "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev"
 ]
 
-export async function ServiceCreateCampaign(campaignName, session, addedFriends) {
+export async function ServiceCreateCampaign(campaignName, session) {
     const CreateData = {
         campaign_name : campaignName,
         session : session
@@ -122,6 +122,19 @@ export async function ServiceCreateCampaign(campaignName, session, addedFriends)
 
     const response = await api.post(CampaignUrls.CREATE, CreateData)
 
+    return response
+}
+
+export async function ServiceInviteUsersToCampaign(session, users, campaign_id){
+    const InviteData = {
+        session : session,
+        users : users,
+        campaign_id: campaign_id
+    }
+
+    console.log(InviteData)
+
+    const response = await api.post(CampaignUrls.INVITE_TO_CAMPAIGN, InviteData)
     return response
 }
 
