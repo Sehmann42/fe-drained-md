@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import Collection from "../../page_blocks/collection/Collection"
 import LoadingPage from "../../loading_blocks/LoadingPage"
+import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
+import { data } from "react-router-dom"
 
 const FriendsList = ({width = "20%"}) => {
 
@@ -11,9 +13,14 @@ const FriendsList = ({width = "20%"}) => {
 
     useEffect(() => {
         
-        const fetchData = () => {
+        const fetchData = async () => {
             try{
-                console.log("Hallo Hallo ich sag hallo hallooo")
+                
+                data = await ServiceGetFriendsListFromUser()
+
+                console.log(data)
+
+                setFriends(data.friends)
 
             }catch(e){
                 console.err(e)

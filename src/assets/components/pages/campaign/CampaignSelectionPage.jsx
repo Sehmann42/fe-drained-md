@@ -48,6 +48,7 @@ const CampaignSelectionPage = () => {
                 ])
 
                 setCampaigns(data.data)
+
                 setInvites(dataInvites.invites)
                 setShowInvites(dataInvites.invites.length > 0)
             }catch(error) {
@@ -84,7 +85,7 @@ const CampaignSelectionPage = () => {
                     </Collection>
                 </div>
 
-                <div className={(showInvites ? "w-30" : "w-100") + " d-flex flex-column"}>
+                <div className={(showInvites ? "w-30" : "d-none") + " d-flex flex-column"}>
                     <h2>Invites</h2>
                     <Collection maxHeight="100%" elementsPerRow={1}>
                         {

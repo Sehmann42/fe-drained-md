@@ -5,7 +5,8 @@ import * as bootstrap from 'bootstrap';
 
 import "../../../css/Usability/createcampaign.css"
 import Collection from "../collection/Collection";
-import { ServiceGetFriendsListFromUser, ServiceCreateCampaign } from "../../services/CampaignServices";
+import { ServiceCreateCampaign } from "../../services/CampaignServices";
+import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
 import { GetSessionToken, SetCampaignToken } from "../../services/TokenStorage";
 import FriendsListItem from "./FriendsListItem";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +31,6 @@ const NewCampaignItem = () => {
         
         const fetchData = async () => {
             const friendListData = await ServiceGetFriendsListFromUser(GetSessionToken())
-            console.log(friendListData)
 
             setFriendsList(friendListData.friends)
         }
