@@ -1,15 +1,28 @@
 import { useEffect } from "react";
 import "../../../css/Campaign/campaignItem.css"
+import { ServiceAcceptInviteToCampaign } from "../../services/CampaignServices";
+import { GetSessionToken } from "../../services/TokenStorage";
 
-const InviteItem = ({data}) => {
+const InviteItem = ({data, handleOnInviteItemClick, resolveOnCLickEvent}) => {
 
     const InviteItemData = {
-        campaignName: data.campaign_name,
-        inviteBy: data.invite_by,
+        campaignName: data.name,
+        inviteBy: data.username,
+        inviteId:  data.pid
+    }
+
+    const handleOnClick = () => {
+        const sendData = async () => {
+            handleOnInviteItemClick()
+            await ServiceAcceptInviteToCampaign(GetSessionToken(), InviteItemData.inviteId)
+        }
+
+        sendData()
+        resolveOnCLickEvent(InviteItemData.inviteId)
     }
 
     return  <>
-    <div style={{height: "100px"}} className=" campaignItem d-flex flex-column p-3 justify-content-between">
+    <div onClick={() => handleOnClick()} style={{height: "100px"}} className=" campaignItem d-flex flex-column p-3 justify-content-between">
         <span>
             Campaign: {InviteItemData.campaignName}
         </span>

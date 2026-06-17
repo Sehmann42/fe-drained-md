@@ -4,15 +4,15 @@ import IconRemoveCard from "../icons/IconRemoveCard"
 
 import "../../../css/Campaign/friendsListItem.css"
 
-const FriendsListItem = ({friendName, handleOnClick , add = true}) => {
+const FriendsListItem = ({username, handleOnClick, userId, add = true}) => {
 
     return <>
         <div className=" my-2 friends-list-item w-100 d-flex justify-content-between">
             <span className=" d-flex align-items-center">
-                {friendName}
+                {username}
             </span>
 
-            <div className=" machKlick" onClick={() => handleOnClick({add: add, friendName: friendName})}>
+            <div className=" machKlick" onClick={() => handleOnClick({add: add, username: username, with: userId})}>
                 {
                     add ? <IconAddCard ratio="30px"/> : <IconRemoveCard ratio="30px" />
                 }

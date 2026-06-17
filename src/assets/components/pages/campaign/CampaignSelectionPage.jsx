@@ -26,7 +26,29 @@ const CampaignSelectionPage = () => {
     const [currFriends, setCurrFriends] = useState([])
     const [invites, setInvites] = useState([])
 
-    
+    const handleOnClickInviteItem = () => {
+        setIsLoading(true)
+    }
+
+     const resolveOnClickInviteItem = (inviteId) => {
+
+        const resolveClick = async () => {
+            try{
+                const data = await ServiceGetCampaignsFromUser(GetSessionToken())
+
+                const newInvites = invites.filter((item) => item.pid != inviteId)
+                
+                setCampaigns(data.data)
+                setInvites(newInvites)
+            }catch(e){
+                console.error(e)
+            }finally{
+                setIsLoading(false)
+            }
+        } 
+
+        resolveClick()
+    }
 
     const handleOnClickCampaign = (campaign_id) => {
         //Hier muss dann auch mit State gearbeitet werden
@@ -48,6 +70,7 @@ const CampaignSelectionPage = () => {
                 ])
 
                 setCampaigns(data.data)
+
                 setInvites(dataInvites.invites)
                 setShowInvites(dataInvites.invites.length > 0)
             }catch(error) {
@@ -84,11 +107,11 @@ const CampaignSelectionPage = () => {
                     </Collection>
                 </div>
 
-                <div className={(showInvites ? "w-30" : "w-100") + " d-flex flex-column"}>
+                <div className={(showInvites ? "w-30" : "d-none") + " d-flex flex-column"}>
                     <h2>Invites</h2>
                     <Collection maxHeight="100%" elementsPerRow={1}>
                         {
-                            invites.map((data) => { return <InviteItem data={data} /> })
+                            invites.map((data) => { return <InviteItem key={data.pid} data={data} handleOnInviteItemClick={handleOnClickInviteItem} resolveOnCLickEvent={resolveOnClickInviteItem}/> })
                         }
                     </Collection>
                 </div>

@@ -3,13 +3,6 @@ import { useEffect } from "react"
 
 const CampaignItem = ({data, handleOnClickEvent}) => {
 
-    useEffect(() => {
-        console.log(data)
-        return () => {
-            
-        };
-    }, []);
-
     const CampaignItemData = {
         campaignId: data.pid,
         campaignName: data.name,

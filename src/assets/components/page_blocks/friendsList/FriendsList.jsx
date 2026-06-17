@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 import Collection from "../../page_blocks/collection/Collection"
 import LoadingPage from "../../loading_blocks/LoadingPage"
+import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
+import { data } from "react-router-dom"
+import { GetSessionToken } from "../../services/TokenStorage"
 
 const FriendsList = ({width = "20%"}) => {
 
@@ -11,12 +14,15 @@ const FriendsList = ({width = "20%"}) => {
 
     useEffect(() => {
         
-        const fetchData = () => {
+        const fetchData = async () => {
             try{
-                console.log("Hallo Hallo ich sag hallo hallooo")
+                
+                const data = await ServiceGetFriendsListFromUser(GetSessionToken())
+
+                setFriends(data.friends)
 
             }catch(e){
-                console.err(e)
+                console.error(e)
             }finally{
                 setIsLoading(false)
             }
@@ -46,7 +52,7 @@ const FriendsList = ({width = "20%"}) => {
                 isLoading? <LoadingPage /> :
                 <Collection maxHeight="100%">
                     {
-                        friends.map((data) => { return <span>tmp</span>})
+                        friends.map((data) => { return <span>{data.username} : {data.status}</span>})
                     }
                 </Collection>
             }
