@@ -158,7 +158,7 @@ const NewCampaignItem = () => {
                                             <ListObject maxHeight="20vh">
                                                 {
                                                     friendsList.map((data) => {
-                                                        return <FriendsListItem handleOnClick={handleOnClick} friendName={data}  />
+                                                        return <FriendsListItem handleOnClick={handleOnClick} friendName={data.username}  />
                                                     })
                                                 }
                                             </ListObject>

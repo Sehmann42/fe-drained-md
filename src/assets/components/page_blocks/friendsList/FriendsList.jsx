@@ -3,6 +3,7 @@ import Collection from "../../page_blocks/collection/Collection"
 import LoadingPage from "../../loading_blocks/LoadingPage"
 import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
 import { data } from "react-router-dom"
+import { GetSessionToken } from "../../services/TokenStorage"
 
 const FriendsList = ({width = "20%"}) => {
 
@@ -16,14 +17,14 @@ const FriendsList = ({width = "20%"}) => {
         const fetchData = async () => {
             try{
                 
-                data = await ServiceGetFriendsListFromUser()
+                const data = await ServiceGetFriendsListFromUser(GetSessionToken())
 
                 console.log(data)
 
                 setFriends(data.friends)
 
             }catch(e){
-                console.err(e)
+                console.error(e)
             }finally{
                 setIsLoading(false)
             }
