@@ -10,9 +10,15 @@ const BASEURL = {
 }
 
 const checkIfTokesIsValid = async () => {
-  const session =  GetSessionToken()
-  const response = await api.post(BASEURL.TOKEN,{session})
-  return response.data
+  try{
+    const session =  GetSessionToken()
+    const response = await api.post(BASEURL.TOKEN,{session})
+    console.log(response)
+    return response.data
+  }catch(e){
+    console.error(e)
+    return false
+  }
 }
 
 export default function ProtectedRoute({ children }) {
@@ -22,7 +28,7 @@ export default function ProtectedRoute({ children }) {
   useEffect(() => {
     const check = async () => {
       const result = await checkIfTokesIsValid()
-      //console.log(result)
+      console.log(result)
       setIsValid(result)
     }
 
