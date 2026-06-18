@@ -42,9 +42,7 @@ export default function ProtectedRoute({ children }) {
   }
 
   if (isValid.data === false) {
-    //console.log(GetSessionToken())
     DeleteSessionToken()
-    //console.log("hallo????")
     return <Navigate to={Pages.LOGIN} replace />
   }
 

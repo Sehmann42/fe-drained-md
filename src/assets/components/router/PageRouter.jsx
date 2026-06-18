@@ -1,12 +1,16 @@
-import { Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom"
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import LoadingPage from '../loading_blocks/LoadingPage'
-import PacksimPage from '../pages/packsim/PacksimPage'
-import LoginPage from '../pages/login/LoginPage'
-import CollectionPage from '../pages/collection/CollectionPage'
-import CreditsPage from '../pages/credits/CreditsPage'
-import CampaignSelectionPage from '../pages/campaign/CampaignSelectionPage'
+const PacksimPage = lazy(() => import('../pages/packsim/PacksimPage'));
+const LoginPage = lazy(() => import('../pages/login/LoginPage'));
+const CollectionPage = lazy(() => import('../pages/collection/CollectionPage'));
+const CreditsPage = lazy(() => import('../pages/credits/CreditsPage'));
+const CampaignSelectionPage = lazy(() => import('../pages/campaign/CampaignSelectionPage'));
+const PackSelectorPage = lazy(() => import('../pages/packsim/PackSelecterPage'));
+const DeckSelectorPage = lazy(() => import('../pages/collection/DeckSelectorPage'));
 
 import { Pages } from '../../enums/EnumsPages'
 
@@ -15,8 +19,7 @@ import "../../css/Usability/scrollbar.css"
 import { StorageCookies } from '../../enums/EnumsCookies'
 import ProtectedRoute from '../services/ProtectedRoute'
 import Cookies from 'js-cookie'
-import PackSelectorPage from '../pages/packsim/PackSelecterPage'
-import DeckSelectorPage from '../pages/collection/DeckSelectorPage'
+
 import { GetSessionToken } from '../services/TokenStorage'
 
 function PageRouter() {
@@ -34,6 +37,21 @@ function PageRouter() {
             //Cookies.remove(StorageCookies.SESSION)
         }
     }, [])
+
+    //On Close Event
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            console.log("Wusch!")
+        }
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+
+    })
 
     return <>
         <Suspense fallback={<LoadingPage />}>
