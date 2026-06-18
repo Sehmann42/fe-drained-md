@@ -4,6 +4,7 @@ import LoadingPage from "../../loading_blocks/LoadingPage"
 import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
 import { data } from "react-router-dom"
 import { GetSessionToken } from "../../services/TokenStorage"
+import SideFriendListItem from "./SideFriendListItem"
 
 const FriendsList = ({width = "20%"}) => {
 
@@ -19,7 +20,7 @@ const FriendsList = ({width = "20%"}) => {
                 
                 const data = await ServiceGetFriendsListFromUser(GetSessionToken())
 
-                setFriends(data.friends)
+                setFriends(data.friends ? data.friends : [])
 
             }catch(e){
                 console.error(e)
@@ -52,7 +53,7 @@ const FriendsList = ({width = "20%"}) => {
                 isLoading? <LoadingPage /> :
                 <Collection maxHeight="100%">
                     {
-                        friends.map((data) => { return <span>{data.username} : {data.status}</span>})
+                        friends.map((data) => { return <SideFriendListItem data={data} />})
                     }
                 </Collection>
             }

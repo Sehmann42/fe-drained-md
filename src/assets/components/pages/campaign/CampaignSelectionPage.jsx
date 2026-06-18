@@ -30,16 +30,17 @@ const CampaignSelectionPage = () => {
         setIsLoading(true)
     }
 
-     const resolveOnClickInviteItem = (inviteId) => {
+    const resolveOnClickInviteItem = (inviteId) => {
 
         const resolveClick = async () => {
             try{
                 const data = await ServiceGetCampaignsFromUser(GetSessionToken())
 
                 const newInvites = invites.filter((item) => item.pid != inviteId)
-                
+                    
                 setCampaigns(data.data)
                 setInvites(newInvites)
+                setShowInvites(newInvites > 0)
             }catch(e){
                 console.error(e)
             }finally{
