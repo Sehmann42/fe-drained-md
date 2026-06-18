@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import { Pages } from "../../enums/EnumsPages";
 import { DeleteSessionToken, GetSessionToken } from "./TokenStorage";
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import api from "../axios/Api";
 
@@ -25,6 +26,8 @@ export default function ProtectedRoute({ children }) {
 
   const [isValid, setIsValid] = useState(null)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const check = async () => {
       const result = await checkIfTokesIsValid()
@@ -43,7 +46,7 @@ export default function ProtectedRoute({ children }) {
 
   if (isValid.data === false) {
     DeleteSessionToken()
-    return <Navigate to={Pages.LOGIN} replace />
+    navigate(Pages.LOGIN)
   }
 
   return children
