@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import EditCampaignItem from "./EditCampaignItem"
 
 
 const CampaignItem = ({data, handleOnClickEvent}) => {
@@ -28,6 +29,8 @@ const CampaignItem = ({data, handleOnClickEvent}) => {
             
             }
         </div>
+
+        <EditCampaignItem />
     </div>
         
     </>
