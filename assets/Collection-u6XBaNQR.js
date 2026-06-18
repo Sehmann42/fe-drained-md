@@ -1,4 +1,4 @@
-import{g as e,p as t}from"./index-Dt2rEhGy.js";var n=e(),r=t(),i=e=>{let t=(0,n.c)(11),{children:i,elementsPerRow:a,maxHeight:o}=e,s=o===void 0?`95%`:o,c;t[0]===Symbol.for(`react.memo_cache_sentinel`)?(c={minHeight:0,overflow:`hidden`},t[0]=c):c=t[0];let l;t[1]===s?l=t[2]:(l={height:s},t[1]=s,t[2]=l);let u=`repeat(`+a+`, 1fr)`,d;t[3]===u?d=t[4]:(d={gridAutoRows:`auto`,gridTemplateColumns:u},t[3]=u,t[4]=d);let f;t[5]!==i||t[6]!==d?(f=(0,r.jsx)(`div`,{style:d,className:` 
+import{g as e,p as t}from"./index-ClgkXUBx.js";var n=e(),r=t(),i=e=>{let t=(0,n.c)(11),{children:i,elementsPerRow:a,maxHeight:o}=e,s=o===void 0?`95%`:o,c;t[0]===Symbol.for(`react.memo_cache_sentinel`)?(c={minHeight:0,overflow:`hidden`},t[0]=c):c=t[0];let l;t[1]===s?l=t[2]:(l={height:s},t[1]=s,t[2]=l);let u=`repeat(`+a+`, 1fr)`,d;t[3]===u?d=t[4]:(d={gridAutoRows:`auto`,gridTemplateColumns:u},t[3]=u,t[4]=d);let f;t[5]!==i||t[6]!==d?(f=(0,r.jsx)(`div`,{style:d,className:` 
                         collectionContent
                         overflow-auto
                         h-100 
