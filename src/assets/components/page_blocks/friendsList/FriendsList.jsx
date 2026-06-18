@@ -20,7 +20,7 @@ const FriendsList = ({width = "20%"}) => {
                 
                 const data = await ServiceGetFriendsListFromUser(GetSessionToken())
 
-                setFriends(data.friends)
+                setFriends(data.friends ? data.friends : [])
 
             }catch(e){
                 console.error(e)

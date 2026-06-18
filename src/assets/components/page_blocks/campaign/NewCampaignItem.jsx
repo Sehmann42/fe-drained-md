@@ -32,9 +32,7 @@ const NewCampaignItem = () => {
         const fetchData = async () => {
             const friendListData = await ServiceGetFriendsListFromUser(GetSessionToken())
 
-            console.log(friendListData)
-
-            setFriendsList(friendListData.friends)
+            setFriendsList(friendListData.friends ? friendListData.friends : [])
         }
 
         fetchData()
@@ -85,7 +83,7 @@ const NewCampaignItem = () => {
 
                 const userIds = toBeInvitedFriends.map((item) => item.with)
                 
-                const responseZwo = await ServiceInviteUsersToCampaign(GetSessionToken(), userIds, campaignId)
+                const responseZwo = await ServiceInviteUsersToCampaign(GetSessionToken(), userIds ? userIds : [], campaignId)
             }catch(e){
                 console.error(e)
             }finally{
