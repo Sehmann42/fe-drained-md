@@ -17,8 +17,9 @@ const InviteItem = ({data, handleOnInviteItemClick, resolveOnCLickEvent}) => {
             await ServiceAcceptInviteToCampaign(GetSessionToken(), InviteItemData.inviteId)
         }
 
-        sendData()
-        resolveOnCLickEvent(InviteItemData.inviteId)
+        sendData().then(() => {
+            resolveOnCLickEvent(InviteItemData.inviteId)
+        })
     }
 
     return  <>

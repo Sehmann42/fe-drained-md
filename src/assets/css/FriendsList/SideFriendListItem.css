@@ -1,0 +1,24 @@
+.sidefriendlistitem {
+    background: #838bc7;
+    background: linear-gradient(24deg,rgba(131, 139, 199, 1) 49%, rgba(50, 84, 87, 1) 100%);
+    border-radius: 15px;
+}
+
+.sidefriendlistitem:hover {
+    background: rgba(131, 139, 199, 1);
+}
+
+.sidefriendlistitem img {
+    border-radius: 20px;
+}
+
+.sidefriendlistitem div[name="statusBall"] {
+    width: 20px;
+    height: 20px;
+    position:absolute;
+    bottom: -5px;
+    right: -5px;
+    border-radius: 100px;
+    z-index: 200;
+    border: 1px solid white;
+}
