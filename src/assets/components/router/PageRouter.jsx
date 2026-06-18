@@ -21,6 +21,7 @@ import ProtectedRoute from '../services/ProtectedRoute'
 import Cookies from 'js-cookie'
 
 import { GetSessionToken } from '../services/TokenStorage'
+import { LogoutUser } from '../services/AuthenticationServices';
 
 function PageRouter() {
     const navigate = useNavigate()
@@ -40,18 +41,25 @@ function PageRouter() {
 
     //On Close Event
 
+    /*
+
+    Added Alternativly Event handler on DB to Remove Expired Tokens therefore:
+    Deprecated o7
+
     useEffect(() => {
         const handleBeforeUnload = () => {
-            console.log("Wusch!")
+            LogoutUser(GetSessionToken())
         }
 
         window.addEventListener("beforeunload", handleBeforeUnload);
 
         return () => {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
+            window.removeEventListener("beforeunload", handleBeforeUnload);
         };
 
     })
+
+    */
 
     return <>
         <Suspense fallback={<LoadingPage />}>
