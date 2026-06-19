@@ -19,6 +19,7 @@ const CreditsPage = () => {
                 <a href="https://www.instagram.com/p/CSH9ff2B3vE/?e=1348020" title="darg magician girl">Loading Spinny Made by gummybunni on Instagram</a>
                 <a href="https://www.flaticon.com/free-icons/logout" title="logout icons">Logout icons created by apien - Flaticon</a>
                 <a href="https://www.flaticon.com/free-icons/minus" title="minus icons">Minus icons created by Freepik - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/filter" title="filter icons">Filter icons created by Saepul Nahwan - Flaticon</a>
                 <a href="https://www.flaticon.com/free-icons/next-page" title="next page icons">Next page icons created by BizzBox - Flaticon</a>
             </div>
         </div>
