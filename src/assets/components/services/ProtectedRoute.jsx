@@ -12,7 +12,7 @@ const BASEURL = {
 
 const checkIfTokesIsValid = async () => {
   try{
-    const session =  GetSessionToken()
+    const session = GetSessionToken()
     const response = await api.post(BASEURL.TOKEN,{session})
     console.log(response)
     return response.data
@@ -25,8 +25,6 @@ const checkIfTokesIsValid = async () => {
 export default function ProtectedRoute({ children }) {
 
   const [isValid, setIsValid] = useState(null)
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     const check = async () => {
@@ -46,7 +44,7 @@ export default function ProtectedRoute({ children }) {
 
   if (isValid.data === false) {
     DeleteSessionToken()
-    navigate(Pages.LOGIN)
+    return <Navigate to={Pages.LOGIN} />
   }
 
   return children

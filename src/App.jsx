@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 function App() {
   return (
-    <BrowserRouter >
+    <BrowserRouter basename={import.meta.env.VITE_BASE} >
       <PageRouter />
     </BrowserRouter>
   )
