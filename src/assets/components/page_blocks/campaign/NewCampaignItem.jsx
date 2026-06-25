@@ -28,21 +28,6 @@ const NewCampaignItem = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        
-        const fetchData = async () => {
-            const friendListData = await ServiceGetFriendsListFromUser(GetSessionToken())
-
-            setFriendsList(friendListData.friends ? friendListData.friends : [])
-        }
-
-        fetchData()
-
-        return () => {
-            
-        };
-    }, []);
-
-    useEffect(() => {
 
         if (campaignModalRef.current) {
             campaignModalInstance.current =
@@ -58,6 +43,10 @@ const NewCampaignItem = () => {
     const openNewCampaignModal = () => {
         const fetchData = async () => {
             
+            const friendListData = await ServiceGetFriendsListFromUser(GetSessionToken())
+
+            setFriendsList(friendListData.friends ? friendListData.friends : [])
+
             setIsLoading(false)
         }
 
@@ -136,8 +125,6 @@ const NewCampaignItem = () => {
         <div 
             ref={campaignModalRef} 
             className="modal modal-lg fade" 
-            data-bs-backdrop="static" 
-            data-bs-keyboard="false" 
             tabindex="-1" 
             aria-labelledby="staticBackdropLabel" 
             aria-hidden="true">

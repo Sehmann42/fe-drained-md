@@ -3,14 +3,11 @@ import "../../../assets/css/Usability/loadingPage.css"
 
 function LoadingPage() {
     return <>
-    <div className=" h-100 d-flex justify-content-center align-items-center">
+    <div style={{minHeight: "400px"}} className=" h-100 d-flex justify-content-center align-items-center">
         <div className=" d-flex justify-content-center flex-column">
             <LoadingSpinny />
-            <br />
-            <br />
-            <br />
-            <br />
-            <h2 className=" align-self-center">
+
+            <h2 style={{marginTop: "50px"}} className=" align-self-center">
                 Loading...
             </h2>
         </div>

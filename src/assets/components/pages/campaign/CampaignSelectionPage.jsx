@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import PageFooter from "../../page_blocks/footer/Footer"
 import PageHeader from "../../page_blocks/header/Header"
 import Collection from "../../page_blocks/collection/Collection"
@@ -13,7 +13,8 @@ import { useNavigate } from "react-router-dom"
 import { Pages } from "../../../enums/EnumsPages"
 import NewCampaignItem from "../../page_blocks/campaign/NewCampaignItem"
 import FriendsList from "../../page_blocks/friendsList/FriendsList"
-
+import EditCampaignItemModal from "../../page_blocks/campaign/EditCampaignItemModal"
+import * as bootstrap from 'bootstrap';
 
 const CampaignSelectionPage = () => {
     
@@ -25,6 +26,11 @@ const CampaignSelectionPage = () => {
     const [campaigns, setCampaigns] = useState([])
     const [currFriends, setCurrFriends] = useState([])
     const [invites, setInvites] = useState([])
+
+    const campaignEditModalRef = useRef(null)
+    const campaignEditModalInstance = useRef(null)
+
+    const [editModalData, setEditModalData] = useState([])
 
     const handleOnClickInviteItem = () => {
         setIsLoading(true)
@@ -51,6 +57,23 @@ const CampaignSelectionPage = () => {
         resolveClick()
     }
 
+    const updateCampaignScreen = async () => {
+        const getCamapigns = async () => {
+            try{
+                const data = await ServiceGetCampaignsFromUser(GetSessionToken())
+                setCampaigns(data.data)
+            }
+            catch(e){
+                console.error(e)
+            }finally{
+                setIsLoading(false)
+            }
+        }
+
+        setIsLoading(true)
+        getCamapigns()
+    }
+
     const handleOnClickCampaign = (campaign_id) => {
         //Hier muss dann auch mit State gearbeitet werden
         SetCampaignToken(campaign_id)
@@ -60,6 +83,29 @@ const CampaignSelectionPage = () => {
     const createNewCampaign = (data) => {
         console.log("Hallo Campaign!")
     }
+
+    const openCampaignEditModal = (campaignData) => {
+        console.log(campaignData)
+        setEditModalData(campaignData)
+        campaignEditModalInstance.current?.show()
+    }
+
+    const closeCampaignEditModal = () => {
+        campaignEditModalInstance.current?.close()
+    }   
+
+    useEffect(() => {
+
+        if (campaignEditModalRef.current) {
+            campaignEditModalInstance.current =
+                new bootstrap.Modal(campaignEditModalRef.current)
+        }
+
+        return () => {
+            campaignEditModalInstance.current?.dispose()
+        }
+
+    }, [campaignEditModalRef])
 
     useEffect(() => {
         
@@ -102,7 +148,7 @@ const CampaignSelectionPage = () => {
                     <h2>Campaigns</h2>
                     <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 6}>
                         {
-                            campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} /> })
+                            campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} openCampaignEditModal={openCampaignEditModal} /> })
                         }
                         <NewCampaignItem />
                     </Collection>
@@ -119,6 +165,8 @@ const CampaignSelectionPage = () => {
             </div>
         </div>
         }
+
+        <EditCampaignItemModal ref={campaignEditModalRef} data={editModalData} closeModalMethod={closeCampaignEditModal} updateCampaigns={updateCampaignScreen} />
 
         <PageFooter />
     </div>

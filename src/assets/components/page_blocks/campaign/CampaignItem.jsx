@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import EditCampaignItem from "./EditCampaignItem"
 
 
-const CampaignItem = ({data, handleOnClickEvent}) => {
+const CampaignItem = ({data, handleOnClickEvent, openCampaignEditModal}) => {
 
     const CampaignItemData = {
         campaignId: data.pid,
@@ -11,28 +11,30 @@ const CampaignItem = ({data, handleOnClickEvent}) => {
     }
 
     return <>
-    <div style={{
-        height: "200px",
-    }} className=" campaignItem d-flex flex-column p-3" onClick={() => handleOnClickEvent(CampaignItemData.campaignId)}>
-        <h5 className=" text-center">
-            {CampaignItemData.campaignName}
-        </h5>
-        <div>
-            <br />
-        </div>
-        <div className=" overflow-auto d-flex flex-column" style={{maxHeight: "150px"}}>
-            <b>Spieler:</b> {
-            
-                CampaignItemData.campaignPlayers.map((data) => {
-                    return <span>{data}</span>
-                })
-            
-            }
+    <div style={{ height: "200px" }} className=" position-relative" >
+        <div className=" h-100 campaignItem d-flex flex-column p-3" onClick={() => handleOnClickEvent(CampaignItemData.campaignId)}>
+            <h5 className=" text-center">
+                {CampaignItemData.campaignName}
+            </h5>
+            <div>
+                <br />
+            </div>
+            <div className=" overflow-auto d-flex flex-column" style={{maxHeight: "150px"}}>
+                <b>Spieler:</b> {
+                
+                    CampaignItemData.campaignPlayers.map((data) => {
+                        return <span>{data}</span>
+                    })
+                
+                }
+            </div> 
         </div>
 
-        <EditCampaignItem />
-    </div>
+        <EditCampaignItem editCampaignModalData={CampaignItemData} openCampaignEditModal={openCampaignEditModal}/>
+
         
+    </div>
+
     </>
 }
 
