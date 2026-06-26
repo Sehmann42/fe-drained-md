@@ -8,6 +8,7 @@ import LoadingPage from "../../loading_blocks/LoadingPage";
 const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) => {
 
     const [isLoading, setIsLoading] = useState(false)
+    const [disableButtons, setDisabledButtons] = useState(false)
 
     const [currCampaignName, setCurrCampaignName] = useState("")
 
@@ -39,10 +40,12 @@ const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) =
             }finally{
                 setIsLoading(false)
                 updateCampaigns()
+                setDisabledButtons(false)
                 closeModalMethod()
             }
         }
 
+        setDisabledButtons(true)
         setIsLoading(true)
         pushChanges()
     }
@@ -73,7 +76,7 @@ const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) =
                         <h1 className="modal-title fs-5" id="exampleModalLabel">Edit {data.campaignName}</h1>
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div className="modal-body">
+                    <div style={{minHeight:"400px"}} className="modal-body">
                         { isLoading ? <LoadingPage /> : 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Campaign Name</label>
@@ -82,10 +85,10 @@ const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) =
                         }
                     </div>
                     <div className="modal-footer d-flex justify-content-between">
-                        <button type="button" className="btn btn-primary btn-danger">Delete</button>
+                        <button disabled={disableButtons} type="button" className="btn btn-primary btn-danger">Delete</button>
                         
                         <div className=" d-flex justify-content-between w-25 flex-row-reverse">
-                            <button onClick={() => commitChanges()} type="button" className="btn btn-primary btn-success">Commit</button>
+                            <button disabled={disableButtons} onClick={() => commitChanges()} type="button" className="btn btn-primary btn-success">Commit</button>
                         </div>
                     </div>
                 </form>

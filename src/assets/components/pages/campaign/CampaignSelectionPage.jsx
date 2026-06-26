@@ -85,17 +85,15 @@ const CampaignSelectionPage = () => {
     }
 
     const openCampaignEditModal = (campaignData) => {
-        console.log(campaignData)
         setEditModalData(campaignData)
         campaignEditModalInstance.current?.show()
     }
 
     const closeCampaignEditModal = () => {
-        campaignEditModalInstance.current?.close()
+        campaignEditModalInstance.current?.hide()
     }   
 
     useEffect(() => {
-
         if (campaignEditModalRef.current) {
             campaignEditModalInstance.current =
                 new bootstrap.Modal(campaignEditModalRef.current)
