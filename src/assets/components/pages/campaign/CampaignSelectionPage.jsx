@@ -114,6 +114,8 @@ const CampaignSelectionPage = () => {
                     await ServiceGetInvitesFromUser(GetSessionToken())
                 ])
 
+                console.log(data.data)
+
                 setCampaigns(data.data)
 
                 setInvites(dataInvites.invites)
@@ -146,7 +148,7 @@ const CampaignSelectionPage = () => {
                     <h2>Campaigns</h2>
                     <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 6}>
                         {
-                            campaigns.map((data) => { return <CampaignItem handleOnClickEvent={handleOnClickCampaign} data={data} openCampaignEditModal={openCampaignEditModal} /> })
+                            campaigns.map((data) => { return <CampaignItem key={data.pid} handleOnClickEvent={handleOnClickCampaign} data={data} openCampaignEditModal={openCampaignEditModal} /> })
                         }
                         <NewCampaignItem />
                     </Collection>

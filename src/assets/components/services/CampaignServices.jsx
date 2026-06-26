@@ -149,8 +149,11 @@ export async function ServiceGetCampaignsFromUser(session) {
 
         const response = await api.post(CampaignUrls.GET,GetCampaignData)
 
-        return response.data
-        
+        if (response.data.success == true){
+            return response.data
+        }else{
+            throw new Error("Backend Error : " + response.data.error)
+        }
     }catch(e){
         console.log(e)
     }
