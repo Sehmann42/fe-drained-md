@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import * as bootstrap from 'bootstrap';
 import { useState } from "react";
-import { ServiceRenameCampaign } from "../../services/CampaignServices";
+import { ServiceDeleteCampaign, ServiceRenameCampaign } from "../../services/CampaignServices";
 import { GetSessionToken } from "../../services/TokenStorage";
 import LoadingPage from "../../loading_blocks/LoadingPage";
 
@@ -50,7 +50,27 @@ const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) =
         pushChanges()
     }
 
+    const deleteCampaign = () => {
+        const pushChanges = async () => {
+            try{
+                //Eigentlich müsste man testen ob die Campagne noch existiert.
+                const response = await ServiceDeleteCampaign(GetSessionToken(), data.campaignId)
 
+                console.log(response)
+            }catch(e){
+                console.error(e)
+            }finally{
+                setIsLoading(false)
+                updateCampaigns()
+                setDisabledButtons(false)
+                closeModalMethod()
+            }
+        }
+
+        setDisabledButtons(true)
+        setIsLoading(true)
+        pushChanges()
+    }
  
     useEffect(() => {
         
@@ -60,8 +80,6 @@ const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) =
             
         };
     }, [data]);
-
-    
 
     return <>
         <div ref={ref}
@@ -85,7 +103,7 @@ const EditCampaignItemModal = ({ref, data, closeModalMethod, updateCampaigns}) =
                         }
                     </div>
                     <div className="modal-footer d-flex justify-content-between">
-                        <button disabled={disableButtons} type="button" className="btn btn-primary btn-danger">Delete</button>
+                        <button disabled={disableButtons} onClick={() => deleteCampaign()} type="button" className="btn btn-primary btn-danger">Delete</button>
                         
                         <div className=" d-flex justify-content-between w-25 flex-row-reverse">
                             <button disabled={disableButtons} onClick={() => commitChanges()} type="button" className="btn btn-primary btn-success">Commit</button>

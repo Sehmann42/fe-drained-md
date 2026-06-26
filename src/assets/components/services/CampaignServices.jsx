@@ -199,7 +199,7 @@ export async function ServiceAcceptInviteToCampaign(session, invite_id) {
 
 export async function ServiceDeleteCampaign(session, campaign_id) {
     try{
-        if (enviroment == "development"){
+        if (enviroment == "development" && false){
             return {success: true, friends: dummyDataFriendsList}
         }
 
