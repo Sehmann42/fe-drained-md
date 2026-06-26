@@ -149,8 +149,11 @@ export async function ServiceGetCampaignsFromUser(session) {
 
         const response = await api.post(CampaignUrls.GET,GetCampaignData)
 
-        return response.data
-        
+        if (response.data.success == true){
+            return response.data
+        }else{
+            throw new Error("Backend Error : " + response.data.error)
+        }
     }catch(e){
         console.log(e)
     }
@@ -199,7 +202,7 @@ export async function ServiceAcceptInviteToCampaign(session, invite_id) {
 
 export async function ServiceDeleteCampaign(session, campaign_id) {
     try{
-        if (enviroment == "development"){
+        if (enviroment == "development" && false){
             return {success: true, friends: dummyDataFriendsList}
         }
 
