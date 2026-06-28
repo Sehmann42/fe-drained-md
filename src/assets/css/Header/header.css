@@ -1,7 +1,6 @@
 .header {
     flex-shrink: 0;
     width: 90%;
-    background: #050e21;
     border: 1px solid transparent;
     border-radius: 20px;
     align-self: center;

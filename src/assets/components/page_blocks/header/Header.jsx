@@ -34,7 +34,7 @@ const PageHeader = ({blockPageChange = false}) => {
     }
 
     return <>
-    <div className=" d-flex justify-content-around header p-3">
+    <div className=" d-flex function-background justify-content-around header p-3">
         <div className=" d-flex align-items-center">
             
             <h2><b>Drained MD</b></h2>

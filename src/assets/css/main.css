@@ -13,6 +13,11 @@ div[id=root] {
 .main-background {
     background: #00081b
 }
+
+.function-background {
+    background: #07142e;
+}
+
 .h-10 {
     height: 10% !important;
 }
