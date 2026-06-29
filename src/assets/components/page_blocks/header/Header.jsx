@@ -36,13 +36,13 @@ const PageHeader = ({blockPageChange = false}) => {
     }
 
     return <>
-    <div className=" d-flex function-background justify-content-around header p-3">
-        <div className=" d-flex align-items-center">
+    <div className=" d-flex function-background header p-3 justify-content-between">
+        <div className=" w-20 d-flex align-items-center align-self-baseline">
             <IconDrainedMD ratio={"75px"}/>
             <h2><b>Drained MD</b></h2>
         </div>
 
-        <div className=" d-flex justify-content-between w-30">
+        <div className=" w-30 d-flex justify-content-around align-self-center">
             <div onClick={handleOnClickPackSim} className={(blockPageChange ? " blocked" : "") + " headerButton d-flex flex-column"}>
                 <div className=" d-flex justify-content-center">
                     <IconGoToPackSim />
@@ -51,7 +51,7 @@ const PageHeader = ({blockPageChange = false}) => {
                     pack opener
                 </div>
             </div>
-
+    
             <div onClick={handleOnClickCollection} className={(blockPageChange ? " blocked" : "") +  " headerButton"}>
                 <div className=" d-flex justify-content-center">
                     <IconGoToCollection />
@@ -71,7 +71,7 @@ const PageHeader = ({blockPageChange = false}) => {
             </div>
         </div>
 
-        <div onClick={handleOnClickLogout} className=" headerButton">
+        <div onClick={handleOnClickLogout} className=" w-20 headerButton">
             <div className=" d-flex justify-content-center">
                 <IconLogout />
             </div>
