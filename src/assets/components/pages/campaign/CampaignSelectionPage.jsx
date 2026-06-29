@@ -43,9 +43,6 @@ const CampaignSelectionPage = () => {
                 const data = await ServiceGetCampaignsFromUser(GetSessionToken())
 
                 const newInvites = invites.filter((item) => item.pid != inviteId)
-                
-                console.log(newInvites)
-                console.log(newInvites > 0)
 
                 setCampaigns(data.data)
                 setInvites(newInvites)
@@ -163,7 +160,7 @@ const CampaignSelectionPage = () => {
                                 <h2>Campaigns</h2>
                                 <p>Wähle die Kampagne aus die du spielen möchtest.</p>
 
-                                <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 6}>
+                                <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 5}>
                                     {campaigns.map((data) => (
                                         <CampaignItem
                                             key={data.pid}
