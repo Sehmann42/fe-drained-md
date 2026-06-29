@@ -243,67 +243,56 @@ function CollectionPage() {
     <div className=" d-flex flex-column main-background h-100 overflow-hidden">
         <PageHeader />
 
-        <div className=" body">
-            <div className="h-100 d-flex flex-column overflow-hidden">
-                <div style={{minHeight: 0}} className=" w-70 p-3 d-flex justify-content-between ">
-                        <div className=" w-70 d-flex align-items-center">
-                            <div className=" w-1" />
-                            <h4>Suchen : </h4>
-                            <div className=" w-1" />
-                            <SearchBar width={"80%"}>
-                                <input
-                                value={searchText}
-                                onChange={handleChangeEvent}
-                                type="text" 
-                                className=" w-95"/>
-                            </SearchBar>
-                        </div>
-
-                        <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
-                            <IconExport />
-                            <span>
-                                Export
-                            </span>
-                        </div>
+        <div className=" body p-3 d-flex flex-column">
+            <div className=" d-flex justify-content-between">
+                <h3>Collection</h3>
+                <div>
+                    <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
+                        <IconExport />
+                        <span>
+                            Export
+                        </span>
+                    </div>
                 </div>
+            </div>
 
-                <div style={{minHeight: 0}} className=" w-100 d-flex h-100">
-                    <div style={{minHeight: 0}} className=" w-70 d-flex flex-column">
-                        { isLoading ? <LoadingPage />
-                            :
-                            <Collection maxHeight="100%" elementsPerRow={6}>
-                                {
-                                    displayedCards.map((data) => {
-                                        return  <YGOCard cardData={data}>
-                                                    <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
-                                                        <IconAddCard />
-                                                    </div>
-                                                    <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
-                                                        <IconRemoveCard />
-                                                    </div>
-                                                </YGOCard>
-                                    })
-                                }
-                            </Collection>
-                        }
+            <p>Verwalte und Durchsuche deine Karten.</p>
+
+            <div style={{minHeight: 0}} className=" d-flex ">
+                <div style={{minHeight: 0}} className=" d-flex w-50 function-background flex-column">
+                    <div>
+                        Sachen
                     </div>
 
-                    <div style={{minHeight: 0}} className=" w-35 d-flex flex-column">
-                        <div className=" h-10 p-3 d-flex w-100 justify-content-between align-items-center">
-                            <span>Suchen : </span>
-
-                            <SearchBar width={"70%"}>
-                                <input
-                                value={dbSearchText}
-                                onChange={(event) => setDbSearchText(event.target.value)}
-                                type="text" 
-                                className=" w-100"/>
-                            </SearchBar>
+                    <div style={{flex:1}} className="  overflow-auto">
+                        <div style={{minHeight: 0}} className="d-flex flex-column ">
+                            { isLoading ? <LoadingPage />
+                                :
+                                <Collection maxHeight="100%" elementsPerRow={5}>
+                                    {
+                                        displayedCards.map((data) => {
+                                            return  <YGOCard cardData={data}>
+                                                        <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
+                                                            <IconAddCard />
+                                                        </div>
+                                                        <div onClick={() => handleOnClickRemoveCardInCollection(data.id)} className=" subButton">
+                                                            <IconRemoveCard />
+                                                        </div>
+                                                    </YGOCard>
+                                        })
+                                    }
+                                </Collection>
+                            }
                         </div>
+                    </div>
+                </div>
+                
+                <div style={{width:"50px"}} />
 
-                        { isLoadingDB ? <LoadingPage />
+                <div className=" w-50 function-background">
+                    { isLoadingDB ? <LoadingPage />
                             :
-                            <Collection maxHeight="100%" elementsPerRow={3}>
+                            <Collection maxHeight="100%" elementsPerRow={5}>
                                 {
                                     (dbSearchText.length >= 3
                                         ? allCardFromDB.filter(card_data =>
@@ -325,12 +314,10 @@ function CollectionPage() {
                                     })
                                 }
                             </Collection>
-                            }
-                    </div>
-                </div>        
+                        }
+                </div>
             </div>
         </div>  
-
         <PageFooter />
     </div>
     

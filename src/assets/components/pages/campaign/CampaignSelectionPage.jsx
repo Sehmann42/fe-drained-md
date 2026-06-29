@@ -138,9 +138,7 @@ const CampaignSelectionPage = () => {
     <div className=" h-100 d-flex flex-column main-background p-2">
         <PageHeader blockPageChange={true} />
 
-        <br />
-
-        <div className=" body">
+        <div  className=" body">
             <div className=" h-100 d-flex main-background justify-content-between">
 
                 <FriendsList />
@@ -200,8 +198,6 @@ const CampaignSelectionPage = () => {
         </div>
 
         <EditCampaignItemModal ref={campaignEditModalRef} data={editModalData} closeModalMethod={closeCampaignEditModal} updateCampaigns={updateCampaignScreen} />
-        
-        <br />
         
         <PageFooter />
     </div>

@@ -175,6 +175,8 @@ div[id=root] {
 .body {
     flex: 1;
     overflow:hidden;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .hidden-bar::-webkit-scrollbar {

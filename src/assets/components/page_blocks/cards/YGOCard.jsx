@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import "../../../css/Collection/ygocard.css"
 
-const YGOCard = ({children, cardData}) => {
+const YGOCard = ({children, cardData, picRatio = "inherit"}) => {
 
     const [cardRarity, setCardRarity] = useState("")
 
@@ -28,7 +28,7 @@ const YGOCard = ({children, cardData}) => {
 
     return <>
         <div className={" ygocard d-flex justify-content-center " + cardRarity}>
-            <img loading="lazy"
+            <img style={{width:picRatio, height: picRatio}} loading="lazy"
                 src={cardData.image_url}
             ></img>
 
