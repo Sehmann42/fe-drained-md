@@ -63,8 +63,8 @@ const FriendsList = ({width = "15%"}) => {
                 </Collection>
             }
 
-            <div>
-                <button style={{color:"white"}} className=" btn "> Alle Freunde </button>
+            <div className=" px-3 pb-3">
+                <button style={{color:"white"}} className=" w-100 btn "> Alle Freunde </button>
             </div>
         </div>
     </div>
