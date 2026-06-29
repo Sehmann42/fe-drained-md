@@ -16,6 +16,8 @@ div[id=root] {
 
 .function-background {
     background: #07142e;
+    border: 1px solid #0d1931;
+    border-radius:  20px;
 }
 
 .h-10 {
@@ -91,9 +93,9 @@ div[id=root] {
     position: absolute;
     inset: -5px;
 
-    background: rgba(31, 81, 245, 0.534) 7%;
+    background: rgba(10, 60, 226, 0.788) 7%;
 
-    filter: blur(5px);
+    filter: blur(3px);
 
     border-radius: inherit;
 
@@ -120,10 +122,10 @@ div[id=root] {
     background: linear-gradient(
         108deg,
         rgba(255, 91, 79, 1) 7%,
-        rgba(255, 202, 87, 0.47) 44%
+        rgba(255, 202, 87, 0.747) 44%
     );
 
-    filter: blur(15px);
+    filter: blur(3px);
     border-radius: inherit;
     z-index: -1;
     pointer-events: none;
@@ -154,10 +156,10 @@ div[id=root] {
     background: linear-gradient(
         108deg,
         rgba(79, 108, 255, 1) 7%,
-        rgba(248, 49, 232, 0.47) 44%
+        rgba(248, 49, 232, 0.637) 44%
     );
 
-    filter: blur(15px);
+    filter: blur(3px);
 
     border-radius: inherit;
 

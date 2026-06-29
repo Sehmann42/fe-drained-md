@@ -135,12 +135,14 @@ const CampaignSelectionPage = () => {
     }, []);
 
     return <>
-    <div className=" h-100 d-flex flex-column main-background">
+    <div className=" h-100 d-flex flex-column main-background p-2">
         <PageHeader blockPageChange={true} />
+
+        <br />
 
         {isLoading ? <LoadingPage /> : 
         <div className=" body">
-            <div className=" h-100 d-flex main-background p-2">
+            <div className=" h-100 d-flex main-background">
 
                 <FriendsList />
 
@@ -167,7 +169,9 @@ const CampaignSelectionPage = () => {
         }
 
         <EditCampaignItemModal ref={campaignEditModalRef} data={editModalData} closeModalMethod={closeCampaignEditModal} updateCampaigns={updateCampaignScreen} />
-
+        
+        <br />
+        
         <PageFooter />
     </div>
     </>

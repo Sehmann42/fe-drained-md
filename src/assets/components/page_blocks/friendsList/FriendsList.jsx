@@ -5,8 +5,9 @@ import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
 import { data } from "react-router-dom"
 import { GetSessionToken } from "../../services/TokenStorage"
 import SideFriendListItem from "./SideFriendListItem"
+import IconFriendList from "../icons/IconFriendList"
 
-const FriendsList = ({width = "20%"}) => {
+const FriendsList = ({width = "15%"}) => {
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -45,9 +46,13 @@ const FriendsList = ({width = "20%"}) => {
     }
 
     return <>
-    <div style={{width: width}}>
+    <div className=" function-background" style={{width: width}}>
         <div className=" w-100 h-100 d-flex flex-column">
-            <h2>Friends List</h2>
+            <div className=" d-flex align-items-center">
+                <IconFriendList ratio={"50px"}/>
+                <h3>Friends List</h3>
+            </div>
+            
             
             {
                 isLoading? <LoadingPage /> :

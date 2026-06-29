@@ -9,6 +9,8 @@ import IconGoToPackSim from "../icons/IconGoToPackSim"
 import IconGoToCollection from "../icons/IconGoToCollection"
 import IconLogout from "../icons/IconLogout"
 import IconCampaignCollection from "../icons/IconCampaignCollection"
+import IconDrainedMDSmall from "../icons/IconDrainedMDSmall"
+import IconDrainedMD from "../icons/IconDrainedMD"
 
 const PageHeader = ({blockPageChange = false}) => {
 
@@ -36,7 +38,7 @@ const PageHeader = ({blockPageChange = false}) => {
     return <>
     <div className=" d-flex function-background justify-content-around header p-3">
         <div className=" d-flex align-items-center">
-            
+            <IconDrainedMD ratio={"75px"}/>
             <h2><b>Drained MD</b></h2>
         </div>
 
