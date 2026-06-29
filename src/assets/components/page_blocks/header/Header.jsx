@@ -42,30 +42,32 @@ const PageHeader = ({blockPageChange = false}) => {
             <h2><b>Drained MD</b></h2>
         </div>
 
-        <div onClick={handleOnClickPackSim} className={(blockPageChange ? " blocked" : "") + " headerButton d-flex flex-column"}>
-            <div className=" d-flex justify-content-center">
-                <IconGoToPackSim />
+        <div className=" d-flex justify-content-between w-30">
+            <div onClick={handleOnClickPackSim} className={(blockPageChange ? " blocked" : "") + " headerButton d-flex flex-column"}>
+                <div className=" d-flex justify-content-center">
+                    <IconGoToPackSim />
+                </div>
+                <div className=" d-flex justify-content-center">
+                    pack opener
+                </div>
             </div>
-            <div className=" d-flex justify-content-center">
-                pack opener
-            </div>
-        </div>
 
-        <div onClick={handleOnClickCollection} className={(blockPageChange ? " blocked" : "") +  " headerButton"}>
-            <div className=" d-flex justify-content-center">
-                <IconGoToCollection />
+            <div onClick={handleOnClickCollection} className={(blockPageChange ? " blocked" : "") +  " headerButton"}>
+                <div className=" d-flex justify-content-center">
+                    <IconGoToCollection />
+                </div>
+                <div className=" d-flex justify-content-center">
+                    collection
+                </div>
             </div>
-            <div className=" d-flex justify-content-center">
-                collection
-            </div>
-        </div>
 
-        <div onClick={handleOnClickCampaigns} className=" headerButton">
-            <div className=" d-flex justify-content-center">
-                <IconCampaignCollection />
-            </div>
-            <div className=" d-flex justify-content-center">
-                campaigns
+            <div onClick={handleOnClickCampaigns} className=" headerButton">
+                <div className=" d-flex justify-content-center">
+                    <IconCampaignCollection />
+                </div>
+                <div className=" d-flex justify-content-center">
+                    campaigns
+                </div>
             </div>
         </div>
 
