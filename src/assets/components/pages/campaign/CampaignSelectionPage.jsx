@@ -43,10 +43,13 @@ const CampaignSelectionPage = () => {
                 const data = await ServiceGetCampaignsFromUser(GetSessionToken())
 
                 const newInvites = invites.filter((item) => item.pid != inviteId)
-                    
+                
+                console.log(newInvites)
+                console.log(newInvites > 0)
+
                 setCampaigns(data.data)
                 setInvites(newInvites)
-                setShowInvites(newInvites > 0)
+                setShowInvites(newInvites.length > 0)
             }catch(e){
                 console.error(e)
             }finally{
