@@ -6,7 +6,7 @@ const IconFriendList = ({ratio}) => {
             viewBox="0 0 64 64"
             xmlns="http://www.w3.org/2000/svg"
             strokeWidth="3"
-            stroke="#f500fd"
+            stroke="#d52eff"
             fill="none"
             >
             <circle cx="22.83" cy="22.57" r="7.51"/>

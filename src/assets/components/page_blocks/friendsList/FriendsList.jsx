@@ -48,9 +48,9 @@ const FriendsList = ({width = "15%"}) => {
     return <>
     <div className=" function-background" style={{width: width}}>
         <div className=" w-100 h-100 d-flex flex-column">
-            <div className=" d-flex align-items-center">
-                <IconFriendList ratio={"50px"}/>
-                <h3>Friends List</h3>
+            <div style={{fontSize:"1.2rem"}} className=" pt-3 d-flex px-3 align-items-center">
+                <IconFriendList ratio={"29px"}/>
+                <div>Friends List</div>
             </div>
             
             
@@ -62,6 +62,10 @@ const FriendsList = ({width = "15%"}) => {
                     }
                 </Collection>
             }
+
+            <div>
+                <button style={{color:"white"}} className=" btn "> Alle Freunde </button>
+            </div>
         </div>
     </div>
     </>
