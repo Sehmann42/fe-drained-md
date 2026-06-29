@@ -16,7 +16,7 @@ div[id=root] {
 
 .function-background {
     background: #07142e;
-    border: 1px solid #0d1931;
+    border: 2px solid #0d1931;
     border-radius:  20px;
 }
 
@@ -177,3 +177,20 @@ div[id=root] {
     overflow:hidden;
 }
 
+.hidden-bar::-webkit-scrollbar {
+  width: 8px!important;
+  height: 8px!important;
+  display: none;
+}
+
+.hidden-bar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.hidden-bar::-webkit-scrollbar-thumb {
+  background: transparent!important;
+}
+
+.hidden-bar::-webkit-scrollbar-corner {
+  background: transparent!important;
+}
