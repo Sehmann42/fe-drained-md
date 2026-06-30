@@ -12,6 +12,8 @@ import LoadingPage from "../../loading_blocks/LoadingPage"
 import IconExport from "../../page_blocks/icons/IconExport"
 import IconAddCard from "../../page_blocks/icons/IconAddCard"
 import IconRemoveCard from "../../page_blocks/icons/IconRemoveCard"
+import SVGDownloadButton from "../../page_blocks/icons/SVGDownloadButton"
+import SVGCollectionStack from "../../page_blocks/icons/SVGCollectionStack"
 
 function CollectionPage() {
     
@@ -19,6 +21,8 @@ function CollectionPage() {
 
     const [collectedCards, setCollectedCards] = useState([])
     const [displayedCards, setDisplayedCards] = useState([])
+
+    const [totalCollectedCards, setTotalCollectedCards] = useState(collectedCards.length)
 
     const [searchText, setSearchText] = useState("")
     const [dbSearchText, setDbSearchText] = useState("Sangan")
@@ -28,6 +32,10 @@ function CollectionPage() {
     const handleChangeEvent = (event) => {
         setSearchText(event.target.value)
         filterData(event.target.value)
+    }
+
+    const handleChangeEventDB = (event) => {
+        setSearchText(event.target.value)
     }
 
     const filterData = (cardName, updatedCollection = []) => {
@@ -193,8 +201,6 @@ function CollectionPage() {
 
     useEffect(() => {
 
-        console.log(GetSessionToken())
-
         const fetchAll = async () => {
 
             try {
@@ -212,8 +218,6 @@ function CollectionPage() {
 
                 const allCards =
                     dbRes?.data.data ?? []
-
-                console.log(collection.length)
                 
                 setCollectedCards(collection)
                 setDisplayedCards(collection)
@@ -239,32 +243,65 @@ function CollectionPage() {
 
     }, [])
 
+    useEffect(() => {
+        setTotalCollectedCards(collectedCards.length)
+    }, [collectedCards])
+
     return <>
     <div className=" d-flex flex-column main-background h-100 overflow-hidden">
         <PageHeader />
 
-        <div className=" body p-3 d-flex flex-column">
+        <div className=" body px-3 d-flex flex-column">
             <div className=" d-flex justify-content-between">
-                <h3>Collection</h3>
-                <div>
-                    <div className=" machKlick d-flex flex-column justify-content-center align-items-center" onClick={handleOnClickExportCollection}>
-                        <IconExport />
-                        <span>
-                            Export
-                        </span>
+                <div className=" d-flex flex-column">
+                    <h3>Collection</h3>
+                    <p>Verwalte und Durchsuche deine Karten.</p>
+                </div>
+                
+                <div className=" d-flex flex-column">
+                    <div className=" d-flex flex-row-reverse">
+                        <div onClick={handleOnClickExportCollection} className="btn w-65">
+                            <SVGDownloadButton ratio={"30px"} />
+                            <span>
+                                Export (YDK)
+                            </span>
+                        </div>
                     </div>
+                    <p>Exportiere deine gesamte Kollektion im YDK Format.</p>
                 </div>
             </div>
 
-            <p>Verwalte und Durchsuche deine Karten.</p>
+            <div style={{minHeight: 0}} className=" d-flex h-100">
+                <div style={{minHeight: 0}} className=" d-flex w-50 function-background flex-column p-3">
+                    <div className=" d-flex justify-content-between">
+                        <div className=" d-flex align-items-center">
+                            <SVGCollectionStack ratio={"35px"}/>
+                            <div style={{width: "10px"}}/>
+                            <h4 style={{color:"#814AF6"}}>
+                                Deine Collection
+                            </h4>
+                        </div>
 
-            <div style={{minHeight: 0}} className=" d-flex ">
-                <div style={{minHeight: 0}} className=" d-flex w-50 function-background flex-column">
-                    <div>
-                        Sachen
+                        <div className=" d-flex">
+                            <div>
+                                {totalCollectedCards} Karten
+                            </div>
+
+                            <div style={{width: "10px"}}/>
+
+                            <div>
+                                Filter
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style={{marginTop: "5px"}}>
+                        <SearchBar width={"100%"} searchText={searchText} handleChangeEvent={handleChangeEvent} />
                     </div>
 
-                    <div style={{flex:1}} className="  overflow-auto">
+                    <hr />
+
+                    <div style={{flex:1, marginTop: "0px"}} className="  overflow-auto">
                         <div style={{minHeight: 0}} className="d-flex flex-column ">
                             { isLoading ? <LoadingPage />
                                 :
@@ -289,32 +326,36 @@ function CollectionPage() {
                 
                 <div style={{width:"50px"}} />
 
-                <div className=" w-50 function-background">
-                    { isLoadingDB ? <LoadingPage />
-                            :
-                            <Collection maxHeight="100%" elementsPerRow={5}>
-                                {
-                                    (dbSearchText.length >= 3
-                                        ? allCardFromDB.filter(card_data =>
-                                            card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
-                                        )
-                                        : []
-                                    ).map((card_data) => {
-                                        return (
-                                            <YGOCard key={card_data.id} cardData={card_data}>
-                                                <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
-                                                    <IconAddCard />
-                                                </div>
+                <div style={{minHeight: 0}} className=" d-flex w-50 function-background flex-column p-3">
+                    <div style={{flex:1}} className="  overflow-auto">
+                        <div style={{minHeight: 0}} className="d-flex flex-column ">
+                            { isLoadingDB ? <LoadingPage />
+                                :
+                                <Collection maxHeight="100%" elementsPerRow={5}>
+                                    {
+                                        (dbSearchText.length >= 3
+                                            ? allCardFromDB.filter(card_data =>
+                                                card_data.name.toLowerCase().includes(dbSearchText.toLowerCase())
+                                            )
+                                            : []
+                                        ).map((card_data) => {
+                                            return (
+                                                <YGOCard key={card_data.id} cardData={card_data}>
+                                                    <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                                                        <IconAddCard />
+                                                    </div>
 
-                                                <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
-                                                    <IconRemoveCard />
-                                                </div>
-                                            </YGOCard>
-                                        )
-                                    })
-                                }
-                            </Collection>
-                        }
+                                                    <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                                        <IconRemoveCard />
+                                                    </div>
+                                                </YGOCard>
+                                            )
+                                        })
+                                    }
+                                </Collection>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>  
