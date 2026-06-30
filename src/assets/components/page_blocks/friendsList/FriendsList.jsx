@@ -50,6 +50,7 @@ const FriendsList = ({width = "15%"}) => {
         <div className=" w-100 h-100 d-flex flex-column">
             <div style={{fontSize:"1.2rem"}} className=" pt-3 d-flex px-3 align-items-center">
                 <IconFriendList ratio={"29px"}/>
+                <div style={{width: "10px"}}/>
                 <div>Friends List</div>
             </div>
             
