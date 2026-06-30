@@ -14,6 +14,7 @@ import IconAddCard from "../../page_blocks/icons/IconAddCard"
 import IconRemoveCard from "../../page_blocks/icons/IconRemoveCard"
 import SVGDownloadButton from "../../page_blocks/icons/SVGDownloadButton"
 import SVGCollectionStack from "../../page_blocks/icons/SVGCollectionStack"
+import SVGCollectionDB from "../../page_blocks/icons/SVGCollectionDB"
 
 function CollectionPage() {
     
@@ -35,7 +36,7 @@ function CollectionPage() {
     }
 
     const handleChangeEventDB = (event) => {
-        setSearchText(event.target.value)
+        setDbSearchText(event.target.value)
     }
 
     const filterData = (cardName, updatedCollection = []) => {
@@ -327,6 +328,34 @@ function CollectionPage() {
                 <div style={{width:"50px"}} />
 
                 <div style={{minHeight: 0}} className=" d-flex w-50 function-background flex-column p-3">
+                    <div className=" d-flex justify-content-between">
+                        <div className=" d-flex align-items-center">
+                            <SVGCollectionDB ratio={"35px"}/>
+                            <div style={{width: "10px"}}/>
+                            <h4 style={{color:"#814AF6"}}>
+                                Alle Karten
+                            </h4>
+                        </div>
+
+                        <div className=" d-flex">
+                            <div>
+
+                            </div>
+
+                            <div style={{width: "10px"}}/>
+
+                            <div>
+                                Filter
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style={{marginTop: "5px"}}>
+                        <SearchBar width={"100%"} searchText={dbSearchText} handleChangeEvent={handleChangeEventDB} />
+                    </div>
+
+                    <hr />
+
                     <div style={{flex:1}} className="  overflow-auto">
                         <div style={{minHeight: 0}} className="d-flex flex-column ">
                             { isLoadingDB ? <LoadingPage />

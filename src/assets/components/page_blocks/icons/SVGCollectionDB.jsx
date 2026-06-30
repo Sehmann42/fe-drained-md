@@ -2,7 +2,7 @@ const SVGCollectionDB = ({ratio}) => {
     return <>
         <svg
             style={{ width: ratio, height: ratio }}
-            viewBox="0 0 64 64"
+            viewBox="0 0 25 25"
             xmlns="http://www.w3.org/2000/svg"
             strokeWidth="3"
             stroke="#814AF6"

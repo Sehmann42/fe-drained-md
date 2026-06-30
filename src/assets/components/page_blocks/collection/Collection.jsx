@@ -21,7 +21,7 @@ const Collection = ({children, elementsPerRow, maxHeight = "95%"}) => {
                         p-2
                         ">
                             {children}
-                        </div>
+                    </div>
                 </div>
                 
             </div>
