@@ -48,6 +48,7 @@ const PackSelectorPage = () => {
             const newItem = {
                 pack_id: packData.pack_id,
                 name: packData.pack_name,
+                image_url: packData.image_url,
                 amount: 1
             }
 
@@ -77,8 +78,6 @@ const PackSelectorPage = () => {
             const fetchData = async () => {
                 const rawData = await GetAllSecretPacks(GetSessionToken())
 
-                console.log(rawData.response.data)
-
                 setMasterPacks(rawData.response.data)
                 setIsLoading(false)
             }
@@ -94,33 +93,77 @@ const PackSelectorPage = () => {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
         
-        <div className=" body">
+        <div style={{flex:1}} className=" body px-3 d-flex">
 
-            {
-                isLoading ? <LoadingPage /> :
-                <div className=" h-100 d-flex flex-column">
-                    <h2>Campaigns</h2>
-                    <Collection maxHeight="100%" elementsPerRow={6}>
-                        {
-                            [...masterPacks].sort((a, b) => {
-                                if (a.pack_name == "Master Pack") return -1;
-                                if (b.pack_name == "Master Pack") return 1;
-                                return 0
-                            }).map((data) => {
-                                return <MDMasterPack key={data.pack_name} handleClickEventPack={handleClickEventPack} packData={data} />
-                            })
-                        }
-                    </Collection>
+            <div className=" w-100 d-flex flex-column">
+                <div>
+                    <div className=" d-flex flex-column">
+                        <h4>Secret Packs</h4>
+                        <p>Wähle die Secret Packs die du öffnen möchtest</p>
+                    </div>
+                </div>
 
-                    <div className=" basketPositon">
-                        <Basket goToPackSim={goToPackSim}>
+                <div style={{flex:1, marginTop: "0px"}} className="overflow-auto">
+                    <div style={{minHeight: 0}} className="d-flex flex-column ">
+                    {
+                        isLoading ? <LoadingPage /> :
+                        <Collection elementsPerRow={5} gap="0.2rem">
+                                {
+                                    [...masterPacks].sort((a, b) => {
+                                        if (a.pack_name == "Master Pack") return -1;
+                                        if (b.pack_name == "Master Pack") return 1;
+                                        return 0
+                                    }).map((data) => {
+                                        return <MDMasterPack key={data.pack_name} handleClickEventPack={handleClickEventPack} packData={data} />
+                                    })
+                                }
+                        </Collection>
+                    }
+                    </div>
+                </div>
+            </div>
+            
+            <div style={{width:"50px"}} />
+
+            <div className=" w-50 function-background">
+                <div className=" p-3 h-100 d-flex flex-column">
+                    <div className=" d-flex justify-content-between">
+                        <div className=" d-flex flex-column">
+                            <h4>Dein Korb</h4>
+                        </div>
+                        <div className=" d-flex flex-column">
+                            Gesamt : Packs
+                        </div>
+                    </div>
+                    
+                    <hr />
+
+                    <div style={{minHeight: "0px"}} className=" overflow-auto h-100">
+                        <Basket>
                             {basket.map((data) => {
                                 return <BasketItem data={data} />
                             })}
                         </Basket>
                     </div>
+                    
+                    <hr />
+
+                    <div className=" d-flex flex-column align-items-center">
+                        <div>
+                            Packs ausgewählt
+                        </div>
+
+                        <div onClick={() => goToPackSim()}>
+                            Packs Öffnen
+                        </div>
+
+                        <div>
+                            Korb leeren
+                        </div>
+                    </div>
                 </div>
-            }
+                
+            </div>
         </div>
 
         <PageFooter />
