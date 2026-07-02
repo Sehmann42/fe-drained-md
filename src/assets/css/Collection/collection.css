@@ -1,5 +1,5 @@
 .collection {
-    border: 1px solid white;
+    /*border: 1px solid white; */
     border-radius: 10px;
     display: flex;
     align-content: start;
@@ -9,7 +9,6 @@
 
 .collectionContent {
     display: grid;
-    gap: 1rem;
     align-content: start;
 }
 

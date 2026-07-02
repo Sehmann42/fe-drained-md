@@ -1,6 +1,6 @@
 import "../../../css/Collection/collection.css"
 
-const Collection = ({children, elementsPerRow, maxHeight = "95%"}) => {
+const Collection = ({children, elementsPerRow, maxHeight = "95%", gap="1rem"}) => {
 
     return <>
 
@@ -11,6 +11,7 @@ const Collection = ({children, elementsPerRow, maxHeight = "95%"}) => {
                         style={{
                             gridAutoRows: "auto",
                             gridTemplateColumns: "repeat(" + elementsPerRow + ", 1fr)",
+                            gap: gap
                         }}
 
                         className=" 
@@ -21,7 +22,7 @@ const Collection = ({children, elementsPerRow, maxHeight = "95%"}) => {
                         p-2
                         ">
                             {children}
-                        </div>
+                    </div>
                 </div>
                 
             </div>
