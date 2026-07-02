@@ -22,6 +22,8 @@ const MDMasterPack = ({packData, handleClickEventPack}) => {
 
                 //console.log(packData)
                 
+                console.log(packData)
+
                 const imageLink = packData.wide_image_url ? packData.wide_image_url : (packData.image_url ? packData.image_url : "https://images.ygoprodeck.com/images/cards/back_high.jpg")
 
                 setHasWideImage(packData.wide_image_url ? true : false)

@@ -1,6 +1,6 @@
 .hiddencard {
-    width: inherit;
-    height: inherit;
+    width: 130px;
+    height: 190px;
 
     position: relative;
 
@@ -12,8 +12,8 @@
 }
 
 .hiddencard img {
-    width: inherit;
-    height: inherit;
+    width: 130px;
+    height: 190px;
 
     position: relative;
     z-index: 1;
