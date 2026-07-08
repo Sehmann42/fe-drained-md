@@ -48,6 +48,10 @@ div[id=root] {
     width: 35%;
 }
 
+.w-40 {
+    width: 40% !important;
+}
+
 .w-65 {
     width: 65% !important;
 }
@@ -195,4 +199,30 @@ div[id=root] {
 
 .hidden-bar::-webkit-scrollbar-corner {
   background: transparent!important;
+}
+
+
+
+.bigPurpleButton {
+    border: 1px solid grey;
+    background-color: #4418b2;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.bigPurpleButtonAlt {
+    border: 1px solid grey;
+    background-color: #040b1a !important;
+}
+
+.highlightInfo {
+    border: 1px solid grey;
+    background-color: #091020
+}
+
+.roundedCorners {
+    border-radius: 10px;
 }

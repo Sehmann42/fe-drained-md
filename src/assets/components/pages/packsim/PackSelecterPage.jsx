@@ -16,6 +16,8 @@ import LoadingPage from "../../loading_blocks/LoadingPage"
 const PackSelectorPage = () => {
 
     const [basket, setBasket] = useState([])
+    const [totalBasketUniquePacks, setTotalBasketUniquePacks] = useState(0)
+    const [totalBasketPacks, setTotalBasketPacks] = useState(0)
     const [masterPacks, setMasterPacks] = useState([]) 
 
     const [isLoading, setIsLoading] = useState(true)
@@ -73,21 +75,42 @@ const PackSelectorPage = () => {
 
     useEffect(() => {
             
-            //Get all Cards From User Collection from Backend
+        //Get all Cards From User Collection from Backend
+        
+        const fetchData = async () => {
+            const rawData = await GetAllSecretPacks(GetSessionToken())
+
+            setMasterPacks(rawData.response.data)
+            setIsLoading(false)
+        }
+
+        fetchData()
+
+        return () => {
             
-            const fetchData = async () => {
-                const rawData = await GetAllSecretPacks(GetSessionToken())
+        };
+    }, []);
 
-                setMasterPacks(rawData.response.data)
-                setIsLoading(false)
-            }
+    useEffect(() => {
+            
+        //Get all Cards From User Collection from Backend
 
-            fetchData()
-    
-            return () => {
-                
-            };
-        }, []);
+        console.log(basket)
+        
+        if (basket.length > 0) {
+            setTotalBasketPacks(basket.reduce((sum, pack) => sum += pack.amount, 0))
+            setTotalBasketUniquePacks(basket.length)
+        }else{
+            setTotalBasketPacks(0)
+            setTotalBasketUniquePacks(0)
+        }
+        
+        
+
+        return () => {
+            
+        };
+    }, [basket]);
 
     return <>
     <div className=" d-flex flex-column main-background h-100">
@@ -125,7 +148,7 @@ const PackSelectorPage = () => {
             
             <div style={{width:"50px"}} />
 
-            <div className=" w-50 function-background">
+            <div className=" w-40 function-background">
                 <div className=" p-3 h-100 d-flex flex-column">
                     <div className=" d-flex justify-content-between">
                         <div className=" d-flex flex-column">
@@ -148,16 +171,27 @@ const PackSelectorPage = () => {
                     
                     <hr />
 
-                    <div className=" d-flex flex-column align-items-center">
-                        <div>
-                            Packs ausgewählt
+                    <div className=" d-flex flex-column align-items-center ">
+                        <div className=" highlightInfo w-100 d-flex justify-content-between align-items-center p-3 roundedCorners">
+                            <div className=" d-flex flex-column">
+                                <span>Packs ausgewählt</span>
+                                <span>{totalBasketUniquePacks} Secret Packs</span>
+                            </div>
+                            
+                            <div className=" align-items-center">
+                                {totalBasketPacks} Packs
+                            </div>
                         </div>
+                        
+                        <div style={{height: "20px"}} />
 
-                        <div onClick={() => goToPackSim()}>
+                        <div className=" bigPurpleButton w-100" onClick={() => goToPackSim()}>
                             Packs Öffnen
                         </div>
+                        
+                        <div style={{height: "20px"}} />
 
-                        <div>
+                        <div className=" bigPurpleButton bigPurpleButtonAlt w-100">
                             Korb leeren
                         </div>
                     </div>
