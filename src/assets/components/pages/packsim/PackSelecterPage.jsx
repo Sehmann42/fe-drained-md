@@ -12,6 +12,7 @@ import "../../../../assets/css/PackSelector/packselector.css"
 import { useNavigate } from "react-router-dom"
 import { Pages } from "../../../enums/EnumsPages"
 import LoadingPage from "../../loading_blocks/LoadingPage"
+import SVGBasket from "../../page_blocks/icons/SVGBasket"
 
 const PackSelectorPage = () => {
 
@@ -59,7 +60,7 @@ const PackSelectorPage = () => {
     }
 
     const goToPackSim = () => {
-        const filterBasket = basket.map(item => {
+        const filterBasket = basket.filter((item) => item.amount > 0).map(item => {
             return {
                 pack_id: item.pack_id,
                 amount: item.amount
@@ -71,6 +72,10 @@ const PackSelectorPage = () => {
                 packs: filterBasket
             }
         })
+    }
+
+    const emptyBasket = () => {
+        setBasket([])
     }
 
     useEffect(() => {
@@ -151,11 +156,10 @@ const PackSelectorPage = () => {
             <div className=" w-40 function-background">
                 <div className=" p-3 h-100 d-flex flex-column">
                     <div className=" d-flex justify-content-between">
-                        <div className=" d-flex flex-column">
+                        <div className=" d-flex align-items-center">
+                            <SVGBasket ratio={"30px"} />
+                            <div style={{width: "10px"}} />
                             <h4>Dein Korb</h4>
-                        </div>
-                        <div className=" d-flex flex-column">
-                            Gesamt : Packs
                         </div>
                     </div>
                     
@@ -164,7 +168,7 @@ const PackSelectorPage = () => {
                     <div style={{minHeight: "0px"}} className=" overflow-auto h-100">
                         <Basket>
                             {basket.map((data) => {
-                                return <BasketItem data={data} />
+                                return <BasketItem  data={data} basketRef={basket} setBasket={setBasket}/>
                             })}
                         </Basket>
                     </div>
@@ -191,7 +195,7 @@ const PackSelectorPage = () => {
                         
                         <div style={{height: "20px"}} />
 
-                        <div className=" bigPurpleButton bigPurpleButtonAlt w-100">
+                        <div onClick={() => emptyBasket()} className=" bigPurpleButton bigPurpleButtonAlt w-100">
                             Korb leeren
                         </div>
                     </div>

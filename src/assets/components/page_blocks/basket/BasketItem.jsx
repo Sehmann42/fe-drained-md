@@ -1,7 +1,68 @@
 import React from "react";
 import { useEffect } from "react";
+import SVGDelete from "../icons/SVGDelete";
 
-const BasketItem = ({data, addAmount, removeAmount, removeItem}) => {
+const BasketItem = ({data, basketRef, setBasket}) => {
+
+    const changeAmount = (event) => {
+        let basket = [...basketRef]
+
+        const updatedBasket = basket.map(item => {
+                if (item.name === data.name) {
+                    return {
+                        ...item,
+                        amount: Number(event.target.value)
+                    }
+                }
+
+                return item
+            })
+
+        setBasket(updatedBasket)
+
+    }
+
+    const addItem = () => {
+        let basket = [...basketRef]
+        const updatedBasket = basket.map(item => {
+                if (item.name === data.name) {
+                    return {
+                        ...item,
+                        amount: item.amount + 1
+                    }
+                }
+
+                return item
+            })
+
+        setBasket(updatedBasket)
+    }
+
+    const removeItem = () => {
+        let basket = [...basketRef]
+        const updatedBasket = basket.reduce((acc, item) => {
+            if (item.name === data.name) {
+                if (item.amount > 1) {
+                    acc.push({
+                        ...item,
+                        amount: item.amount - 1
+                    });
+                }
+            } else {
+                acc.push(item);
+            }
+
+            return acc;
+        }, []);
+
+        setBasket(updatedBasket);
+    }
+
+    const deleteSelf = () => {
+        let basket = [...basketRef]
+        const updatedBasket = basket.filter((item) => item.name != data.name)
+        setBasket(updatedBasket)
+    }
 
     return <>
     <div className=" d-flex px-2">
@@ -15,23 +76,23 @@ const BasketItem = ({data, addAmount, removeAmount, removeItem}) => {
                     {data.name}
                 </span> 
 
-                <div style={{width:"100px"}} className=" d-flex justify-content-between">
-                    <div>
+                <div style={{width:"100px"}} className=" d-flex justify-content-between roundedCorners standardBorder p-1">
+                    <div onClick={() => removeItem()} className=" w-30 d-flex justify-content-center">
                         -
                     </div>
-
-                    <div>
-                        {data.amount}
+                    
+                    <div className=" w-30 d-flex justify-content-center align-items-center ">
+                        <input style={{width: "stretch"}} onChange={changeAmount} value={data.amount} className="text-center rounded main-background no-border overflow-hidden" type="number" />
                     </div>
 
-                    <div>
+                    <div onClick={() => addItem()} className=" w-30 d-flex justify-content-center">
                         +
                     </div>
                 </div>
             </div>
 
-            <div>
-                Remove Item
+            <div onClick={() => deleteSelf()}>
+                <SVGDelete />
             </div>
         </div>
         
