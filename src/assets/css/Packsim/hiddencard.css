@@ -1,6 +1,6 @@
 .hiddencard {
-    width: 180px;
-    height: 250px;
+    width: 130px;
+    height: 190px;
 
     position: relative;
 
@@ -12,13 +12,11 @@
 }
 
 .hiddencard img {
-    width: 180px;
-    height: 250px;
+    width: 130px;
+    height: 190px;
 
     position: relative;
     z-index: 1;
-
-    border-radius: 12px;
 
     display: block;
 }

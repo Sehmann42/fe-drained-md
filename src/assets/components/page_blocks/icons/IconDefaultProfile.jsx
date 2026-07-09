@@ -24,9 +24,7 @@ const IconDefaultProfile = ({ratio = "15px", file, status}) => {
     return <>
         <div className=" position-relative">
             <img style={{width: ratio, height: ratio}} src={file} />
-            <div style={{backgroundColor: statusColor}} name="statusBall">
-
-            </div>
+            <div style={{backgroundColor: statusColor}} name="statusBall" />
         </div>
         
     </>

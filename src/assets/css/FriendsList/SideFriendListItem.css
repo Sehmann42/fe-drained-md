@@ -1,12 +1,3 @@
-.sidefriendlistitem {
-    background: #838bc7;
-    background: linear-gradient(24deg,rgba(131, 139, 199, 1) 49%, rgba(50, 84, 87, 1) 100%);
-    border-radius: 15px;
-}
-
-.sidefriendlistitem:hover {
-    background: rgba(131, 139, 199, 1);
-}
 
 .sidefriendlistitem img {
     border-radius: 20px;

@@ -1,8 +1,11 @@
+
+/*
 .campaignItem {
     border-radius: 20px;
     border: 2px solid transparent;
     background-color: rgb(46, 0, 59);
 }
+*/
 
 .campaignItem:hover {
     border: 2px solid white;

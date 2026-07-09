@@ -43,10 +43,10 @@ const CampaignSelectionPage = () => {
                 const data = await ServiceGetCampaignsFromUser(GetSessionToken())
 
                 const newInvites = invites.filter((item) => item.pid != inviteId)
-                    
+
                 setCampaigns(data.data)
                 setInvites(newInvites)
-                setShowInvites(newInvites > 0)
+                setShowInvites(newInvites.length > 0)
             }catch(e){
                 console.error(e)
             }finally{
@@ -135,39 +135,70 @@ const CampaignSelectionPage = () => {
     }, []);
 
     return <>
-    <div className=" h-100 d-flex flex-column main-background">
+    <div className=" h-100 d-flex flex-column main-background p-2">
         <PageHeader blockPageChange={true} />
 
-        {isLoading ? <LoadingPage /> : 
-        <div className=" body">
-            <div className=" h-100 d-flex main-background p-2">
+        <div  className=" body">
+            <div className=" h-100 d-flex main-background justify-content-between">
 
                 <FriendsList />
 
-                <div className={(showInvites ? "w-70" : "w-100") + " d-flex flex-column"}>
-                    <h2>Campaigns</h2>
-                    <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 6}>
-                        {
-                            campaigns.map((data) => { return <CampaignItem key={data.pid} handleOnClickEvent={handleOnClickCampaign} data={data} openCampaignEditModal={openCampaignEditModal} /> })
-                        }
-                        <NewCampaignItem />
-                    </Collection>
+                <div style={{width:"50px"}}>
                 </div>
+                {
+                    isLoading ? (<>
+                        <div className="w-100">
+                            <LoadingPage />
+                        </div>
+                    </>
+                        
+                    ) : (
+                        <>
+                            <div className={(showInvites ? "w-70" : "w-100") + " d-flex flex-column"}>
+                                <h2>Campaigns</h2>
+                                <p>Wähle die Kampagne aus die du spielen möchtest.</p>
 
-                <div className={(showInvites ? "w-30" : "d-none") + " d-flex flex-column"}>
-                    <h2>Invites</h2>
-                    <Collection maxHeight="100%" elementsPerRow={1}>
-                        {
-                            invites.map((data) => { return <InviteItem key={data.pid} data={data} handleOnInviteItemClick={handleOnClickInviteItem} resolveOnCLickEvent={resolveOnClickInviteItem}/> })
-                        }
-                    </Collection>
-                </div>
+                                <Collection maxHeight="100%" elementsPerRow={showInvites ? 4 : 5}>
+                                    {campaigns.map((data) => (
+                                        <CampaignItem
+                                            key={data.pid}
+                                            handleOnClickEvent={handleOnClickCampaign}
+                                            data={data}
+                                            openCampaignEditModal={openCampaignEditModal}
+                                        />
+                                    ))}
+                                    <NewCampaignItem />
+                                </Collection>
+                            </div>
+
+                            {showInvites ? (
+                                <div style={{ width: "50px" }} />
+                            ) : (
+                                <div />
+                            )}
+
+                            <div className={(showInvites ? "w-30" : "d-none") + " d-flex flex-column"}>
+                                <h2>Invites</h2>
+
+                                <Collection maxHeight="100%" elementsPerRow={1}>
+                                    {invites.map((data) => (
+                                        <InviteItem
+                                            key={data.pid}
+                                            data={data}
+                                            handleOnInviteItemClick={handleOnClickInviteItem}
+                                            resolveOnCLickEvent={resolveOnClickInviteItem}
+                                        />
+                                    ))}
+                                </Collection>
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </div>
-        }
 
         <EditCampaignItemModal ref={campaignEditModalRef} data={editModalData} closeModalMethod={closeCampaignEditModal} updateCampaigns={updateCampaignScreen} />
-
+        
         <PageFooter />
     </div>
     </>

@@ -59,9 +59,14 @@ function PacksimPage() {
                 }
 
                 setPendingPacks(dataPacks.data)
+
+                console.log(CurrPackData.cards)
+
                 setCurrPackContent(CurrPackData.cards)
 
                 //setzte Unlocked Packs
+                
+                 console.log(dataPacks.unlocked_packs)
 
                 setUnlockedSecretPacks(dataPacks.unlocked_packs)
 
@@ -260,6 +265,8 @@ function PacksimPage() {
 
                 const pack_id = getPackId(cardPack.pack_name)
                 const pack_image = getPackImage(cardPack.pack_name)
+                
+                console.log(cardPack)
 
                 if (!exists && cardPack.pack_type == "Secret Pack") {
 
@@ -267,7 +274,8 @@ function PacksimPage() {
                         pack_name: cardPack.pack_name,
                         pack_id: pack_id,
                         packType: cardPack.pack_type,
-                        image_url: pack_image
+                        image_url: pack_image,
+                        image_url_wide: cardPack.image_url_wide
                     })
                 }
             }

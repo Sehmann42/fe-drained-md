@@ -58,7 +58,7 @@ function LoginPage (){
 
     return <>
         <div className=" d-flex justify-content-center h-100 main-background">
-            <div className='p-5'>
+            <div className='p-5 function-background'>
                 <h1>Washed Master Duel Sim</h1>
 
                 <div className=' login-form'>

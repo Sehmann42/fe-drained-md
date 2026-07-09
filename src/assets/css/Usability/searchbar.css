@@ -1,14 +1,21 @@
 
 .searchbar {
-    border: 2px solid white;
-    border-radius: 20px;
+    border: 1px solid #0d1931;
+    background: #00081b;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .searchbar input {
-    background: none;
+    background: transparent;
     border:none
 }
 
 .searchbar input:focus-visible {
     outline:none;
+}
+
+input[type="text"]
+{
+    font-size:13px;
 }

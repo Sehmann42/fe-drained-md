@@ -2,23 +2,17 @@ import React from "react";
 
 import "../../../../assets/css/Basket/basket.css"
 
-const Basket = ({children,goToPackSim}) => {
+const Basket = ({children,goToPackSim, maxHeight = "95%"}) => {
 
     const handleOnClick = (event) => {
         goToPackSim()
     }
 
     return <>
-        <div className=" basket h-100 p-3 main-background">
-            <h3> Ausgewählte Packs</h3>
-            
-            <div>
-                {children}
-            </div>
-
-            <div>
-                <div onClick={handleOnClick}>
-                    Packs Öffnen
+        <div className="h-100">
+            <div style={{maxHeight:maxHeight}}>
+                <div className=" h-100 overflow-auto">
+                    {children}
                 </div>
             </div>
         </div>
