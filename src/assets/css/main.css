@@ -1,3 +1,15 @@
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 html {
     height: 100vh;
 }
@@ -46,6 +58,10 @@ div[id=root] {
 
 .w-35 {
     width: 35%;
+}
+
+.w-40 {
+    width: 40% !important;
 }
 
 .w-65 {
@@ -195,4 +211,38 @@ div[id=root] {
 
 .hidden-bar::-webkit-scrollbar-corner {
   background: transparent!important;
+}
+
+
+
+.bigPurpleButton {
+    border: 1px solid grey;
+    background-color: #4418b2;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.bigPurpleButtonAlt {
+    border: 1px solid grey;
+    background-color: #040b1a !important;
+}
+
+.highlightInfo {
+    border: 1px solid grey;
+    background-color: #091020
+}
+
+.roundedCorners {
+    border-radius: 10px;
+}
+
+.standardBorder {
+    border: 1px solid grey;
+}
+
+.no-border {
+    border:none !important;
 }
