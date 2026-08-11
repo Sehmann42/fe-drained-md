@@ -5,12 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { LoginUser } from "../../services/AuthenticationServices"
 import { useState, useRef } from 'react';
 import { GetSessionToken, SetSessionToken } from '../../services/TokenStorage';
+import { useEffect } from 'react';
 
 
 function LoginPage (){
     const navigate = useNavigate()
 
     const formRef = useRef(null)
+
+    const usernameRef = useRef(null)
+    const passwordRef = useRef(null)
     const [username,setUsername] = useState()
     const [password,setPassword] = useState()
 
@@ -25,7 +29,15 @@ function LoginPage (){
 
         form.classList.add("was-validated")
         
-        const response = LoginUser(username,password)
+        let loginUsername = username
+        let loginPassword = password
+
+        if (loginUsername == undefined || loginPassword == undefined){
+            loginUsername = usernameRef.current.value
+            loginPassword = passwordRef.current.value
+        }
+
+        const response = LoginUser(loginUsername,loginPassword)
 
         response.then((data) => {
             //console.log(data)
@@ -56,6 +68,20 @@ function LoginPage (){
         setPassword(event.target.value)
     }
 
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Enter") {
+                handleLogin(event);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
     return <>
         <div className=" d-flex justify-content-center h-100 main-background">
             <div className='p-5 function-background'>
@@ -66,6 +92,7 @@ function LoginPage (){
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">User Name</label>
                             <input value={username} 
+                                 ref={usernameRef}
                                  onChange={handleChangeUsername}
                                  type="text"
                                  className="form-control" 
@@ -77,6 +104,7 @@ function LoginPage (){
                         <div className="form-group">
                             <label htmlFor="exampleInputPassword1">Password</label>
                             <input value={password} 
+                                 ref={passwordRef}
                                  onChange={handleChangePassword} 
                                  type="password"    
                                  className="form-control" 
