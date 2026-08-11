@@ -6,10 +6,13 @@ import { LoginUser } from "../../services/AuthenticationServices"
 import { useState, useRef } from 'react';
 import { GetSessionToken, SetSessionToken } from '../../services/TokenStorage';
 import { useEffect } from 'react';
+import LoadingPage from "../../loading_blocks/LoadingPage"
 
 
 function LoginPage (){
     const navigate = useNavigate()
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const formRef = useRef(null)
 
@@ -18,46 +21,46 @@ function LoginPage (){
     const [username,setUsername] = useState()
     const [password,setPassword] = useState()
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault()
-        const form = formRef.current
 
-        if (!form.checkValidity()){
+        const form = formRef.current
+        setIsLoading(true)
+
+        if (!form.checkValidity()) {
             form.classList.add("was-validated")
             return
         }
 
         form.classList.add("was-validated")
-        
+
         let loginUsername = username
         let loginPassword = password
 
-        if (loginUsername == undefined || loginPassword == undefined){
+        if (loginUsername === undefined || loginPassword === undefined) {
             loginUsername = usernameRef.current.value
             loginPassword = passwordRef.current.value
         }
 
-        const response = LoginUser(loginUsername,loginPassword)
+        try {
+            const data = await LoginUser(loginUsername, loginPassword)
 
-        response.then((data) => {
-            //console.log(data)
-
-            if (data.success != true){
-                //Backend Error
+            if (data.success !== true) {
                 console.log(data.error)
                 return
             }
 
-            //Safe Session in Local Storage
-            
             const session = data.data.session
 
-            //console.log(session)
             SetSessionToken(session)
-            //console.log(GetSessionToken())
 
             navigate(Pages.CAMPAIGNS)
-        })
+
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     const handleChangeUsername = (event) => {
@@ -87,35 +90,41 @@ function LoginPage (){
             <div className='p-5 function-background'>
                 <h1>Washed Master Duel Sim</h1>
 
-                <div className=' login-form'>
-                    <form ref={formRef} className=' row g-3'>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">User Name</label>
-                            <input value={username} 
-                                 ref={usernameRef}
-                                 onChange={handleChangeUsername}
-                                 type="text"
-                                 className="form-control" 
-                                 id="exampleInputEmail1" 
-                                 aria-describedby="emailHelp" 
-                                 placeholder="Enter Username" />
-                            <small id="emailHelp" className="form-text text-muted">We'll never share your Pfanne with anyone else.</small>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputPassword1">Password</label>
-                            <input value={password} 
-                                 ref={passwordRef}
-                                 onChange={handleChangePassword} 
-                                 type="password"    
-                                 className="form-control" 
-                                 id="exampleInputPassword1" 
-                                 placeholder="Password" />
-                        </div>
-                        <div>
-                            <button className=' btn btn-success' onClick={handleLogin} type="button">Login!</button>
-                        </div>
-                    </form>
-                </div>      
+                {
+                    isLoading ? <LoadingPage /> : 
+
+                    <div className=' login-form'>
+                        <form ref={formRef} className=' row g-3'>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">User Name</label>
+                                <input value={username} 
+                                    ref={usernameRef}
+                                    onChange={handleChangeUsername}
+                                    type="text"
+                                    className="form-control" 
+                                    id="exampleInputEmail1" 
+                                    aria-describedby="emailHelp" 
+                                    placeholder="Enter Username" />
+                                <small id="emailHelp" className="form-text text-muted">We'll never share your Pfanne with anyone else.</small>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputPassword1">Password</label>
+                                <input value={password} 
+                                    ref={passwordRef}
+                                    onChange={handleChangePassword} 
+                                    type="password"    
+                                    className="form-control" 
+                                    id="exampleInputPassword1" 
+                                    placeholder="Password" />
+                            </div>
+                            <div>
+                                <button className=' btn btn-success' onClick={handleLogin} type="button">Login!</button>
+                            </div>
+                        </form>
+                    </div>
+                }
+
+                      
 
                 <div>
                     <h3 className=' login-footer'>Powered by unemployed Tears ;-;</h3>
