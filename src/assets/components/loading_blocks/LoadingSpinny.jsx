@@ -1,10 +1,10 @@
 import React from "react";
 
-const LoadingSpinny = () => {
+const LoadingSpinny = ({ratio = "200px"}) => {
     return <>
     <img className=" loadingSpinny" src={import.meta.env.VITE_BASE + "/icons/other/loading_spinny.jpg"} style={{
-        height: "200px",
-        width: "200px"
+        height: ratio,
+        width: ratio
     }}/>
     </>
 }
