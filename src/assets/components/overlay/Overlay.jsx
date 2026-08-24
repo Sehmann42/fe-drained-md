@@ -1,36 +1,46 @@
-import { useState } from "react"
-import { createContext } from "react"
+import { useState, useCallback } from "react"
 import OverlayUpdateStatus from "./OverlayUpdateStatus"
+import CardPreviewDialog from "./CardPreviewDialog"
+import { OverlayContext } from "./OverlayContext"
 
 const Overlay = ({children}) => {
 
     const [updateStatus, setUpdateStatus] = useState([])
-    const [cardInfo, setCardInfo] = useState([])
+    const [previewCard, setPreviewCard] = useState(null)
+    const [previewAnchor, setPreviewAnchor] = useState(null)
 
-    const OverlayContext = createContext(null)
+    const showCardPreview = useCallback((cardData, anchorRect) => {
+        setPreviewCard(cardData)
+        setPreviewAnchor(anchorRect)
+    }, [])
+
+    const hideCardPreview = useCallback(() => {
+        setPreviewCard(null)
+        setPreviewAnchor(null)
+    }, [])
+
+    const overlayValue = {
+        updateStatus,
+        setUpdateStatus,
+        showCardPreview,
+        hideCardPreview
+    }
 
     return <>
         <div className="w-100 h-100" style={{
             position: "relative",
-        }}>   
+        }}>
             <div className="w-100 h-100" style={{
                 position:"absolute"
             }}>
-                <OverlayContext setCardInfo={setCardInfo} setUpdateStatus={setUpdateStatus}>
+                <OverlayContext.Provider value={overlayValue}>
                     {children}
-                </OverlayContext>
+                </OverlayContext.Provider>
             </div>
 
-            <div style={{
-                display:"none",
-                position:"absolute",
-                color:"black",
-                background: "black",
-                left: "0px",
-                top: "0px"
-            }}>
-                Karten Info Text
-            </div>
+            {previewCard && previewAnchor &&
+                <CardPreviewDialog cardData={previewCard} anchorRect={previewAnchor} />
+            }
 
             <div style={{
                 position:"absolute",
@@ -43,7 +53,7 @@ const Overlay = ({children}) => {
                 <OverlayUpdateStatus />
             </div>
         </div>
-        
+
     </>
 }
 

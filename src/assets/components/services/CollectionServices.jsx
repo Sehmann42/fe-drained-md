@@ -160,6 +160,8 @@ export const GetAllCardsFromCollection = async (session) => {
         .then((res) => {
 
             collectionCache.set(session, res.data)
+            
+            console.log(res.data)
 
             return {
                 success: true,
