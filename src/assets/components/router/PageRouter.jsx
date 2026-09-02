@@ -22,6 +22,7 @@ import Cookies from 'js-cookie'
 
 import { GetSessionToken } from '../services/TokenStorage'
 import { LogoutUser } from '../services/AuthenticationServices';
+import HistoryPage from '../pages/history/HistoryPage';
 
 function PageRouter() {
     const navigate = useNavigate()
@@ -115,6 +116,13 @@ function PageRouter() {
                     path={Pages.CREDITS}
                     element={
                     <CreditsPage />
+                    }
+                />
+
+                <Route
+                    path={Pages.HISTORY}
+                    element={
+                    <HistoryPage />
                     }
                 />
             </Routes>

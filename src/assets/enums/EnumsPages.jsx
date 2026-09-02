@@ -9,5 +9,6 @@ export const Pages = {
     PACKSELECTOR: "/packselector",
     CREDITS: "/credits",
     CAMPAIGNS: "/campaigns",
-    SECRET: "/pfanne"
+    SECRET: "/pfanne",
+    HISTORY: "/history"
 }
