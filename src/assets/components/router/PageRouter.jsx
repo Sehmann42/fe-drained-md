@@ -28,10 +28,8 @@ function PageRouter() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        
-
         if (GetSessionToken()){
-            navigate(Pages.CAMPAIGNS)
+            navigate(window.location)
         }else{
             navigate(Pages.LOGIN)
         }

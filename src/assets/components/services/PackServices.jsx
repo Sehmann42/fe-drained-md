@@ -569,8 +569,6 @@ export const GetSecretPacksFromCard = (session, cardId) => {
     }
 }
 
-
-
 export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
     try{
 

@@ -65,21 +65,21 @@ const PageHeader = ({blockPageChange = false}) => {
                 </div>
             </div>
 
+            <div onClick={handleOnClickHistory}  className={(blockPageChange ? " blocked" : "") +  " headerButton"}>
+                <div className=" d-flex justify-content-center">
+                    <IconCampaignCollection />
+                </div>
+                <div className=" d-flex justify-content-center">
+                    history
+                </div>
+            </div>
+
             <div onClick={handleOnClickCampaigns} className=" headerButton">
                 <div className=" d-flex justify-content-center">
                     <IconCampaignCollection />
                 </div>
                 <div className=" d-flex justify-content-center">
                     campaigns
-                </div>
-            </div>
-
-            <div onClick={handleOnClickHistory} className=" headerButton">
-                <div className=" d-flex justify-content-center">
-                    <IconCampaignCollection />
-                </div>
-                <div className=" d-flex justify-content-center">
-                    history
                 </div>
             </div>
         </div>
