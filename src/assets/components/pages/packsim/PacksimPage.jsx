@@ -66,7 +66,7 @@ function PacksimPage() {
 
                 //setzte Unlocked Packs
                 
-                 console.log(dataPacks.unlocked_packs)
+                console.log(dataPacks.unlocked_packs)
 
                 setUnlockedSecretPacks(dataPacks.unlocked_packs)
 

@@ -56,7 +56,7 @@ const FriendsList = ({width = "15%"}) => {
             
             
             {
-                isLoading? <LoadingPage /> :
+                isLoading ? <LoadingPage /> :
                 <Collection maxHeight="100%">
                     {
                         friends.map((data) => { return <SideFriendListItem data={data} />})

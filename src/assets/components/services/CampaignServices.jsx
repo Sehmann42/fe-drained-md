@@ -1,5 +1,6 @@
 
 import api from "../axios/Api"
+import { GetSessionToken, GetCampaignToken } from "./TokenStorage"
 
 const enviroment = import.meta.env.MODE
 
@@ -13,7 +14,8 @@ const CampaignUrls = {
     ACCEPT_CAMPAIGN: "/campaign/accept",
     GET_FRIENDS: "/friend/get",
     ADD_FRIEND: "/friend/add",
-    REMOVE_FRIEND: "/friend/remove"
+    REMOVE_FRIEND: "/friend/remove",
+    HISTORY: "/campaign/history"
 }
 
 const dummyDataCampaings = [
@@ -234,6 +236,24 @@ export async function ServiceRenameCampaign(session, campaign_id, campaign_name)
         const response = await api.post(CampaignUrls.UPDATE_NAME, RenameData)
 
         console.log(response)
+
+        return response.data
+    }catch(e){
+        console.error(e)
+    }
+}
+
+export async function ServiceGetCampaignHistory() {
+    try{
+        const HistoryDataRequest = {
+            session: GetSessionToken(),
+            campaign_id: GetCampaignToken()
+        }
+
+        //console.log(GetCampaignToken())
+
+        const response = await api.post(CampaignUrls.HISTORY, HistoryDataRequest)
+        //console.log(response)
 
         return response.data
     }catch(e){
