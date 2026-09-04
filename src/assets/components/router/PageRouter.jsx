@@ -29,7 +29,7 @@ function PageRouter() {
 
     useEffect(() => {
         if (GetSessionToken()){
-            navigate(window.location)
+            navigate(Pages.CAMPAIGNS)
         }else{
             navigate(Pages.LOGIN)
         }
