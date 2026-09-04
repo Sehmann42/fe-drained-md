@@ -17,9 +17,26 @@ const HistoryPage = () => {
 
             const historyJson = JSON.parse(historyData.data[0].history)
 
-            setHistoryData(historyJson.reverse())
+            const combinedHistory = historyJson.map((opening) => {
+                const openingMap = new Map()
 
-            console.log(historyJson)
+                opening.forEach((pack) => {
+                    if (openingMap.has(pack.pack_name)) {
+                        // Existierendes Pack gefunden → Cards zusammenführen
+                        openingMap.get(pack.pack_name).cards.push(...pack.cards);
+                    } else {
+                        // Neues Pack anlegen
+                        openingMap.set(pack.pack_name, {
+                            ...pack,
+                            cards: [...pack.cards]
+                        });
+                    }
+                });
+
+                return Array.from(openingMap.values());
+            })
+
+            setHistoryData(combinedHistory.reverse())
         }
 
         
@@ -37,16 +54,20 @@ const HistoryPage = () => {
             <PageHeader />
 
             <div className="body">
-
-                <div className=" p-2 w-100 h-100">
-                    <Collection elementsPerRow={1}>
-                    {
-                        historyData.map((data, key) => <>
-                            <HistoryItem key={key} index={key} packName={data} />
-                        </> )
-                    }
-                    </Collection>
+                <div className=" w-100 h-100 d-flex flex-column">
+                    <div style={{flex:1, marginTop: "0px", }} className="overflow-auto">
+                        <div style={{minHeight: 0}} className="d-flex flex-column ">
+                            <Collection elementsPerRow={1}>
+                                {
+                                    historyData.map((data, key) => <>
+                                        <HistoryItem key={key} index={historyData.length - key} openingData={data} />
+                                    </> )
+                                }
+                            </Collection>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
 
             <PageFooter />
