@@ -37,16 +37,20 @@ const HistoryPage = () => {
             <PageHeader />
 
             <div className="body">
-
-                <div className=" p-2 w-100 h-100">
-                    <Collection elementsPerRow={1}>
-                    {
-                        historyData.map((data, key) => <>
-                            <HistoryItem key={key} index={key} packName={data} />
-                        </> )
-                    }
-                    </Collection>
+                <div className=" w-100 h-100 d-flex flex-column">
+                    <div style={{flex:1, marginTop: "0px", }} className="overflow-auto">
+                        <div style={{minHeight: 0}} className="d-flex flex-column ">
+                            <Collection elementsPerRow={1}>
+                                {
+                                    historyData.map((data, key) => <>
+                                        <HistoryItem key={key} index={historyData.length - key} openingData={data} />
+                                    </> )
+                                }
+                            </Collection>
+                        </div>
+                    </div>
                 </div>
+                
             </div>
 
             <PageFooter />

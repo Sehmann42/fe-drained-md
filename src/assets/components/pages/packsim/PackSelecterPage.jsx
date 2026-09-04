@@ -121,7 +121,7 @@ const PackSelectorPage = () => {
     <div className=" d-flex flex-column main-background h-100">
         <PageHeader />
         
-        <div style={{flex:1}} className=" body px-3 d-flex">
+        <div style={{flex:1}} className=" body px-3">
 
             <div className=" w-100 d-flex flex-column">
                 <div>
