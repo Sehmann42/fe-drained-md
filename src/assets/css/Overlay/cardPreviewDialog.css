@@ -1,0 +1,81 @@
+.card-preview-dialog {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    overflow-y: auto;
+    background-color: #07142e;
+    border: 2px solid #814AF6;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    animation: card-preview-fade-in 0.12s ease-out;
+    min-width: 50%;
+}
+
+@keyframes card-preview-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-preview-dialog-image {
+    aspect-ratio: 59 / 86;
+    object-fit: contain;
+    background-color: #00081b;
+    border-bottom: 1px solid #0d1931;
+}
+
+.card-preview-dialog-info {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 14px 16px 14px;
+}
+
+.card-preview-dialog-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-preview-dialog-rarity {
+    align-self: flex-start;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background-color: #0d1931;
+}
+
+.card-preview-dialog-rarity.isR {
+    color: #6d92ff;
+}
+
+.card-preview-dialog-rarity.isSR {
+    color: #ffb84f;
+}
+
+.card-preview-dialog-rarity.isUR {
+    color: #f831e8;
+}
+
+.card-preview-dialog-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #b8c1d9;
+}
+
+.card-preview-dialog-desc {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid #0d1931;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #d3d8e6;
+    white-space: pre-line;
+}

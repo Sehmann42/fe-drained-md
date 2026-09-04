@@ -232,7 +232,7 @@ div[id=root] {
 
 .highlightInfo {
     border: 1px solid grey;
-    background-color: #091020
+    background-color: #091020;
 }
 
 .roundedCorners {
@@ -245,4 +245,14 @@ div[id=root] {
 
 .no-border {
     border:none !important;
+}
+
+.overlay_laoding {
+    background-color: #091020;
+    border: 2px solid grey;
+    border-radius: 20px;
+}
+
+.history-item {
+    
 }

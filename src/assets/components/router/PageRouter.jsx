@@ -22,15 +22,14 @@ import Cookies from 'js-cookie'
 
 import { GetSessionToken } from '../services/TokenStorage'
 import { LogoutUser } from '../services/AuthenticationServices';
+import HistoryPage from '../pages/history/HistoryPage';
 
 function PageRouter() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        
-
         if (GetSessionToken()){
-            navigate(Pages.CAMPAIGNS)
+            navigate(window.location)
         }else{
             navigate(Pages.LOGIN)
         }
@@ -115,6 +114,13 @@ function PageRouter() {
                     path={Pages.CREDITS}
                     element={
                     <CreditsPage />
+                    }
+                />
+
+                <Route
+                    path={Pages.HISTORY}
+                    element={
+                    <HistoryPage />
                     }
                 />
             </Routes>

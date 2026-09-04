@@ -571,13 +571,28 @@ export const GetSecretPacksFromCard = (session, cardId) => {
 
 export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
     try{
+
+        console.log("promise check ich nicht mehr brudi")
+        console.log(openPackPromise)
+
+        if (openPackPromise) {
+            return openPackPromise
+        }
+
         const OpenSecretPackData = {
             session: session,
             secretpackId: secretpackId,
             amount: amount
         }
 
-        response = api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData)
+        openPackPromise = api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData).then((res) => {
+            return {
+                success:true,
+                data:res.data
+            }
+        }).finally(()=> {
+            openPackPromise = null
+        })
 
         return { success: true, data: response.data }
     } catch(e) {
@@ -588,36 +603,45 @@ export const GetCardsFromSecretPack = (session, secretpackId, amount) => {
 const openPackPromises = new Map()
 
 export const GetCardsFromSecretPacks = async (session, secretPacks) => {
-    //console.log(secretPacks)
-    if (openPackPromises.has(session)){
+    // Gibt es bereits einen laufenden Request für diese Session?
+    if (openPackPromises.has(session)) {
+        console.log("Bestehenden Promise zurückgeben")
         return openPackPromises.get(session)
     }
 
-    try{
-        const OpenSecretPackData = {
-            session: session,
-            secretpacks: secretPacks,
-            campaign_id: GetCampaignToken()
-        }
+    console.log("Neuen Request starten")
 
-        console.log(OpenSecretPackData)
-
-        //Dev Mode:
-        
-        /*
-
-        if (import.meta.env.MODE == "development") {
-            return { success: true, data: DummydataSim }
-        }
-
-        */
-        const response = await api.post(BackendUrls.OPENPACKFROMSECRETPACK, OpenSecretPackData)
-
-        //console.log(response)
-        //console.log(response.data.packs)
-
-        return { success: true, data: response.data.packs , unlocked_packs: response.data.unlocked_secret_packs}
-    } catch(e) {
-        return { success: false, error: e }
+    const OpenSecretPackData = {
+        session: session,
+        secretpacks: secretPacks,
+        campaign_id: GetCampaignToken()
     }
+
+    const promise = api
+        .post(
+            BackendUrls.OPENPACKFROMSECRETPACK,
+            OpenSecretPackData
+        )
+        .then((res) => {
+            return {
+                success: true,
+                data: res.data.packs,
+                unlocked_packs: res.data.unlocked_secret_packs
+            }
+        })
+        .catch((error) => {
+            return {
+                success: false,
+                error
+            }
+        })
+        .finally(() => {
+            // Request ist fertig -> Promise wieder entfernen
+            openPackPromises.delete(session)
+        })
+
+    // Promise sofort speichern
+    openPackPromises.set(session, promise)
+
+    return promise
 }
