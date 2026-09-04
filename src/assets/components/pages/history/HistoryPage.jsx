@@ -17,9 +17,26 @@ const HistoryPage = () => {
 
             const historyJson = JSON.parse(historyData.data[0].history)
 
-            setHistoryData(historyJson.reverse())
+            const combinedHistory = historyJson.map((opening) => {
+                const openingMap = new Map()
 
-            console.log(historyJson)
+                opening.forEach((pack) => {
+                    if (openingMap.has(pack.pack_name)) {
+                        // Existierendes Pack gefunden → Cards zusammenführen
+                        openingMap.get(pack.pack_name).cards.push(...pack.cards);
+                    } else {
+                        // Neues Pack anlegen
+                        openingMap.set(pack.pack_name, {
+                            ...pack,
+                            cards: [...pack.cards]
+                        });
+                    }
+                });
+
+                return Array.from(openingMap.values());
+            })
+
+            setHistoryData(combinedHistory.reverse())
         }
 
         

@@ -3,12 +3,10 @@ import Collection from "../../page_blocks/collection/Collection"
 import YGOCard from "../../page_blocks/cards/YGOCard"
 import { useState } from "react"
 
-const HistoryItem = ({index, openingData}) => {
+const HistoryItem = ({index, maxHeight = "900px", openingData = []}) => {
     const [packsData, setPacksData] = useState([])
 
     useEffect(() => {
-
-        
 
         setPacksData(openingData, [])
 
@@ -19,35 +17,43 @@ const HistoryItem = ({index, openingData}) => {
     
 
     return <>
-        <div className=" d-flex h-100 justify-content-center align-item-center flex-column mx-2">
-            <div className=" d-flex justify-content-center">
-                    Opening : {index}
-                </div>
-                <Collection>
-                {
-                    packsData.map((data, key) => {
-                        console.log(data)
-                        const packName = data.pack_name
-                        const cardsInPack = data.cards
+        <div style={{maxHeight:maxHeight}} className=" d-flex justify-content-center align-item-center flex-column mx-2 function-background p-3">
+            <div className=" d-flex justify-content-center history-item ">
+                Opening : {index}
+            </div>
 
-                        return<>
-                            <div>
-                                <div>{packName}</div>
-                            </div>
-                            
-                            <Collection elementsPerRow={4}>
+            <hr />
+
+            <Collection>
+            {
+                packsData.map((data, key) => {
+                    console.log(data)
+                    const packName = data.pack_name
+                    const cardsInPack = data.cards
+
+                    return<>
+                        <div>
+                            <div>{packName}</div>
+                        </div>
+                        
+                        <div style={{minHeight: "500px",}}>
+                            <Collection elementsPerRow={8}>
                                 {
                                     cardsInPack.map((data, key) => {
                                         return <>
-                                            <YGOCard key={key} cardData={data} />
+                                            <div className=" d-flex w-100 justify-content-center">
+                                                <YGOCard key={key} cardData={data} />
+                                            </div>
                                         </>
                                     })
                                 }
                             </Collection>
-                        </> 
-                    })
-                }
-                </Collection>
+                        </div>
+                        
+                    </> 
+                })
+            }
+            </Collection>
         </div>
     </>
 }
