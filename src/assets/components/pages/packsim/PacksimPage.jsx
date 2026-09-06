@@ -137,7 +137,6 @@ function PacksimPage() {
         };
     }, [location.state, diffState]);
     
-
     useEffect(() => {
         if (currPack + 1 == pendingPacks.length){
             if (flippedCards == 8) {
@@ -203,9 +202,9 @@ function PacksimPage() {
         //console.log()
 
         const newPack = {
-                pack_id: packData.pack_id,
-                amount: 10
-            }
+            pack_id: packData.pack_id,
+            amount: 10
+        }
         
         setIsLoading(true)
         setFlipToSecretPack(true)
@@ -222,7 +221,6 @@ function PacksimPage() {
         checkUnlockedPacksSingle(cardData)
         setFlippedCards(flippedCards + 1)
     }
-
 
     const getPackId = (pack_name) => {
         //console.log(unlockedSecretPacks)
