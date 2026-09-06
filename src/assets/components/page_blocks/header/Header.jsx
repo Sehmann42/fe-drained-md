@@ -11,6 +11,7 @@ import IconLogout from "../icons/IconLogout"
 import IconCampaignCollection from "../icons/IconCampaignCollection"
 import IconDrainedMDSmall from "../icons/IconDrainedMDSmall"
 import IconDrainedMD from "../icons/IconDrainedMD"
+import IconCampaignHistory from "../icons/IconCampaignHistory"
 
 const PageHeader = ({blockPageChange = false}) => {
 
@@ -67,7 +68,7 @@ const PageHeader = ({blockPageChange = false}) => {
 
             <div onClick={handleOnClickHistory}  className={(blockPageChange ? " blocked" : "") +  " headerButton"}>
                 <div className=" d-flex justify-content-center">
-                    <IconCampaignCollection />
+                    <IconCampaignHistory ratio={"50px"} />
                 </div>
                 <div className=" d-flex justify-content-center">
                     history
