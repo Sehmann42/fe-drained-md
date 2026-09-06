@@ -16,12 +16,18 @@ import ListObject from "../wrapper/ListObject";
 
 const NewCampaignItem = () => {
 
+    const campaignTypes = {
+        "Normal" : "normal",
+        "XL" : "extra_long"
+    }
+
     const campaignModalRef = useRef(null)
     const campaignModalInstance = useRef(null)
 
     const [campaignName, setCampaignName] = useState("")
     const [friendsList, setFriendsList] = useState([])
     const [toBeInvitedFriends, setToBeInvitedFriends] = useState([])
+    const [campaignType, setCampaignType] = useState("normal")
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -141,6 +147,21 @@ const NewCampaignItem = () => {
                                 <div class="mb-3">
                                     <label for="formCampaignCreationNameInput" class="form-label"><h3>Campaign Name</h3></label>
                                     <input value={campaignName} onChange={(event) => setCampaignName(event.target.value)} type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="Master Saga" />
+                                </div>
+
+                                <h3>Campaign Type</h3>
+
+                                <div>
+                                    <select>    
+
+                                        {
+                                            Object.keys(campaignTypes).map((data) =>{ return <option value={campaignTypes[data]}>
+                                                {data}
+                                            </option>})
+                                        }
+
+                                    </select>
+                                    
                                 </div>
 
                                 <div>
