@@ -23,7 +23,7 @@
 }
 
 .card-preview-dialog-image {
-    aspect-ratio: 59 / 86;
+    width: 300px;
     object-fit: contain;
     background-color: #00081b;
     border-bottom: 1px solid #0d1931;
