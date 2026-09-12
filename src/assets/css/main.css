@@ -32,6 +32,17 @@ div[id=root] {
     border-radius:  10px;
 }
 
+.form-input-element , .form-input-element:focus, .form-input-element::placeholder {
+    background: #07142e;
+    border: 2px solid #0d1931;
+    border-radius:  10px;
+    color:white
+}
+
+.form-input-element::placeholder {
+    color:rgb(134, 134, 134)
+}
+
 .h-10 {
     height: 10% !important;
 }
@@ -251,8 +262,4 @@ div[id=root] {
     background-color: #091020;
     border: 2px solid grey;
     border-radius: 20px;
-}
-
-.history-item {
-    
 }

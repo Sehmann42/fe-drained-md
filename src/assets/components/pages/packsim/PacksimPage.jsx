@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import HiddenCard from "../../page_blocks/cards/HiddenCard"
 import { useEffect, useState } from "react"
 import { GetCardsFromSecretPacks } from "../../services/PackServices"
-import { GetSessionToken } from "../../services/TokenStorage"
+import { GetSessionToken, GetCampaignType } from "../../services/TokenStorage"
 import MDMasterPack from "../../page_blocks/cards/MDMasterPack"
 import React from "react"
 import { Pages } from "../../../enums/EnumsPages"
@@ -200,6 +200,21 @@ function PacksimPage() {
         //console.log(packData)
         //console.log(packData)
         //console.log()
+
+        let newPack = {}
+
+        switch (GetCampaignType()) {
+            case "normal":
+                
+                break;
+
+            case "XL":
+                
+                break;
+        
+            default:
+                break;
+        }
 
         const newPack = {
             pack_id: packData.pack_id,

@@ -1,7 +1,7 @@
 import React from "react"
 
 import "../../../css/Header/header.css"
-import { DeleteCampaignToken, DeleteSessionToken, GetSessionToken } from "../../services/TokenStorage"
+import { DeleteCampaignToken, DeleteSessionToken, GetSessionToken, DeleteCampaignType } from "../../services/TokenStorage"
 import { useNavigate } from "react-router-dom"
 import { Pages } from "../../../enums/EnumsPages"
 import { LogoutUser } from "../../services/AuthenticationServices"
@@ -27,6 +27,7 @@ const PageHeader = ({blockPageChange = false}) => {
 
     const handleOnClickCampaigns = (event) => {
         DeleteCampaignToken()
+        DeleteCampaignType()
         navigate(Pages.CAMPAIGNS)
     }
 

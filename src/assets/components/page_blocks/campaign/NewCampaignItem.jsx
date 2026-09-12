@@ -7,19 +7,15 @@ import "../../../css/Usability/createcampaign.css"
 import Collection from "../collection/Collection";
 import { ServiceCreateCampaign, ServiceInviteUsersToCampaign } from "../../services/CampaignServices";
 import {ServiceGetFriendsListFromUser} from "../../services/FriendsServices"
-import { GetSessionToken, SetCampaignToken } from "../../services/TokenStorage";
+import { GetSessionToken, SetCampaignToken, SetCampaignType } from "../../services/TokenStorage";
 import FriendsListItem from "./FriendsListItem";
 import { useNavigate } from "react-router-dom";
 import { Pages } from "../../../enums/EnumsPages";
 import LoadingPage from "../../loading_blocks/LoadingPage";
 import ListObject from "../wrapper/ListObject";
+import CampaignTypes from "../../../enums/EnemsCampaignTypes";
 
 const NewCampaignItem = () => {
-
-    const campaignTypes = {
-        "Normal" : "normal",
-        "XL" : "extra_long"
-    }
 
     const campaignModalRef = useRef(null)
     const campaignModalInstance = useRef(null)
@@ -27,7 +23,7 @@ const NewCampaignItem = () => {
     const [campaignName, setCampaignName] = useState("")
     const [friendsList, setFriendsList] = useState([])
     const [toBeInvitedFriends, setToBeInvitedFriends] = useState([])
-    const [campaignType, setCampaignType] = useState("normal")
+    const [campaignType, setCampaignType] = useState(CampaignTypes.Normal)
 
     const [isLoading, setIsLoading] = useState(true)
 
@@ -68,26 +64,43 @@ const NewCampaignItem = () => {
 
     const createNewCampaign = () => {
         const handleRequest = async () => {
-            let campaignId = 0
-            try{
-                const response = await ServiceCreateCampaign(campaignName, GetSessionToken())
+            try {
+                const response = await ServiceCreateCampaign(
+                    campaignName,
+                    GetSessionToken(),
+                    campaignType
+                )
 
-                campaignId = response.data.campaign_id
-                
-                console.log(toBeInvitedFriends)
+                const campaignId = response.data.campaign_id
 
                 const userIds = toBeInvitedFriends.map((item) => item.with)
-                
-                const responseZwo = await ServiceInviteUsersToCampaign(GetSessionToken(), userIds ? userIds : [], campaignId)
-            }catch(e){
-                console.error(e)
-            }finally{
+
+                await ServiceInviteUsersToCampaign(
+                    GetSessionToken(),
+                    userIds ?? [],
+                    campaignId
+                )
+
+                // Nur bei erfolgreichem Ablauf
                 SetCampaignToken(campaignId)
+                SetCampaignType(campaignType)
+
                 console.log(toBeInvitedFriends)
+
                 navigate(Pages.COLLECTION)
+            } catch (e) {
+                console.error("Fehler beim Erstellen der Kampagne:", e)
+
+                if (e.response) {
+                    console.error("Status:", e.response.status)
+                    console.error("Response:", e.response.data)
+                }
+            } finally {
+                // Wird immer ausgeführt
+                setIsLoading(false)
             }
         }
-        
+
         setIsLoading(true)
         handleRequest()
     }
@@ -112,6 +125,10 @@ const NewCampaignItem = () => {
             copyFriendsList.push(FriendListData)
             setFriendsList(copyFriendsList)
         }
+    }
+
+    const handleOnChangeType = (event) => {
+        setCampaignType(event.target.value)
     }
 
     return <>
@@ -144,25 +161,26 @@ const NewCampaignItem = () => {
                     <div class="modal-body">
                         {isLoading ? <LoadingPage /> :
                             <form>
-                                <div class="mb-3">
+                                <div style={{color:"white"}} class="mb-3">
                                     <label for="formCampaignCreationNameInput" class="form-label"><h3>Campaign Name</h3></label>
-                                    <input value={campaignName} onChange={(event) => setCampaignName(event.target.value)} type="text" class="form-control" id="formCampaignCreationNameInput" placeholder="Master Saga" />
+                                    <input style={{color:"white"}} value={campaignName} onChange={(event) => setCampaignName(event.target.value)} type="text" class="form-control form-input-element" id="formCampaignCreationNameInput" placeholder="Master Saga" />
                                 </div>
 
                                 <h3>Campaign Type</h3>
 
                                 <div>
-                                    <select>    
+                                    <select onChange={handleOnChangeType} style={{color:"white"}} className=" form-select function-background ">    
 
                                         {
-                                            Object.keys(campaignTypes).map((data) =>{ return <option value={campaignTypes[data]}>
+                                            Object.keys(CampaignTypes).map((data) =>{ return <option value={CampaignTypes[data]}>
                                                 {data}
                                             </option>})
                                         }
 
                                     </select>
-                                    
                                 </div>
+                                
+                                <br/>
 
                                 <div>
                                     <h3> Invites </h3>

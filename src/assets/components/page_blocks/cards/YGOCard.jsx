@@ -11,7 +11,7 @@ const YGOCard = ({children, cardData, picRatio = "inherit"}) => {
 
     useEffect(() => {
 
-        console.log(cardData)
+        //console.log(cardData)
 
         const rarity = cardData.rarity
 
