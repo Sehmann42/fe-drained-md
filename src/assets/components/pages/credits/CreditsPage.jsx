@@ -21,6 +21,7 @@ const CreditsPage = () => {
                 <a href="https://www.flaticon.com/free-icons/minus" title="minus icons">Minus icons created by Freepik - Flaticon</a>
                 <a href="https://www.flaticon.com/free-icons/filter" title="filter icons">Filter icons created by Saepul Nahwan - Flaticon</a>
                 <a href="https://www.flaticon.com/free-icons/next-page" title="next page icons">Next page icons created by BizzBox - Flaticon</a>
+                <a href="https://www.flaticon.com/free-icons/folder" title="folder icons">Folder icons created by Magnific - Flaticon</a>
             </div>
         </div>
 

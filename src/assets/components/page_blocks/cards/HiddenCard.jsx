@@ -66,7 +66,7 @@ const HiddenCard = ({cardData}) => {
             </div>
             :
             <div draggable="false" onClick={handleOnClick} className={"fadein hiddencard " + cardRarity}>
-                <YGOCard cardData={{name:cardData.name, id:cardData.data.id, image_url:cardData.data.image_url}} />
+                <YGOCard cardData={cardData.data} />
             </div>
         }
     </>

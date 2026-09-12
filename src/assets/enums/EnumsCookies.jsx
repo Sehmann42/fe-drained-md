@@ -1,4 +1,5 @@
 export const StorageCookies = {
     SESSION: "session",
-    CAMPAIGN: "campaign"
+    CAMPAIGN: "campaign",
+    TYPE: "type"
 }

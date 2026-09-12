@@ -29,3 +29,17 @@ export const GetCampaignToken = () => {
 export const DeleteCampaignToken = () => {
     Cookies.remove(StorageCookies.CAMPAIGN)
 }
+
+export const SetCampaignType = (campaign_type) => {
+    Cookies.set(StorageCookies.TYPE, 
+                    campaign_type, 
+                    {expires: 200000})
+}
+
+export const GetCampaignType = () => {
+    return Cookies.get(StorageCookies.TYPE)
+}
+
+export const DeleteCampaignType = () => {
+    Cookies.remove(StorageCookies.TYPE)
+}

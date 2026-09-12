@@ -7,13 +7,14 @@ import { useLocation, useNavigate } from "react-router-dom"
 import HiddenCard from "../../page_blocks/cards/HiddenCard"
 import { useEffect, useState } from "react"
 import { GetCardsFromSecretPacks } from "../../services/PackServices"
-import { GetSessionToken } from "../../services/TokenStorage"
+import { GetSessionToken, GetCampaignType } from "../../services/TokenStorage"
 import MDMasterPack from "../../page_blocks/cards/MDMasterPack"
 import React from "react"
 import { Pages } from "../../../enums/EnumsPages"
 import IconUnpackPack from "../../page_blocks/icons/IconUnpackPack"
 import IconOpenNextPack from "../../page_blocks/icons/IconOpenNextPack"
 import LoadingPage from "../../loading_blocks/LoadingPage"
+import CampaignTypes from "../../../enums/EnemsCampaignTypes"
 
 
 function PacksimPage() {
@@ -21,6 +22,7 @@ function PacksimPage() {
 
     const [isLoading, setIsLoading] = useState(true)
 
+    const [pageSwitchedCounter, setPageSwitchedCounter] = useState(0)
     const [currPack, setCurrPack] = useState(0)
     const [openPack, setOpenPack] = useState(false)
     const [unlockedPacks, setUnlockedPacks] = useState([])
@@ -60,13 +62,13 @@ function PacksimPage() {
 
                 setPendingPacks(dataPacks.data)
 
-                console.log(CurrPackData.cards)
+                //console.log(CurrPackData.cards)
 
                 setCurrPackContent(CurrPackData.cards)
 
                 //setzte Unlocked Packs
                 
-                console.log(dataPacks.unlocked_packs)
+                //console.log(dataPacks.unlocked_packs)
 
                 setUnlockedSecretPacks(dataPacks.unlocked_packs)
 
@@ -94,29 +96,62 @@ function PacksimPage() {
 
         if (diffState) {
             console.log("SEITEN WECHSEL!")
+
             const fetchData = async () => {
 
                 try{
+
                     const dataPacks = await GetCardsFromSecretPacks(GetSessionToken(), newPacks)
-                
-                    console.log(dataPacks)
 
                     const CurrPackData = {
                         pack_name : dataPacks.data[tmpCurrPack].packName,
                         cards : dataPacks.data[tmpCurrPack].cards
                     }
 
-                    setCurrPack(tmpCurrPack)
-                    setOpenPack(false)
-                    setPendingPacks(dataPacks.data)
-                    setCurrPackContent(CurrPackData.cards)
-                    setUnlockedPacks([])
-                    //setzte Unlocked Packs
+                    switch (GetCampaignType()) {
+                        case CampaignTypes.Normal:
+                            setCurrPack(tmpCurrPack)
+                            setOpenPack(false)
+                            setPendingPacks(dataPacks.data)
+                            setCurrPackContent(CurrPackData.cards)
+                            setUnlockedPacks([])
+                            //setzte Unlocked Packs
 
-                    setHardLockSecretPacks("")  
+                            setHardLockSecretPacks("")  
 
-                    if (flipToSecretPack) {
-                        setHardLockSecretPacks("lock")
+                            if (flipToSecretPack) {
+                                setHardLockSecretPacks("lock")
+                            }
+
+                            break;
+                        case CampaignTypes.XL:
+                            setCurrPack(tmpCurrPack)
+                            setOpenPack(false)
+                            setPendingPacks(dataPacks.data)
+                            setCurrPackContent(CurrPackData.cards)
+
+                            setDiffState(false)
+                            
+                            if (pageSwitchedCounter  >= 2)
+                                setHardLockSecretPacks("lock")
+
+                            setLockSecretPacks("lock")
+                            break;
+                        default:
+                            setCurrPack(tmpCurrPack)
+                            setOpenPack(false)
+                            setPendingPacks(dataPacks.data)
+                            setCurrPackContent(CurrPackData.cards)
+                            setUnlockedPacks([])
+                            //setzte Unlocked Packs
+
+                            setHardLockSecretPacks("")  
+
+                            if (flipToSecretPack) {
+                                setHardLockSecretPacks("lock")
+                            }
+
+                            break;
                     }
                 }catch(e){
                     console.error(e)
@@ -137,7 +172,6 @@ function PacksimPage() {
         };
     }, [location.state, diffState]);
     
-
     useEffect(() => {
         if (currPack + 1 == pendingPacks.length){
             if (flippedCards == 8) {
@@ -199,14 +233,41 @@ function PacksimPage() {
 
     const handleClickEventPack = (packData) => {
         //console.log(packData)
-        //console.log(packData)
+        console.log(packData)
         //console.log()
 
-        const newPack = {
-                pack_id: packData.pack_id,
-                amount: 10
-            }
+        let newPack = {}
+
+        //console.log(pageSwitchedCounter)
+
+        switch (true) {
+            case pageSwitchedCounter === 0:
+            case GetCampaignType() === CampaignTypes.Normal:
+                newPack = {
+                    pack_id: packData.pack_id,
+                    amount: 10
+                };
+                break;
+
+            case GetCampaignType() === CampaignTypes.XL:
+                newPack = {
+                    pack_id: packData.pack_id,
+                    amount: 5
+                };
+                break;
+
+            default:
+                newPack = {
+                    pack_id: packData.pack_id,
+                    amount: 10
+                };
+                break;
+        }
         
+        const filteredPacks = unlockedSecretPacks.slice().filter((pack) => pack.pack_id != packData.pack_id)
+
+        setUnlockedPacks(filteredPacks)
+
         setIsLoading(true)
         setFlipToSecretPack(true)
         goToPackSim(newPack)
@@ -222,7 +283,6 @@ function PacksimPage() {
         checkUnlockedPacksSingle(cardData)
         setFlippedCards(flippedCards + 1)
     }
-
 
     const getPackId = (pack_name) => {
         //console.log(unlockedSecretPacks)
@@ -266,7 +326,7 @@ function PacksimPage() {
                 const pack_id = getPackId(cardPack.pack_name)
                 const pack_image = getPackImage(cardPack.pack_name)
                 
-                console.log(cardPack)
+                //console.log(cardPack)
 
                 if (!exists && cardPack.pack_type == "Secret Pack") {
 
@@ -286,20 +346,8 @@ function PacksimPage() {
 
     const goToPackSim = (pack) => {
         setDiffState(true)
-
+        setPageSwitchedCounter(pageSwitchedCounter+1)
         setNewPacks([pack])
-
-        //console.log(pack)
-
-        /*
-
-        navigate(Pages.PACK_SIM, {
-            state: {
-                packs: [pack]
-            }
-        })
-
-        */
     }
 
     return <>

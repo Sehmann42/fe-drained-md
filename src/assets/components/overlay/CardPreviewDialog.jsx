@@ -108,9 +108,10 @@ const CardPreviewDialog = ({cardData, anchorRect}) => {
                     </div>
                 }
 
-                {cardData.desc &&
+                {(cardData.desc || cardData.description) &&
                     <div className="card-preview-dialog-desc">
                         {cardData.desc}
+                        {cardData.description}
                     </div>
                 }
             </div>
