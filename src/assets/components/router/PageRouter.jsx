@@ -29,7 +29,8 @@ function PageRouter() {
 
     useEffect(() => {
         if (GetSessionToken()){
-            navigate(window.location)
+            console.log("schicke dich nach campaigns")
+            navigate(Pages.CAMPAIGNS)
         }else{
             navigate(Pages.LOGIN)
         }

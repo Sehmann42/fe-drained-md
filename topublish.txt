@@ -1,0 +1,2 @@
+cp -a ./dist/ ../builded/prev_claude
+cp -a ../builded/prev_claude/dist/. .

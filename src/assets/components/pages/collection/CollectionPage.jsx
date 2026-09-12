@@ -7,7 +7,7 @@ import YGOCard from "../../page_blocks/cards/YGOCard"
 import { useState, useEffect } from "react"
 import SearchBar from "../../page_blocks/usability/SearchBar"
 import { AddCardToCollection, GetAllCardsFromCollection, RemoveCardsFromCollection, GetAllCardsFromDB, ExportCollection } from "../../services/CollectionServices"
-import { GetSessionToken } from "../../services/TokenStorage"
+import { GetSessionToken, GetCampaignToken } from "../../services/TokenStorage"
 import LoadingPage from "../../loading_blocks/LoadingPage"
 import IconExport from "../../page_blocks/icons/IconExport"
 import IconAddCard from "../../page_blocks/icons/IconAddCard"
@@ -309,7 +309,8 @@ function CollectionPage() {
                                 <Collection maxHeight="100%" elementsPerRow={5}>
                                     {
                                         displayedCards.map((data) => {
-                                            return  <YGOCard cardData={data}>
+                                            return  <div className=" w-100 d-flex justify-content-center">
+                                                    <YGOCard cardData={data}>
                                                         <div onClick={() => handleOnClickAddCardInCollection(data.id)} className=" plusButton">
                                                             <IconAddCard />
                                                         </div>
@@ -317,6 +318,7 @@ function CollectionPage() {
                                                             <IconRemoveCard />
                                                         </div>
                                                     </YGOCard>
+                                                </div>
                                         })
                                     }
                                 </Collection>
@@ -369,15 +371,18 @@ function CollectionPage() {
                                             : []
                                         ).map((card_data) => {
                                             return (
-                                                <YGOCard key={card_data.id} cardData={card_data}>
-                                                    <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
-                                                        <IconAddCard />
-                                                    </div>
+                                                <div className=" w-100 d-flex justify-content-center">
+                                                    <YGOCard key={card_data.id} cardData={card_data}>
+                                                        <div onClick={() => handleOnClickAddCardInCollection(card_data.id)} className="plusButton">
+                                                            <IconAddCard />
+                                                        </div>
 
-                                                    <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
-                                                        <IconRemoveCard />
-                                                    </div>
-                                                </YGOCard>
+                                                        <div onClick={() => handleOnClickRemoveCardInCollection(card_data.id)} className="subButton">
+                                                            <IconRemoveCard />
+                                                        </div>
+                                                    </YGOCard>
+                                                </div>
+                                                
                                             )
                                         })
                                     }
