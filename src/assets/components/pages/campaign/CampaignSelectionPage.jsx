@@ -5,7 +5,7 @@ import Collection from "../../page_blocks/collection/Collection"
 import CampaignItem from "../../page_blocks/campaign/CampaignItem"
 import LoadingPage from "../../loading_blocks/LoadingPage"
 import { ServiceGetCampaignsFromUser, ServiceGetInvitesFromUser} from "../../services/CampaignServices"
-import { GetSessionToken, SetCampaignToken } from "../../services/TokenStorage"
+import { GetSessionToken, SetCampaignToken, SetCampaignType } from "../../services/TokenStorage"
 
 import "../../../css/Campaign/campaingsselector.css"
 import InviteItem from "../../page_blocks/campaign/InviteItem"
@@ -74,14 +74,12 @@ const CampaignSelectionPage = () => {
         getCamapigns()
     }
 
-    const handleOnClickCampaign = (campaign_id) => {
+    const handleOnClickCampaign = (campaign_id, campaign_type) => {
         //Hier muss dann auch mit State gearbeitet werden
         SetCampaignToken(campaign_id)
+        SetCampaignType(campaign_type)
+        console.log(campaign_type)
         navigate(Pages.COLLECTION)
-    }
-
-    const createNewCampaign = (data) => {
-        console.log("Hallo Campaign!")
     }
 
     const openCampaignEditModal = (campaignData) => {
@@ -113,8 +111,6 @@ const CampaignSelectionPage = () => {
                     await ServiceGetCampaignsFromUser(GetSessionToken()),
                     await ServiceGetInvitesFromUser(GetSessionToken())
                 ])
-
-                console.log(data.data)
 
                 setCampaigns(data.data)
 

@@ -116,10 +116,11 @@ const dummyDataFriendsList = [
     "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev", "Pfanneeeeeeeeeeeeeeeeeeeeeee", "Kev"
 ]
 
-export async function ServiceCreateCampaign(campaignName, session) {
+export async function ServiceCreateCampaign(campaignName, session, type) {
     const CreateData = {
         campaign_name : campaignName,
-        session : session
+        session : session,
+        type: type
     }
 
     const response = await api.post(CampaignUrls.CREATE, CreateData)
