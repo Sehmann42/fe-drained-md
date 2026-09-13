@@ -1,0 +1,1 @@
+var e={Normal:`normal`,XL:`extra_long`};export{e as t};
